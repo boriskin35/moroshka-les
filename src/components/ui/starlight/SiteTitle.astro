@@ -1,5 +1,5 @@
 ---
-import mainLogo from '@images/starlight/screwfast_logo_dark.svg?raw';
+import mainLogo from '@images/logo1.png';
 import docsLogo from '@images/starlight/docs_logo.svg?raw';
 import type { Props } from '@astrojs/starlight/props';
 
@@ -9,7 +9,7 @@ const docs = '/' + locale + 'welcome-to-docs/';
 ---
 
 <span class="site-title flex">
-  <a class="main-logo" href={main} set:html={mainLogo} aria-label="ScrewFast" />
+  <a class="main-logo" href={main} aria-label="МорошкаЛес"><img src={mainLogo.src} alt="МорошкаЛес" width="120" height="40" /></a>
   <a
     class="docs-logo"
     href={docs}

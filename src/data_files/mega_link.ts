@@ -5,40 +5,40 @@ export const servicesData = [
     description:
       "Dive deep into helpful guides and explanations for all of ScrewFast's features",
     icon: 'guides',
-    url: '#',
+    url: '/services',
   },
   {
     title: 'Discover Integrations',
     description:
       'Supercharge Your Workflow. Seamless integrations with all your favorite tools',
     icon: 'puzzle',
-    url: '#',
+    url: '/services',
   },
   {
     title: 'Expert Services',
     description: "Go beyond tools with ScrewFast's expert services",
     icon: 'rocket',
-    url: '#',
+    url: '/services',
   },
   {
     title: 'Cutting-Edge Tools',
     description:
       "Build Smarter, Faster. Experience next-level efficiency with ScrewFast's cutting-edge construction tools",
     icon: 'hammer',
-    url: '#',
+    url: '/products',
   },
   {
     title: 'Simple Plans',
     description:
       "Boost your efficiency with ScrewFast's straightforward, value-driven plans",
     icon: 'sparks',
-    url: '#',
+    url: '/services',
   },
   {
     title: 'Community Forum',
     description: 'Learn, share, and connect with other ScrewFast users',
     icon: 'community',
-    url: '#',
+    url: '/blog',
   },
 ];
 
@@ -49,6 +49,6 @@ export const successStoriesData = [
     alt: 'Portrait of a smiling person',
     description:
       'See how ScrewFast has empowered businesses of all sizes to achieve outstanding results.',
-    learnMoreUrl: '#',
+    learnMoreUrl: '/services',
   },
 ];

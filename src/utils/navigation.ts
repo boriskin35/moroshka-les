@@ -1,38 +1,36 @@
 // An array of links for navigation bar
 const navBarLinks = [
-  { name: 'Home', url: '/' },
-  { name: 'Products', url: '/products' },
-  { name: 'Services', url: '/services' },
-  { name: 'Blog', url: '/blog' },
-  { name: 'Contact', url: '/contact' },
+  { name: 'Главная', url: '/' },
+  { name: 'Каталог', url: '/products' },
+  { name: 'Как строим', url: '/services' },
+  { name: 'Квиз', url: '/products' },
+  { name: 'Калькулятор', url: '/products' },
+  { name: 'Контакты', url: '/contact' },
 ];
 // An array of links for footer
 const footerLinks = [
   {
-    section: 'Ecosystem',
+    section: 'Каталог',
     links: [
-      { name: 'Documentation', url: '/welcome-to-docs/' },
-      { name: 'Tools & Equipment', url: '/products' },
-      { name: 'Construction Services', url: '/services' },
+      { name: 'Все дома', url: '/products' },
+      { name: 'Дома до 40 м²', url: '/products' },
+      { name: 'Дома от 60 м²', url: '/products' },
     ],
   },
   {
-    section: 'Company',
+    section: 'Компания',
     links: [
-      { name: 'About us', url: '#' },
-      { name: 'Blog', url: '/blog' },
-      { name: 'Careers', url: '#' },
-      { name: 'Customers', url: '#' },
+      { name: 'О нас', url: '/services' },
+      { name: 'Блог', url: '/blog' },
+      { name: 'Как мы строим', url: '/services' },
+      { name: 'Контакты', url: '/contact' },
     ],
   },
 ];
 // An object of links for social icons
 const socialLinks = {
-  facebook: 'https://www.facebook.com/',
-  x: 'https://twitter.com/',
-  github: 'https://github.com/mearashadowfax/ScrewFast',
-  google: 'https://www.google.com/',
-  slack: 'https://slack.com/',
+  telegram: 'https://t.me/moroshkales',
+  instagram: 'https://instagram.com/moroshkales',
 };
 
 export default {

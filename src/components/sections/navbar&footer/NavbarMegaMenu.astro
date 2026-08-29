@@ -3,15 +3,11 @@
 import ThemeIcon from '@components/ThemeIcon.astro';
 import NavLink from '@components/ui/links/NavLink.astro';
 import MegaMenuLink from '@components/ui/links/MegaMenuLink.astro';
-import Authentication from '../misc/Authentication.astro';
 import enStrings from '@utils/navigation.ts';
-import frStrings from '@utils/fr/navigation.ts';
 import BrandLogo from '@components/BrandLogo.astro';
-import LanguagePicker from '@components/ui/LanguagePicker.astro';
 
-// Select the correct translation based on the page's lang prop:
-const strings = Astro.currentLocale === 'fr' ? frStrings : enStrings;
-const homeUrl = Astro.currentLocale === 'fr' ? '/fr' : '/';
+const strings = enStrings;
+const homeUrl = '/';
 ---
 
 {/* Main header component */}
@@ -20,7 +16,7 @@ const homeUrl = Astro.currentLocale === 'fr' ? '/fr' : '/';
 >
   {/* Navigation container */}
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-yellow-100/40 bg-yellow-50/60 px-4 py-3 backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md"
+    class="relative mx-2 w-full rounded-[36px] border border-accent/20 bg-white/80 px-4 py-3 backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md"
     aria-label="Global"
   >
     <div class="flex items-center justify-between">
@@ -30,7 +26,7 @@ const homeUrl = Astro.currentLocale === 'fr' ? '/fr' : '/';
         href={homeUrl}
         aria-label="Brand"
       >
-        <BrandLogo class="h-auto w-24" />
+        <BrandLogo class="h-auto w-32" />
       </a>
       {/* Collapse toggle for smaller screens */}
       <div class="mr-5 ml-auto md:hidden">
@@ -97,8 +93,6 @@ const homeUrl = Astro.currentLocale === 'fr' ? '/fr' : '/';
           })
         }
 
-        <Authentication />
-        <LanguagePicker />
         {/* ThemeIcon component specifically for larger screens */}
         <span class="hidden md:inline-block">
           <ThemeIcon />

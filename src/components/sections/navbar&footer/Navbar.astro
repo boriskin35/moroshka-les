@@ -1,38 +1,28 @@
 ---
-//Import relevant dependencies
 import ThemeIcon from '@components/ThemeIcon.astro';
 import NavLink from '@components/ui/links/NavLink.astro';
-import Authentication from '../misc/Authentication.astro';
 import enStrings from '@utils/navigation.ts';
-import frStrings from '@utils/fr/navigation.ts';
 import BrandLogo from '@components/BrandLogo.astro';
-import LanguagePicker from '@components/ui/LanguagePicker.astro';
-import { getMarketingLocale } from '@utils/locale';
 
-const locale = getMarketingLocale(Astro.url.pathname, Astro.currentLocale);
-const strings = locale === 'fr' ? frStrings : enStrings;
-const homeUrl = locale === 'fr' ? '/fr' : '/';
+const strings = enStrings;
+const homeUrl = '/';
 ---
 
-{/* Main header component */}
 <header
   class="sticky inset-x-0 top-4 z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start"
 >
-  {/* Navigation container */}
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-yellow-100/40 bg-yellow-50/60 px-4 py-3 backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md"
+    class="relative mx-2 w-full rounded-[36px] border border-accent/20 bg-white/80 px-4 py-3 backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md"
     aria-label="Global"
   >
     <div class="flex items-center justify-between">
-      {/* Brand logo */}
       <a
         class="flex-none rounded-lg text-xl font-bold ring-zinc-500 outline-hidden focus-visible:ring-3 dark:ring-zinc-200 dark:focus:outline-hidden"
         href={homeUrl}
-        aria-label="ScrewFast"
+        aria-label="МорошкаЛес"
       >
-        <BrandLogo class="h-auto w-24" />
+        <BrandLogo class="h-auto w-32" />
       </a>
-      {/* Collapse toggle for smaller screens */}
       <div class="mr-5 ml-auto md:hidden">
         <button
           type="button"
@@ -72,30 +62,23 @@ const homeUrl = locale === 'fr' ? '/fr' : '/';
           </svg>
         </button>
       </div>
-      {/* ThemeIcon component specifically for smaller screens */}
       <span class="inline-block md:hidden">
         <ThemeIcon />
       </span>
     </div>
-    {/* Contains navigation links */}
     <div
       id="navbar-collapse-with-animation"
       class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block"
     >
-      {/* Navigation links container */}
       <div
         class="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-4 md:gap-y-0 md:ps-7 lg:gap-x-7"
       >
-        {/* Navigation links and Authentication component */}
         {
           strings.navBarLinks.map(link => (
             <NavLink url={link.url} name={link.name} />
           ))
         }
 
-        <Authentication />
-        <LanguagePicker />
-        {/* ThemeIcon component specifically for larger screens */}
         <span class="hidden md:inline-block">
           <ThemeIcon />
         </span>
@@ -103,7 +86,6 @@ const homeUrl = locale === 'fr' ? '/fr' : '/';
     </div>
   </nav>
 </header>
-{/* Theme Appearance script to manage light/dark modes */}
 <script is:inline>
   const HSThemeAppearance = {
     init() {

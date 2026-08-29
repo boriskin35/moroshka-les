@@ -6,39 +6,8 @@ import EmailContactInput from '@components/ui/forms/input/EmailContactInput.astr
 import PhoneInput from '@components/ui/forms/input/PhoneInput.astro';
 import TextAreaInput from '@components/ui/forms/input/TextAreaInput.astro';
 import Icon from '@components/ui/icons/Icon.astro';
-import { getMarketingLocale } from '@utils/locale';
 
-const locale = getMarketingLocale(Astro.url.pathname, Astro.currentLocale);
-
-const copy =
-  locale === 'fr'
-    ? {
-        title: 'Contactez-nous',
-        subTitle:
-          "Vous avez des questions ou souhaitez discuter d'un projet ? Contactez-nous et laissons-nous élaborer la solution parfaite avec nos outils et services.",
-        formTitle: 'Remplissez le formulaire ci-dessous',
-        formSubTitle:
-          'Nous vous répondrons dans un délai de 1 à 2 jours ouvrables.',
-        firstName: 'Prénom',
-        lastName: 'Nom',
-        details: 'Détails',
-        send: 'Envoyer un message',
-        demoMessage:
-          'Merci ! (Démo — branchez un endpoint pour recevoir de vrais messages.)',
-        knowledgeHeading: 'Base de connaissances',
-        knowledgeContent:
-          'Parcourez tous nos articles de base de connaissances.',
-        knowledgeLink: 'Visiter les guides et tutoriels',
-        faqHeading: 'FAQ',
-        faqContent:
-          'Explorez notre FAQ pour des réponses rapides et claires aux questions courantes.',
-        faqLink: 'Visiter la FAQ',
-        officeHeading: 'Visitez notre bureau',
-        officeContent: 'ScrewFast UK',
-        emailHeading: 'Contactez-nous par e-mail',
-        emailContent: 'Préférez-vous le texte écrit ? Envoyez-nous un e-mail à',
-      }
-    : {
+const copy = {
         title: 'Contact us',
         subTitle:
           "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution with our tools and services.",
@@ -116,7 +85,7 @@ const copy =
               {copy.formSubTitle}
             </p>
             <p
-              class="mt-2 hidden text-sm text-orange-500 dark:text-orange-400"
+              class="mt-2 hidden text-sm text-orange-500 dark:text-accent"
               data-demo-status
               aria-live="polite"
             >
