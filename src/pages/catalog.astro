@@ -1,0 +1,74 @@
+﻿---
+import MainLayout from '@/layouts/MainLayout.astro';
+import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
+import CardSmall from '@components/ui/cards/CardSmall.astro';
+import CardWide from '@components/ui/cards/CardWide.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '@data/constants';
+
+const houses = (await getCollection('houses')).sort((a, b) => a.data.area.localeCompare(b.data.area));
+
+const title = 'Каталог домов МорошкаЛес';
+const subTitle = 'Выберите свой идеальный дом из кедра. От компактных студий до масштабных усадеб — всё с заводским качеством и сборкой от 10 дней.';
+
+const pageTitle = `${title} | ${SITE.title}`;
+const metaDescription = subTitle;
+const ogTitle = title;
+---
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${SITE.url}/catalog`,
+    url: `${SITE.url}/catalog`,
+    name: title,
+    description: metaDescription,
+    isPartOf: {
+      '@type': 'WebSite',
+      url: SITE.url,
+      name: SITE.title,
+      description: SITE.description,
+    },
+    inLanguage: 'ru-RU',
+  }}
+>
+  <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
+    <div class="mb-4 flex items-center justify-between gap-8 sm:mb-8 md:mb-12">
+      <div class="flex items-center gap-12">
+        <h1 class="text-2xl font-bold tracking-tight text-balance text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200">
+          {title}
+        </h1>
+        {subTitle && (
+          <p class="hidden max-w-[50rem] text-pretty text-neutral-600 md:block dark:text-neutral-400">
+            {subTitle}
+          </p>
+        )}
+      </div>
+    </div>
+
+    <section class="grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
+      {houses.map((house, index) => {
+        const position = index % 4;
+        
+        const productMock = {
+          id: house.id,
+          data: {
+            title: house.data.title,
+            description: house.data.description,
+            main: { imgCard: house.data.mainImage, imgAlt: house.data.mainImageAlt }
+          },
+          collection: 'houses'
+        };
+
+        if (position === 0 || position === 3) {
+          return <CardSmall product={productMock as any} />;
+        } else {
+          return <CardWide product={productMock as any} />;
+        }
+      })}
+    </section>
+  </div>
+</MainLayout>

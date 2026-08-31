@@ -103,9 +103,28 @@ const insightsCollection = defineCollection({
     }),
 });
 
+const housesCollection = defineCollection({
+  loader: glob({
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/houses',
+  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      area: z.string(),
+      type: z.string(),
+      bedrooms: z.string(),
+      features: z.string(),
+      mainImage: image(),
+      mainImageAlt: z.string(),
+    }),
+});
+
 export const collections = {
   docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
   products: productsCollection,
   blog: blogCollection,
   insights: insightsCollection,
+  houses: housesCollection,
 };

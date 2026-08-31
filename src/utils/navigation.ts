@@ -1,10 +1,10 @@
 // An array of links for navigation bar
 const navBarLinks = [
   { name: 'Главная', url: '/' },
-  { name: 'Каталог', url: '/products' },
+  { name: 'Каталог', url: '/catalog' },
   { name: 'Как строим', url: '/services' },
-  { name: 'Квиз', url: '/products' },
-  { name: 'Калькулятор', url: '/products' },
+  { name: 'Квиз', url: '/quiz' },
+  { name: 'Калькулятор', url: '/calculator' },
   { name: 'Контакты', url: '/contact' },
 ];
 // An array of links for footer
@@ -12,9 +12,9 @@ const footerLinks = [
   {
     section: 'Каталог',
     links: [
-      { name: 'Все дома', url: '/products' },
-      { name: 'Дома до 40 м²', url: '/products' },
-      { name: 'Дома от 60 м²', url: '/products' },
+      { name: 'Все дома', url: '/catalog' },
+      { name: 'Квиз: Подбор дома', url: '/quiz' },
+      { name: 'Калькулятор стоимости', url: '/calculator' },
     ],
   },
   {

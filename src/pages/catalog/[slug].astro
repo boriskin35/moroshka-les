@@ -1,0 +1,76 @@
+﻿---
+import MainLayout from '@/layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '@data/constants';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const houses = await getCollection('houses');
+  return houses.map(house => ({
+    params: { slug: house.id },
+    props: { house },
+  }));
+}
+
+const { house } = Astro.props;
+
+const pageTitle = `${house.data.title} | ${SITE.title}`;
+const metaDescription = house.data.description;
+const ogTitle = pageTitle;
+const houseSlug = house.id;
+---
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': `${SITE.url}/catalog/${houseSlug}`,
+    name: house.data.title,
+    description: house.data.description,
+    brand: {
+      '@type': 'Brand',
+      name: 'МорошкаЛес',
+    },
+  }}
+>
+  <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-16">
+      <div class="w-full">
+        <Image 
+          src={house.data.mainImage} 
+          alt={house.data.mainImageAlt} 
+          class="w-full h-auto rounded-xl object-cover" 
+        />
+      </div>
+      <div class="flex flex-col justify-center">
+        <h1 class="text-3xl font-bold text-neutral-800 sm:text-4xl lg:text-5xl dark:text-neutral-200">
+          {house.data.title}
+        </h1>
+        <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
+          {house.data.description}
+        </p>
+        <div class="mt-8 grid grid-cols-2 gap-4">
+          <div class="p-4 bg-neutral-100 rounded-lg dark:bg-neutral-800">
+            <span class="block text-sm text-neutral-500">Площадь</span>
+            <span class="block text-lg font-bold text-neutral-800 dark:text-neutral-200">{house.data.area}</span>
+          </div>
+          <div class="p-4 bg-neutral-100 rounded-lg dark:bg-neutral-800">
+            <span class="block text-sm text-neutral-500">Спальни</span>
+            <span class="block text-lg font-bold text-neutral-800 dark:text-neutral-200">{house.data.bedrooms}</span>
+          </div>
+          <div class="p-4 bg-neutral-100 rounded-lg dark:bg-neutral-800 col-span-2">
+            <span class="block text-sm text-neutral-500">Особенности</span>
+            <span class="block text-lg font-bold text-neutral-800 dark:text-neutral-200">{house.data.features}</span>
+          </div>
+        </div>
+        <div class="mt-8 flex gap-4">
+           <a href="/calculator" class="inline-flex justify-center items-center gap-x-3 text-center bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded-lg px-6 py-3 transition">
+             Рассчитать стоимость
+           </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
