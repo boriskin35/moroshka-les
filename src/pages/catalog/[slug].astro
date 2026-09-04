@@ -70,7 +70,54 @@ const houseSlug = house.id;
              Рассчитать стоимость
            </a>
         </div>
+
+        <!-- Apple Magic: Dynamic recommendations from quiz -->
+        <div id="quiz-recommendations" class="hidden mt-10 p-6 bg-orange-50 border border-orange-200 rounded-xl dark:bg-neutral-800 dark:border-neutral-700" data-current-slug={houseSlug}>
+          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-200 mb-2">💡 По результатам квиза вам также подходят:</h3>
+          <div id="quiz-links" class="flex flex-wrap gap-3 mt-4"></div>
+        </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const houseNames: Record<string, string> = {
+      "yasniy-den": "Дом-Терраса «Ясный день»",
+      "rosa": "Дом Роса",
+      "opushka": "Дом Опушка",
+      "ladniy": "Ладный дом",
+      "zhivica": "Дом-Баня Живица",
+      "usadba": "Дом Усадьба",
+      "sibirskiy-prostor": "Сибирский простор"
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const stored = localStorage.getItem('moroshka_quiz_winners');
+        if (!stored) return;
+        
+        const winners = JSON.parse(stored) as string[];
+        const banner = document.getElementById('quiz-recommendations');
+        const linksContainer = document.getElementById('quiz-links');
+        
+        if (banner && linksContainer) {
+          const currentSlug = banner.getAttribute('data-current-slug');
+          const otherWinners = winners.filter(w => w !== currentSlug);
+          
+          if (otherWinners.length > 0) {
+            banner.classList.remove('hidden');
+            otherWinners.forEach(slug => {
+              const link = document.createElement('a');
+              link.href = `/catalog/${slug}`;
+              link.className = "inline-flex items-center gap-x-2 bg-white border border-neutral-200 text-neutral-800 hover:border-accent hover:text-accent text-sm font-medium rounded-lg px-4 py-2 transition dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200 dark:hover:border-accent";
+              link.innerText = houseNames[slug] || slug;
+              linksContainer.appendChild(link);
+            });
+          }
+        }
+      } catch(e) {
+        // fail silently
+      }
+    });
+  </script>
 </MainLayout>

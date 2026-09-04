@@ -1,29 +1,29 @@
 {
-  "subTitle": "Ask us anything about our brand and products, and get factual responses.",
+  "subTitle": "Всё о сроках, технологиях и ценах МорошкаЛес.",
   "faqs": [
     {
-      "question": "What types of tools are included in the Starter Kit?",
-      "answer": "The Starter Kit features essential hand and power tools for diverse DIY projects, including hammers, drills, screwdrivers, and a variety of fasteners. It's a curated selection to help beginners and experienced DIYers alike tackle most home improvement tasks."
+      "question": "Правда, что дом собирают за 10 дней?",
+      "answer": "Да. Детали режем на ЧПУ на заводе, на участке только сборка. От договора до заселения — от 10 дней, без месяцев ожидания и скрытых расходов."
     },
     {
-      "question": "Can I upgrade from the Starter Kit to the Professional Toolbox?",
-      "answer": "Absolutely! You can upgrade to the Professional Toolbox at any time to access a wider range of high-quality tools, enjoy priority customer support, and receive exclusive content. Contact our support team for a seamless transition."
+      "question": "Что такое камерная сушка до 12%?",
+      "answer": "Собственная сушка древесины до влажности 12%. Дерево не ведёт, нет щелей и усадки. Дом держит тепло даже при −40°C."
     },
     {
-      "question": "What discounts are available for bulk orders through the Professional Toolbox plan?",
-      "answer": "Professional Toolbox members are entitled to exclusive discounts on bulk orders, the percentage of which may vary depending on the order volume. Get in touch with us to discuss your needs, and we'll provide a tailored discount structure."
+      "question": "Чем заводской дом лучше бригады?",
+      "answer": "Точность ЧПУ, усиленный каркас, утеплитель 200 мм, тройные энергосберегающие стеклопакеты и потолки ~3 м. Строим один раз и на поколения."
     },
     {
-      "question": "What kind of customer support can I expect?",
-      "answer": "All our customers receive dedicated email support. With the Starter Kit, you'll receive our standard support, while the Professional Toolbox plan upgrades you to priority support, meaning faster response times and specialized assistance."
+      "question": "Сколько стоят дома?",
+      "answer": "Точная стоимость — по запросу: зависит от модели, комплектации и участка. Оставьте заявку — посчитаем за день. Калькулятор на сайте покажет предварительный расчёт."
     },
     {
-      "question": "How current are the online resources and tutorials?",
-      "answer": "We regularly update our online resources and tutorials to reflect the latest trends in DIY and construction, as well as introductions to new tools and techniques. Our material aims to be comprehensive and user-friendly for all skill levels."
+      "question": "Можно ли жить зимой?",
+      "answer": "Да, это капитальные дома для постоянного проживания: сэндвич-панели 200 мм, утеплённая кровля, инженерия под ключ."
     },
     {
-      "question": "Does ScrewFast offer services for large-scale construction projects?",
-      "answer": "Yes, our Enterprise Solutions are designed for larger companies requiring comprehensive services. We provide consultation, planning, and supply of high-grade tools and materials, as well as staffing solutions for substantial construction needs. Contact us for a customized quote."
+      "question": "Как подобрать модель?",
+      "answer": "Пройдите квиз «Подбор дома» за минуту — подберём 1–2 модели под вашу семью, участок и бюджет. Или сразу смотрите каталог из 7 домов от 31 до 162 м²."
     }
   ]
 }

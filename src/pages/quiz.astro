@@ -1,4 +1,4 @@
----
+﻿---
 import MainLayout from '@/layouts/MainLayout.astro';
 import { SITE } from '@data/constants';
 
@@ -29,11 +29,10 @@ const subTitle = 'Ответьте на несколько вопросов, и 
         </div>
       </div>
       <div id="result-area" class="hidden text-center py-8">
-        <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">Вам идеально подойдет:</h2>
-        <p id="result-house" class="text-xl text-accent font-bold mb-6"></p>
-        <a href="/catalog" class="inline-flex justify-center items-center gap-x-3 text-center bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded-lg px-6 py-3 transition">
-          Перейти в каталог
-        </a>
+        <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">По вашим ответам вам идеально подходят эти варианты:</h2>
+        <div id="result-houses" class="mt-8 space-y-4">
+           <!-- Links injected here -->
+        </div>
       </div>
     </div>
   </div>
@@ -66,6 +65,16 @@ const subTitle = 'Ответьте на несколько вопросов, и 
         ]
       }
     ];
+
+    const houseSlugs: Record<string, string> = {
+      "Дом-Терраса «Ясный день»": "yasniy-den",
+      "Дом Роса": "rosa",
+      "Дом Опушка": "opushka",
+      "Ладный дом": "ladniy",
+      "Дом-Баня Живица": "zhivica",
+      "Дом Усадьба": "usadba",
+      "Сибирский простор": "sibirskiy-prostor"
+    };
 
     let currentStep = 0;
     const scores: Record<string, number> = {};
@@ -100,18 +109,35 @@ const subTitle = 'Ответьте на несколько вопросов, и 
     function showResult() {
       document.getElementById('quiz-container')?.classList.add('hidden');
       const resArea = document.getElementById('result-area');
-      const resHouse = document.getElementById('result-house');
-      if(resArea && resHouse) {
+      const resHouses = document.getElementById('result-houses');
+      if(resArea && resHouses) {
         resArea.classList.remove('hidden');
-        let bestHouse = "";
+        
         let maxScore = -1;
-        for (const [house, score] of Object.entries(scores)) {
-          if (score > maxScore) {
-            maxScore = score;
-            bestHouse = house;
-          }
+        for (const score of Object.values(scores)) {
+          if (score > maxScore) maxScore = score;
         }
-        resHouse.innerText = bestHouse || "Ладный дом";
+
+        const winners: string[] = [];
+        for (const [house, score] of Object.entries(scores)) {
+          if (score === maxScore) winners.push(house);
+        }
+
+        if (winners.length === 0) winners.push("Ладный дом");
+
+        // Save winners to localStorage for the Apple Magic cross-sell
+        const winnerSlugs = winners.map(w => houseSlugs[w]).filter(Boolean);
+        localStorage.setItem('moroshka_quiz_winners', JSON.stringify(winnerSlugs));
+
+        resHouses.innerHTML = '';
+        winners.forEach(winner => {
+          const slug = houseSlugs[winner] || 'ladniy';
+          const link = document.createElement('a');
+          link.href = `/catalog/${slug}`;
+          link.className = "flex w-full sm:w-auto sm:inline-flex justify-center items-center gap-x-3 text-center bg-accent hover:bg-accent-hover text-white text-lg font-medium rounded-lg px-8 py-4 transition shadow-md hover:shadow-lg sm:mr-4 mb-4";
+          link.innerText = `Посмотреть ${winner}`;
+          resHouses.appendChild(link);
+        });
       }
     }
 

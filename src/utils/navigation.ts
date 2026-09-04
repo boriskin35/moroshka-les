@@ -21,7 +21,6 @@ const footerLinks = [
     section: 'Компания',
     links: [
       { name: 'О нас', url: '/services' },
-      { name: 'Блог', url: '/blog' },
       { name: 'Как мы строим', url: '/services' },
       { name: 'Контакты', url: '/contact' },
     ],

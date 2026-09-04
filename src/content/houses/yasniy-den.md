@@ -1,11 +1,11 @@
-﻿---
+---
 title: "Дом-Терраса «Ясный день»"
 description: "Дом-трансформер с эксплуатируемой кровлей"
 area: "32 м²"
 type: "Дом-трансформер + баня"
 bedrooms: "Студия"
 features: "Эксплуатируемая кровля, панорамное остекление, 4,5×7,5 м"
-mainImage: "../../assets/images/optimized/page_10_img_1.webp"
+mainImage: "../../assets/images/optimized/page_8_img_1.webp"
 mainImageAlt: "Дом-Терраса «Ясный день»"
 ---
 

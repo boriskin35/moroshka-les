@@ -1,9 +1,18 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, isAbsolute, relative, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const DIST = resolve(new URL('../dist/', import.meta.url).pathname);
-const ROUTES = ['/', '/fr/', '/products/', '/blog/', '/contact/', '/404'];
+const DIST = resolve(fileURLToPath(new URL('../dist/', import.meta.url)));
+const ROUTES = [
+  '/',
+  '/catalog/',
+  '/services/',
+  '/quiz/',
+  '/calculator/',
+  '/contact/',
+  '/404',
+];
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',

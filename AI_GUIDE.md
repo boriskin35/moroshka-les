@@ -39,14 +39,14 @@ Defined in [tsconfig.json](tsconfig.json).
 | Content (collections)   | [src/content/](src/content/)       | `blog/`, `products/`, `insights/`; `docs/` for Starlight (i18n subdirs: guides, construction, tools, advanced, de, es, fa, fr, ja, zh-cn).                                                                                |
 | Static assets           | [public/](public/)                 | Served as-is.                                                                                                                                                                                                             |
 | Navigation & UI helpers | [src/utils/](src/utils/)           | [navigation.ts](src/utils/navigation.ts) exports default `{ navBarLinks, footerLinks, socialLinks }`; [fr/navigation.ts](src/utils/fr/navigation.ts) for French. Navbar/Footer use `Astro.currentLocale` to pick strings. |
-| Site config & JSON data | [src/data_files/](src/data_files/) | [constants.ts](src/data_files/constants.ts): SITE, SEO, OG, partnersData; faqs.json, features.json, pricing.json, mega_link.ts; `fr/` for localized JSON.                                                                 |
-| Styles & scripts        | [src/assets/](src/assets/)         | `styles/` (global.css, lenis.css, starlight); `scripts/` e.g. [lenisSmoothScroll.js](src/assets/scripts/lenisSmoothScroll.js).                                                                                            |
+| Site config & JSON data | [src/data_files/](src/data_files/) | [constants.ts](src/data_files/constants.ts): SITE, SEO, OG; faqs.json.                                                                                                                                                    |
+| Styles & scripts        | [src/assets/](src/assets/)         | `styles/` (global.css, lenis.css); `scripts/` e.g. [lenisSmoothScroll.js](src/assets/scripts/lenisSmoothScroll.js).                                                                                                       |
 | Images (imported)       | [src/images/](src/images/)         | Use with `@images/`; processed by Astro.                                                                                                                                                                                  |
 
 ## Layout and Main Components
 
 - **MainLayout** ([MainLayout.astro](src/layouts/MainLayout.astro)): Props `title`, `meta`, `structuredData`, `lang`, `customDescription`, `customOgTitle`. Imports Meta, Navbar, FooterSection; includes Preline script and Lenis. Pages use `<MainLayout>…</MainLayout>` with content as default slot.
-- **Homepage** ([src/pages/index.astro](src/pages/index.astro)): Composes AnnouncementBanner, HeroSection, ClientsSection, FeaturesGeneral, FeaturesNavs, TestimonialsSection, PricingSection, FAQ; data from `@data/*` and [constants.ts](src/data_files/constants.ts) (e.g. partnersData).
+- **Homepage** ([src/pages/index.astro](src/pages/index.astro)): Composes HeroSection, FeaturesNavs, TestimonialsSection, FAQ, HeroSectionAlt; data from `@data/faqs.json` and [constants.ts](src/data_files/constants.ts).
 - **SEO**: [Meta.astro](src/components/Meta.astro) uses SITE/SEO/OG from `@data/constants`; per-page overrides via MainLayout props.
 
 ## Conventions
@@ -55,7 +55,7 @@ Defined in [tsconfig.json](tsconfig.json).
 - **Styling:** Tailwind CSS only; use **Tailwind v4** syntax (refer to Tailwind v4 docs).
 - **Interactive UI:** Preline for modals, dropdowns, accordions (script loaded in MainLayout).
 - **Smooth scroll:** Lenis via [lenisSmoothScroll.js](src/assets/scripts/lenisSmoothScroll.js).
-- **Content collections:** Schemas in [content.config.ts](src/content.config.ts) (blog, products, insights, docs); use `getCollection('blog')` etc. in pages.
+- **Content collections:** Schemas in [content.config.ts](src/content.config.ts) (products, insights, houses); use `getCollection('houses')` etc. in pages.
 
 ## Development Commands
 

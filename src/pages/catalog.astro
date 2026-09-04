@@ -52,21 +52,18 @@ const ogTitle = title;
     <section class="grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
       {houses.map((house, index) => {
         const position = index % 4;
-        
-        const productMock = {
-          id: house.id,
-          data: {
-            title: house.data.title,
-            description: house.data.description,
-            main: { imgCard: house.data.mainImage, imgAlt: house.data.mainImageAlt }
-          },
-          collection: 'houses'
+        const cardProps = {
+          title: house.data.title,
+          description: `${house.data.area} · ${house.data.type}`,
+          image: house.data.mainImage,
+          imageAlt: house.data.mainImageAlt,
+          href: `/catalog/${house.id}/`,
         };
 
         if (position === 0 || position === 3) {
-          return <CardSmall product={productMock as any} />;
+          return <CardSmall {...cardProps} />;
         } else {
-          return <CardWide product={productMock as any} />;
+          return <CardWide {...cardProps} />;
         }
       })}
     </section>
