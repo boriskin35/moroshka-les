@@ -1,4 +1,4 @@
-import ogImageSrc from '@/assets/images/optimized/page_16_img_1.webp';
+import ogImageSrc from '@/assets/images/optimized/ladniy-exterior-1.webp';
 
 export const SITE = {
   title: 'МорошкаЛес',

@@ -9,9 +9,11 @@ const prefersReducedMotion = window.matchMedia(
 
 if (!prefersReducedMotion) {
   // https://github.com/darkroomengineering/lenis
-  new Lenis({
+  const lenis = new Lenis({
     autoRaf: true,
   });
+  // Expose for scroll-locking (e.g. mobile menu modal).
+  window.__moroshkaLenis = lenis;
 } else {
   document.documentElement.classList.remove('lenis', 'lenis-smooth');
 }

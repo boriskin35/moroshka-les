@@ -1,0 +1,42 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '@data/constants';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<MainLayout
+  title={`${post.data.title} | ${SITE.title}`}
+  customDescription={post.data.description}
+  customOgTitle={post.data.title}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    inLanguage: 'ru-RU',
+  }}
+>
+  <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:py-14">
+    <a href="/blog" class="text-sm text-neutral-500 hover:text-accent">← Все статьи</a>
+    <h1 class="mt-4 text-3xl font-bold text-neutral-800 sm:text-4xl dark:text-neutral-200">{post.data.title}</h1>
+    <div class="mt-2 text-sm text-neutral-500">{post.data.pubDate.toLocaleDateString('ru-RU')}</div>
+    {post.data.mainImage && (
+      <Image src={post.data.mainImage} alt={post.data.mainImageAlt ?? post.data.title} class="mt-6 w-full h-auto rounded-xl object-cover" />
+    )}
+    <div class="prose dark:prose-invert mt-6 max-w-none text-neutral-700 dark:text-neutral-300">
+      <Content />
+    </div>
+  </div>
+</MainLayout>

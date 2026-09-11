@@ -1,12 +1,12 @@
 ﻿---
-title: "Дом Роса"
-description: "Компактный дом с баней на одном фундаменте"
-area: "31,7 м²"
-type: "Дом + баня"
-bedrooms: "Студия"
-features: "Панорамное остекление, 4,5×6 м"
-mainImage: "../../assets/images/optimized/page_12_img_1.webp"
-mainImageAlt: "Дом Роса"
+title: 'Дом Роса'
+description: 'Компактный дом с баней на одном фундаменте'
+area: '31,7 м²'
+type: 'Дом + баня'
+bedrooms: 'Студия'
+features: 'Панорамное остекление, 4,5×6 м'
+mainImage: '../../assets/images/optimized/rosa-exterior-1.webp'
+mainImageAlt: 'Дом Роса'
 ---
 
 Утеплитель 200 мм (минвата/базальт), стеклопакеты тройные энергосберегающие, высота потолков ~3 м.

@@ -22,6 +22,22 @@ const housesCollection = defineCollection({
     }),
 });
 
+const blogCollection = defineCollection({
+  loader: glob({
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/blog',
+  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      pubDate: z.coerce.date(),
+      mainImage: image().optional(),
+      mainImageAlt: z.string().optional(),
+    }),
+});
+
 export const collections = {
   houses: housesCollection,
+  blog: blogCollection,
 };

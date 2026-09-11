@@ -1,12 +1,12 @@
 ﻿---
-title: "Дом Опушка"
-description: "Компактный одноэтажный каркасный дом из кедра"
-area: "36 м²"
-type: "Одноэтажный каркасный, кедр"
-bedrooms: "1 спальня"
-features: "Компактный, кухня-гостиная 29 м²"
-mainImage: "../../assets/images/optimized/page_14_img_1.webp"
-mainImageAlt: "Дом Опушка"
+title: 'Дом Опушка'
+description: 'Компактный одноэтажный каркасный дом из кедра'
+area: '36 м²'
+type: 'Одноэтажный каркасный, кедр'
+bedrooms: '1 спальня'
+features: 'Компактный, кухня-гостиная 29 м²'
+mainImage: '../../assets/images/optimized/opushka-exterior-1.webp'
+mainImageAlt: 'Дом Опушка'
 ---
 
 Утеплитель 200 мм (минвата/базальт), стеклопакеты тройные энергосберегающие, высота потолков ~3 м.

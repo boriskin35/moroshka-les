@@ -9,7 +9,7 @@ const ROUTES = [
   '/catalog/',
   '/services/',
   '/quiz/',
-  '/calculator/',
+  '/blog/',
   '/contact/',
   '/404',
 ];

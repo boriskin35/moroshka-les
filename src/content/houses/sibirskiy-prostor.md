@@ -1,12 +1,12 @@
 ﻿---
-title: "Сибирский простор"
-description: "Масштабное коммерческое здание"
-area: "162 м²"
-type: "Коммерческое здание"
-bedrooms: "Нет"
-features: "Зал на 50–60 гостей, для ресторанного/ивент-бизнеса"
-mainImage: "../../assets/images/optimized/page_1_img_1.webp"
-mainImageAlt: "Сибирский простор"
+title: 'Сибирский простор'
+description: 'Масштабное коммерческое здание'
+area: '162 м²'
+type: 'Коммерческое здание'
+bedrooms: 'Нет'
+features: 'Зал на 50–60 гостей, для ресторанного/ивент-бизнеса'
+mainImage: '../../assets/images/optimized/sibirskiy-prostor-exterior-1.webp'
+mainImageAlt: 'Сибирский простор'
 ---
 
 Утеплитель 200 мм (минвата/базальт), стеклопакеты тройные энергосберегающие, высота потолков ~3 м.
