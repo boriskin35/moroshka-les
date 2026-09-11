@@ -17,7 +17,7 @@ const successMessage =
 ---
 
 <div
-  class="mt-4 flex flex-col items-center gap-2 rounded-lg bg-neutral-200 p-2 sm:flex-row sm:gap-3 dark:bg-neutral-800"
+  class="mt-4 flex flex-col items-center gap-2 rounded-lg bg-neutral-800 p-2 sm:flex-row sm:gap-3"
 >
   <div class="w-full">
     <label for={id} class="sr-only">{label}</label>
@@ -27,19 +27,19 @@ const successMessage =
       name="email"
       required
       autocomplete="email"
-      class="block w-full rounded-lg border-transparent bg-neutral-100 px-4 py-3 text-sm text-neutral-600 caret-orange-400 focus:border-orange-400 focus:ring-orange-400 disabled:pointer-events-none disabled:opacity-50 dark:border-transparent dark:bg-neutral-700 dark:text-gray-300 dark:placeholder:text-neutral-300"
+      class="block w-full rounded-lg border-transparent bg-neutral-700 px-4 py-3 text-sm text-gray-300 caret-orange-400 placeholder:text-neutral-300 focus:border-orange-400 focus:ring-orange-400 disabled:pointer-events-none disabled:opacity-50"
       placeholder={placeholder}
     />
   </div>
   <button
     type="submit"
-    class="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-accent p-3 text-sm font-bold whitespace-nowrap text-neutral-50 ring-zinc-500 outline-hidden transition duration-300 hover:bg-accent-hover focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50 sm:w-auto dark:ring-zinc-200 dark:focus:ring-1 dark:focus:outline-hidden"
+    class="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-accent p-3 text-sm font-bold whitespace-nowrap text-neutral-50 ring-zinc-200 outline-hidden transition duration-300 hover:bg-accent-hover focus-visible:ring-3 disabled:pointer-events-none disabled:opacity-50 sm:w-auto dark:focus:ring-1 dark:focus:outline-hidden"
   >
     {title}
   </button>
 </div>
 <p
-  class="mt-2 hidden text-sm text-neutral-600 dark:text-neutral-400"
+  class="mt-2 hidden text-sm text-neutral-400"
   data-demo-status
   aria-live="polite"
   data-success-message={successMessage}

@@ -1,5 +1,7 @@
 ---
 import logo from "@images/logo1.png";
 import { Image } from "astro:assets";
+
+const { loading = "eager", class: className } = Astro.props;
 ---
-<Image src={logo} alt="МорошкаЛес" class:list={Astro.props.class} loading="eager" />
+<Image src={logo} alt="МорошкаЛес" class:list={className} loading={loading} />

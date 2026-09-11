@@ -1,6 +1,5 @@
-﻿---
+---
 import MainLayout from '@/layouts/MainLayout.astro';
-import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
 import CardSmall from '@components/ui/cards/CardSmall.astro';
 import CardWide from '@components/ui/cards/CardWide.astro';
 import { getCollection } from 'astro:content';
@@ -58,6 +57,7 @@ const ogTitle = title;
           image: house.data.mainImage,
           imageAlt: house.data.mainImageAlt,
           href: `/catalog/${house.id}/`,
+          loading: (index < 3 ? "eager" : "lazy") as "eager" | "lazy",
         };
 
         if (position === 0 || position === 3) {

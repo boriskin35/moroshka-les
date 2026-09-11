@@ -1,52 +1,39 @@
-import type { APIRoute, ImageMetadata } from 'astro';
+import type { APIRoute } from 'astro';
 import { getImage } from 'astro:assets';
-import icon from '@images/icon.png';
+import icon192 from '@images/icon-192.png';
 import maskableIcon from '@images/icon-maskable.png';
 
-interface Favicon {
-  purpose: 'any' | 'maskable' | 'monochrome';
-  src: ImageMetadata;
-  sizes: number[];
-}
-
-const sizes = [192, 512];
-const favicons: Favicon[] = [
-  {
-    purpose: 'any',
-    src: icon,
-    sizes,
-  },
-  {
-    purpose: 'maskable',
-    src: maskableIcon,
-    sizes,
-  },
-];
-
 export const GET: APIRoute = async () => {
-  const icons = await Promise.all(
-    favicons.flatMap(favicon =>
-      favicon.sizes.map(async size => {
-        const image = await getImage({
-          src: favicon.src,
-          width: size,
-          height: size,
-          format: 'png',
-        });
-        return {
-          src: image.src,
-          sizes: `${image.options.width}x${image.options.height}`,
-          type: `image/${image.options.format}`,
-          purpose: favicon.purpose,
-        };
-      })
-    )
-  );
+  const icon192Img = await getImage({
+    src: icon192,
+    width: 192,
+    height: 192,
+    format: 'png',
+  });
+  const maskable512Img = await getImage({
+    src: maskableIcon,
+    width: 512,
+    height: 512,
+    format: 'png',
+  });
 
   const manifest = {
     short_name: 'МорошкаЛес',
     name: 'МорошкаЛес — заводские дома из кедра',
-    icons,
+    icons: [
+      {
+        src: icon192Img.src,
+        sizes: '192x192',
+        type: 'image/png',
+        purpose: 'any',
+      },
+      {
+        src: maskable512Img.src,
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'maskable',
+      },
+    ],
     display: 'minimal-ui',
     id: '/',
     start_url: '/',
@@ -54,5 +41,7 @@ export const GET: APIRoute = async () => {
     background_color: '#262626',
   };
 
-  return new Response(JSON.stringify(manifest));
+  return new Response(JSON.stringify(manifest), {
+    headers: { 'Content-Type': 'application/manifest+json; charset=utf-8' },
+  });
 };

@@ -8,38 +8,30 @@ import HeroSectionAlt from '@components/sections/landing/HeroSectionAlt.astro';
 import FeaturesNavs from '@components/sections/features/FeaturesNavs.astro';
 import TestimonialsSection from '@components/sections/testimonials/TestimonialsSection.astro';
 import FAQ from '@components/sections/misc/FAQ.astro';
-import heroImage from '@/assets/images/optimized/ladniy-exterior-1.webp';
+import heroImage from '@/assets/images/optimized/ladniy-exterior-dark.webp';
+import heroImageMobile from '@/assets/images/optimized/opushka-exterior-3.webp';
 import faqs from '@data/faqs.json';
 
 import construction from '@/assets/images/optimized/stroyka-karkas-sborka.webp';
 import tools from '@/assets/images/optimized/proizvodstvo-kedr-brevna.webp';
 import dashboard from '@/assets/images/optimized/stroyka-karkas.webp';
-
-
-const avatarSrcs: Array<string> = [
-  'https://ui-avatars.com/api/?name=А+В&background=random',
-  'https://ui-avatars.com/api/?name=Е+С&background=random',
-  'https://ui-avatars.com/api/?name=И+М&background=random',
-  'https://ui-avatars.com/api/?name=О+К&background=random',
-];
 ---
+
 
 <MainLayout>
 
   <HeroSection
+    slot="hero"
     title=`Строим один раз и <span class="text-accent">на поколения</span>`
     subTitle="Заводские дома и бани из кедра. Камерная сушка до 12%, ЧПУ, под ключ за 10 дней — без щелей и скрытых расходов."
     primaryBtn="Каталог домов"
     primaryBtnURL="/catalog"
     secondaryBtn="Подобрать дом"
     secondaryBtnURL="/quiz"
-    withReview={true}
-    avatars={avatarSrcs}
-    rating=`<span class="font-bold">4.9</span> / 5`
-    starCount={5}
-    reviews=`Более <span class="font-bold">200</span> семей уже живут в МорошкаЛес`
     src={heroImage}
-    alt="Дом из кедра МорошкаЛес"
+    alt="Ладный дом МорошкаЛес вечером"
+    mobileSrc={heroImageMobile}
+    mobileAlt="Дом Опушка — временное вертикальное фото"
   />
 
 
@@ -80,22 +72,11 @@ const avatarSrcs: Array<string> = [
   <TestimonialsSection
     title="Быстрый старт — 10 дней до заселения"
     subTitle="От договора до ключей — без месяцев ожидания и скрытых расходов."
-    ;
-    testimonials={[
-      {
-        content:
-          'МорошкаЛес собрали наш Ладный дом за 10 дней. Тепло держит при −40, сборка без щелей — заводское качество видно сразу!',
-        author: 'Семья Ивановых',
-        role: 'Владельцы Ладного дома, 66.7 м²',
-        avatarSrc:
-          'https://ui-avatars.com/api/?name=С+И&background=133E22&color=fff',
-      },
-    ]}
     statistics={[
       {
         count: '7',
         description:
-          'моделей — от 31 до 162 м²',
+          'моделей — от 25 до 162 м²',
       },
       {
         count: '10 дней',

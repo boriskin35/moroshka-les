@@ -35,7 +35,7 @@ const { Content } = await render(post);
     {post.data.mainImage && (
       <Image src={post.data.mainImage} alt={post.data.mainImageAlt ?? post.data.title} class="mt-6 w-full h-auto rounded-xl object-cover" />
     )}
-    <div class="prose dark:prose-invert mt-6 max-w-none text-neutral-700 dark:text-neutral-300">
+    <div class="prose dark:prose-invert mt-6 max-w-none text-neutral-700 [font-size:1.25rem] dark:text-neutral-300">
       <Content />
     </div>
   </div>

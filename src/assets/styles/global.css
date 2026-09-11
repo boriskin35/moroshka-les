@@ -102,9 +102,15 @@
   --color-zinc-900: oklch(0.21 0.006 285.885);
   --color-zinc-950: oklch(0.141 0.005 285.823);
 
-  --color-brand: #133E22;
-  --color-accent: #F25E1E;
+  --color-brand: #133e22;
+  --color-accent: #f25e1e;
   --color-accent-hover: #d94f14;
+
+  --text-xs: 0.875rem;
+  --text-sm: 1.0625rem;
+  --text-base: 1.25rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.5rem;
 }
 
 /*
@@ -116,6 +122,10 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+  body {
+    font-size: 1.25rem;
+  }
+
   *,
   ::after,
   ::before,

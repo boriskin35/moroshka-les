@@ -12,7 +12,7 @@ const homeUrl = '/';
   class="sticky inset-x-0 top-4 z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start"
 >
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-accent/20 bg-white/80 px-4 py-3 backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md"
+    class="relative mx-2 w-full rounded-[36px] border border-neutral-700/40 bg-neutral-800/80 px-4 py-3 backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
     aria-label="Global"
   >
     <div class="flex items-center justify-between">
@@ -27,7 +27,7 @@ const homeUrl = '/';
         <button
           type="button"
           id="navbar-menu-toggle"
-          class="flex h-8 w-8 flex-col items-center justify-center gap-[5px] rounded-full text-neutral-600 transition duration-300 hover:bg-neutral-200 disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:outline-hidden"
+          class="flex h-8 w-8 flex-col items-center justify-center gap-[5px] rounded-full text-neutral-400 transition duration-300 hover:bg-neutral-700 disabled:pointer-events-none disabled:opacity-50 dark:focus:outline-hidden"
           aria-label="Открыть меню"
           aria-haspopup="dialog"
           aria-expanded="false"
@@ -68,12 +68,13 @@ const homeUrl = '/';
 >
   <div
     id="navbar-modal-backdrop"
-    class="absolute inset-0 bg-white/20 opacity-0 backdrop-blur-2xl transition-opacity duration-300 dark:bg-neutral-950/20"
+    class="absolute inset-0 bg-neutral-950/20 opacity-0 backdrop-blur-2xl transition-opacity duration-300"
   >
   </div>
   <div
     id="navbar-modal-panel"
-    class="absolute inset-x-2 top-[80px] max-h-[calc(100dvh-96px)] origin-top scale-y-50 overflow-y-auto rounded-[28px] border border-accent/20 bg-white/95 p-4 opacity-0 shadow-xl backdrop-blur-md transition-all duration-300 ease-out dark:border-neutral-700/40 dark:bg-neutral-800/95"
+    data-lenis-prevent
+    class="absolute inset-x-2 top-[80px] max-h-[calc(100dvh-96px)] origin-top scale-y-50 overflow-y-auto rounded-[28px] border border-neutral-700/40 bg-neutral-800/95 p-4 opacity-0 shadow-xl backdrop-blur-md transition-all duration-300 ease-out"
   >
     <nav class="flex flex-col gap-1">
       {
@@ -82,7 +83,7 @@ const homeUrl = '/';
             href={link.url}
             data-astro-prefetch
             data-navbar-modal-link
-            class="rounded-2xl px-4 py-3 text-lg font-medium text-neutral-800 transition duration-200 outline-hidden hover:bg-neutral-100 focus-visible:ring-3 focus-visible:ring-zinc-500 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus-visible:ring-zinc-200"
+            class="rounded-2xl px-4 py-3 text-lg font-medium text-neutral-200 transition duration-200 outline-hidden hover:bg-neutral-700 focus-visible:ring-3 focus-visible:ring-zinc-200"
           >
             {link.name}
           </a>
@@ -127,14 +128,35 @@ const homeUrl = '/';
 
   const hiddenPanelClasses = ['opacity-0', 'scale-y-50'];
 
+  function isInScrollablePanel(event: Event) {
+    return !!(event.target as HTMLElement).closest?.('[data-lenis-prevent]');
+  }
+
+  function blockScrollEvent(event: Event) {
+    if (!isInScrollablePanel(event)) event.preventDefault();
+  }
+
+  function blockScrollKeys(event: KeyboardEvent) {
+    const keys = [' ', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'];
+    if (keys.includes(event.key) && !isInScrollablePanel(event)) {
+      event.preventDefault();
+    }
+  }
+
+  // NOTE: do NOT use body { overflow: hidden } here — it breaks
+  // position: sticky on the header (menu opens without the navbar).
   function lockScroll() {
     if (lenis) lenis.stop();
-    document.body.style.overflow = 'hidden';
+    document.addEventListener('wheel', blockScrollEvent, { passive: false });
+    document.addEventListener('touchmove', blockScrollEvent, { passive: false });
+    document.addEventListener('keydown', blockScrollKeys);
   }
 
   function unlockScroll() {
-    document.body.style.overflow = '';
     if (lenis) lenis.start();
+    document.removeEventListener('wheel', blockScrollEvent);
+    document.removeEventListener('touchmove', blockScrollEvent);
+    document.removeEventListener('keydown', blockScrollKeys);
   }
 
   function openMenu() {
