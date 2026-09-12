@@ -1,26 +1,19 @@
 @import 'tailwindcss';
 
-/* Локальные шрифты: Oswald (заголовки) + Roboto (текст) */
+/* Локальные шрифты: Cormorant (заголовки) + Roboto (текст) */
 @font-face {
-  font-family: 'Oswald';
+  font-family: 'Cormorant';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/oswald-400.woff2') format('woff2');
+  src: url('../fonts/cormorant-400.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('../fonts/oswald-500.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Oswald';
+  font-family: 'Cormorant';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('../fonts/oswald-700.woff2') format('woff2');
+  src: url('../fonts/cormorant-700.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Roboto';
@@ -144,7 +137,7 @@
   --color-accent-hover: #d94f14;
 
   --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-serif: 'Cormorant', Georgia, serif;
 
   --text-xs: 0.875rem;
   --text-sm: 1.0625rem;
@@ -172,7 +165,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-display);
+    font-family: var(--font-serif);
   }
 
   *,
