@@ -36,20 +36,6 @@
   font-display: swap;
   src: url('../fonts/roboto-700.woff2') format('woff2');
 }
-@font-face {
-  font-family: 'Cormorant';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('../fonts/cormorant-400.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Cormorant';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('../fonts/cormorant-700.woff2') format('woff2');
-}
 
 /* Preline UI */
 @source '../../../node_modules/preline/dist/*.js';
