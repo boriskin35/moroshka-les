@@ -4,3 +4,9 @@ publish = "dist"
 
 [build.environment]
 NODE_VERSION = "22"
+
+[[redirects]]
+from = "/services"
+to = "/"
+status = 301
+force = true

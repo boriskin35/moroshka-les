@@ -3,7 +3,7 @@
 import MainLayout from '@/layouts/MainLayout.astro';
 import HeroSection from '@components/sections/landing/HeroSection.astro';
 
-import HeroSectionAlt from '@components/sections/landing/HeroSectionAlt.astro';
+import HowWeBuild from '@components/sections/landing/HowWeBuild.astro';
 
 import FeaturesNavs from '@components/sections/features/FeaturesNavs.astro';
 import TestimonialsSection from '@components/sections/testimonials/TestimonialsSection.astro';
@@ -22,8 +22,8 @@ import dashboard from '@/assets/images/optimized/stroyka-karkas.webp';
 
   <HeroSection
     slot="hero"
-    title=`Строим один раз и <span class="text-accent">на поколения</span>`
-    subTitle="Заводские дома и бани из кедра. Камерная сушка до 12%, ЧПУ, под ключ за 10 дней — без щелей и скрытых расходов."
+    title=`Дом из кедра <span class="text-accent">под ключ</span> с фиксированной ценой`
+    subTitle={'• Установка на участке от 10 дней.\n• Тёплый дом без щелей и усадки.\n• Собираем точно по проекту, а не на глаз.'}
     primaryBtn="Каталог домов"
     primaryBtnURL="/catalog"
     secondaryBtn="Подобрать дом"
@@ -97,9 +97,5 @@ import dashboard from '@/assets/images/optimized/stroyka-karkas.webp';
 
   <FAQ title="Частые<br />вопросы" faqs={faqs} />
 
-  <HeroSectionAlt
-    title="Давай строить вместе"
-    subTitle="МорошкаЛес — заводские дома из кедра, готовые за 10 дней. Честно, надёжно, на поколения."
-    url="/contact"
-  />
+  <HowWeBuild />
 </MainLayout>

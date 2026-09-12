@@ -1,0 +1,58 @@
+---
+const steps = [
+  {
+    num: '01',
+    title: 'Заявка и замер',
+    text: 'Приезжаем на участок, делаем замеры и оцениваем подъезд для техники.',
+  },
+  {
+    num: '02',
+    title: 'Проект и договор',
+    text: 'Фиксируем модель, комплектацию, цену и сроки. Без скрытых расходов.',
+  },
+  {
+    num: '03',
+    title: 'Цех',
+    text: 'Готовим домокомплект в цеху: собираем все детали к отправке.',
+  },
+  {
+    num: '04',
+    title: 'Доставка',
+    text: 'Привозим готовый домокомплект на участок.',
+  },
+  {
+    num: '05',
+    title: 'Сборка и отделка',
+    text: 'Собираем дом на участке — малые дома за 10 дней.',
+  },
+  {
+    num: '06',
+    title: 'Передача ключей',
+    text: 'Вручаем ключи владельцам дома. Заезжайте и живите.',
+  },
+];
+---
+
+<section id="how" class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
+  <div class="max-w-2xl">
+    <h2 class="text-2xl font-bold text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200">
+      Как мы <span class="text-accent">строим</span>
+    </h2>
+    <p class="mt-3 text-neutral-600 dark:text-neutral-400">
+      От замера участка до последнего самореза.
+    </p>
+  </div>
+  <ol class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+    {steps.map(step => (
+      <li class="rounded-2xl border border-neutral-200 p-5 dark:border-neutral-700">
+        <span class="text-3xl font-bold text-accent">{step.num}</span>
+        <h3 class="mt-2 font-bold text-neutral-800 md:text-lg dark:text-neutral-200">
+          {step.title}
+        </h3>
+        <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+          {step.text}
+        </p>
+      </li>
+    ))}
+  </ol>
+</section>

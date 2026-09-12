@@ -2,7 +2,6 @@
 const navBarLinks = [
   { name: 'Главная', url: '/' },
   { name: 'Каталог', url: '/catalog' },
-  { name: 'Как строим', url: '/services' },
   { name: 'Квиз', url: '/quiz' },
   { name: 'Блог', url: '/blog' },
   { name: 'Контакты', url: '/contact' },
@@ -20,8 +19,7 @@ const footerLinks = [
   {
     section: 'Компания',
     links: [
-      { name: 'О нас', url: '/services' },
-      { name: 'Как мы строим', url: '/services' },
+      { name: 'Как мы строим', url: '/#how' },
       { name: 'Контакты', url: '/contact' },
     ],
   },
