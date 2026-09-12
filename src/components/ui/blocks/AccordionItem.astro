@@ -44,8 +44,13 @@ function getAccordionClass(first: boolean = false) {
     class={`${first ? ACCORDION_CONTENT_CLASS : 'hidden ' + ACCORDION_CONTENT_CLASS}`}
   >
     {/* The content paragraph */}
-    <p class="text-pretty whitespace-pre-line text-neutral-600 dark:text-neutral-400">
-      {answer}
+    <p class="text-pretty text-neutral-600 dark:text-neutral-400">
+      {answer.split('\n').map((line, idx, arr) => (
+        <span>
+          {line}
+          {idx < arr.length - 1 && <br />}
+        </span>
+      ))}
     </p>
   </div>
 </div>
