@@ -134,7 +134,7 @@ const subTitle = 'Ответьте на несколько вопросов, и 
           const slug = houseSlugs[winner] || 'ladniy';
           const link = document.createElement('a');
           link.href = `/catalog/${slug}`;
-          link.className = "flex w-full sm:w-auto sm:inline-flex justify-center items-center gap-x-3 text-center bg-accent hover:bg-accent-hover text-white text-lg font-medium rounded-lg px-8 py-4 transition shadow-md hover:shadow-lg sm:mr-4 mb-4";
+          link.className = "flex w-full sm:w-auto sm:inline-flex justify-center items-center gap-x-3 text-center uppercase bg-accent hover:bg-accent-hover text-white text-lg font-medium rounded-lg px-8 py-4 transition shadow-md hover:shadow-lg sm:mr-4 mb-4";
           link.innerText = `Посмотреть ${winner}`;
           resHouses.appendChild(link);
         });

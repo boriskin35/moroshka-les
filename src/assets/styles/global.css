@@ -1,5 +1,42 @@
 @import 'tailwindcss';
 
+/* Локальные шрифты: PT Serif (заголовки) + Roboto (текст) */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/roboto-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/roboto-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/roboto-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/pt-serif-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/pt-serif-700.woff2') format('woff2');
+}
+
 /* Preline UI */
 @source '../../../node_modules/preline/dist/*.js';
 @import '../../../node_modules/preline/variants.css';
@@ -106,6 +143,9 @@
   --color-accent: #f25e1e;
   --color-accent-hover: #d94f14;
 
+  --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'PT Serif', Georgia, serif;
+
   --text-xs: 0.875rem;
   --text-sm: 1.0625rem;
   --text-base: 1.25rem;
@@ -124,6 +164,15 @@
 @layer base {
   body {
     font-size: 1.25rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-serif);
   }
 
   *,
