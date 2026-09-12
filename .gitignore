@@ -17,6 +17,9 @@ dev-server*.log
 # local tooling artifacts
 .playwright-mcp/
 
+# исходники фото (тяжёлые оригиналы, в прод не едут)
+src/assets/images/catalog/
+
 
 # environment variables
 .env

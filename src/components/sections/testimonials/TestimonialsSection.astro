@@ -2,11 +2,12 @@
 import TestimonialItem from './TestimonialItem.astro';
 import StatsGrid from '../../ui/blocks/StatsGrid.astro';
 
-const { title, subTitle, testimonials, statistics } = Astro.props;
+const { title, subTitle, eyebrow, testimonials, statistics } = Astro.props;
 
 interface Props {
   title: string;
   subTitle?: string;
+  eyebrow?: string;
   testimonials?: Testimonial[];
   statistics?: StatProps[];
 }
@@ -36,6 +37,11 @@ type StatProps = {
     <div class="lg:col-span-5 lg:col-start-1">
       {/* Title and Subtitle */}
       <div class="mb-8">
+        {eyebrow && (
+          <p class="mb-2 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+            {eyebrow}
+          </p>
+        )}
         <h2
           class="mb-2 text-3xl font-bold text-neutral-800 lg:text-4xl dark:text-neutral-200"
         >
@@ -67,7 +73,7 @@ type StatProps = {
       statistics && (
         <div class="mt-10 lg:col-span-6 lg:col-end-13 lg:mt-0">
           <div class="space-y-6 sm:space-y-8">
-            <ul class="grid grid-cols-2 divide-x-2 divide-y-2 divide-neutral-300 overflow-hidden dark:divide-neutral-700">
+            <ul class="grid grid-cols-2 gap-x-6 gap-y-8 overflow-hidden">
               {/* Generate a list item for each stat in the statistics array by mapping over the array. */}
               {statistics.map((stat, index) => (
                 <StatsGrid

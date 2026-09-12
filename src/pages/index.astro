@@ -3,18 +3,14 @@
 import MainLayout from '@/layouts/MainLayout.astro';
 import HeroSection from '@components/sections/landing/HeroSection.astro';
 
+import Facts from '@components/sections/landing/Facts.astro';
+import Philosophy from '@components/sections/landing/Philosophy.astro';
 import HowWeBuild from '@components/sections/landing/HowWeBuild.astro';
-
-import FeaturesNavs from '@components/sections/features/FeaturesNavs.astro';
-import TestimonialsSection from '@components/sections/testimonials/TestimonialsSection.astro';
+import HousesCarousel from '@components/sections/landing/HousesCarousel.astro';
 import FAQ from '@components/sections/misc/FAQ.astro';
 import heroImage from '@/assets/images/optimized/ladniy-exterior-dark.webp';
 import heroImageMobile from '@/assets/images/optimized/opushka-exterior-3.webp';
 import faqs from '@data/faqs.json';
-
-import construction from '@/assets/images/optimized/stroyka-karkas-sborka.webp';
-import tools from '@/assets/images/optimized/proizvodstvo-kedr-brevna.webp';
-import dashboard from '@/assets/images/optimized/stroyka-karkas.webp';
 ---
 
 
@@ -37,65 +33,15 @@ import dashboard from '@/assets/images/optimized/stroyka-karkas.webp';
 
 
 
-  <FeaturesNavs
-    title=`Технологии <span class="text-accent">МорошкаЛес</span>: качество в каждой детали`
-    tabs={[
-      {
-        heading: 'Камерная сушка до 12%',
-        content:
-          'Собственная сушка — дерево не ведёт, без щелей и усадки. Держит тепло даже при −40°C.',
-        svg: 'tools',
-        src: tools,
-        alt: 'Камерная сушка древесины',
-        first: true,
-      },
-      {
-        heading: 'ЧПУ-завод, 10 дней',
-        content:
-          'Детали режем на ЧПУ на заводе. На участке только сборка — от договора до чаепития на террасе 10 дней.',
-        svg: 'dashboard',
-        src: dashboard,
-        alt: 'Заводское производство на ЧПУ',
-        second: true,
-      },
-      {
-        heading: '200 мм утепления',
-        content:
-          'Тройные стеклопакеты, высота потолков ~3 м, утеплённая кровля. Живи зимой без доплат за отопление.',
-        svg: 'house',
-        src: construction,
-        alt: 'Каркас дома с утеплением 200 мм',
-      },
-    ]}
-  />
+  <Facts slot="top" />
 
-  <TestimonialsSection
-    title="Быстрый старт — 10 дней до заселения"
-    subTitle="От договора до ключей — без месяцев ожидания и скрытых расходов."
-    statistics={[
-      {
-        count: '7',
-        description:
-          'моделей — от 25 до 162 м²',
-      },
-      {
-        count: '10 дней',
-        description:
-          'от договора до заселения',
-      },
-      {
-        count: '200 мм',
-        description:
-          'утепления и тройные стеклопакеты',
-      },
-      {
-        count: '~3 м',
-        description: 'высота потолков',
-      },
-    ]}
-  />
+  <div slot="wide" class="mt-10 lg:mt-14">
+    <Philosophy />
+  </div>
 
-  <FAQ title="Частые<br />вопросы" faqs={faqs} />
+  <HousesCarousel />
+
+  <FAQ title="Частые<br />вопросы" faqs={faqs} eyebrow="Вопросы и ответы" />
 
   <HowWeBuild />
 </MainLayout>

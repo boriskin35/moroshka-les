@@ -1,12 +1,26 @@
 @import 'tailwindcss';
 
-/* Локальные шрифты: PT Serif (заголовки) + Roboto (текст) */
+/* Локальные шрифты: Oswald (заголовки) + Roboto (текст) */
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Oswald';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/roboto-400.woff2') format('woff2');
+  src: url('../fonts/oswald-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/oswald-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/oswald-700.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Roboto';
@@ -23,18 +37,18 @@
   src: url('../fonts/roboto-700.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'PT Serif';
+  font-family: 'Cormorant';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../fonts/pt-serif-400.woff2') format('woff2');
+  src: url('../fonts/cormorant-400.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'PT Serif';
+  font-family: 'Cormorant';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('../fonts/pt-serif-700.woff2') format('woff2');
+  src: url('../fonts/cormorant-700.woff2') format('woff2');
 }
 
 /* Preline UI */
@@ -144,7 +158,7 @@
   --color-accent-hover: #d94f14;
 
   --font-sans: 'Roboto', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: 'PT Serif', Georgia, serif;
+  --font-display: 'Oswald', 'Arial Narrow', sans-serif;
 
   --text-xs: 0.875rem;
   --text-sm: 1.0625rem;
@@ -172,7 +186,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
   }
 
   *,
@@ -187,4 +201,12 @@
   [role='button']:not(:disabled) {
     cursor: pointer;
   }
+}
+
+/* Вне слоёв (бьёт utilities по каскаду — так задумано):
+   единый размер и цвет иконок в блоке фактов (svg из дочернего компонента Icon) */
+.fact-icon svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--color-accent);
 }

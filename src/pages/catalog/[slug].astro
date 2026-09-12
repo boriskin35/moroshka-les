@@ -78,50 +78,24 @@ const areaNum = parseFloat(String(house.data.area).replace(',', '.').replace(/[^
       </div>
     </div>
 
-    <div id="calc" class="mt-12 max-w-2xl mx-auto bg-white rounded-xl shadow-sm p-6 sm:p-8 dark:bg-neutral-800 dark:border-neutral-700" data-area={areaNum}>
+    <div id="calc" class="mt-12 max-w-2xl mx-auto bg-white rounded-xl shadow-sm p-6 sm:p-8 dark:bg-neutral-800 dark:border-neutral-700" data-area={areaNum} data-house={house.data.title}>
       <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-200">Калькулятор стоимости</h2>
-      <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Предварительный расчёт для {house.data.title} ({house.data.area}). Точная стоимость — по запросу.</p>
+      <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Примерный расчёт для {house.data.title} ({house.data.area}). Точная стоимость — по заявке.</p>
       <div class="mt-6 grid gap-4">
         <label class="block">
-          <span class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Цена за м², ₽</span>
-          <input id="calc-price" type="number" value="85000" min="0" step="1000" class="mt-1 w-full rounded-lg border border-neutral-200 px-4 py-2 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200" />
-        </label>
-        <label class="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-          <input type="checkbox" data-price="350000" class="calc-opt size-4 accent-orange-600" />
-          Эксплуатируемая кровля (+350 000 ₽)
-        </label>
-        <label class="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-          <input type="checkbox" data-price="250000" class="calc-opt size-4 accent-orange-600" />
-          Усиленное утепление (+250 000 ₽)
-        </label>
-        <label class="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-          <input type="checkbox" data-price="500000" class="calc-opt size-4 accent-orange-600" />
-          Инженерия под ключ (+500 000 ₽)
+          <span class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Комплектация</span>
+          <select id="calc-cat" class="mt-1 w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200">
+            <option value="">Выберите комплектацию</option>
+            <option value="Домокомплект" data-price="30000">Домокомплект — от 30 000 ₽/м²</option>
+            <option value="Сборка на участке" data-price="55000">Сборка на участке — от 55 000 ₽/м²</option>
+            <option value="Под ключ" data-price="80000">Под ключ — от 80 000 ₽/м²</option>
+          </select>
         </label>
         <div class="mt-2 rounded-lg bg-neutral-100 p-4 dark:bg-neutral-900">
           <div class="text-sm text-neutral-500">Итого примерно:</div>
-          <div id="calc-total" class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">—</div>
+          <div id="calc-total" class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">Выберите комплектацию</div>
         </div>
-        <div class="grid grid-cols-3 gap-4">
-          <label class="block">
-            <span class="block text-xs text-neutral-500">Взнос, ₽</span>
-            <input id="calc-down" type="number" value="1000000" min="0" step="50000" class="mt-1 w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200" />
-          </label>
-          <label class="block">
-            <span class="block text-xs text-neutral-500">Ставка, %</span>
-            <input id="calc-rate" type="number" value="6" min="0" step="0.1" class="mt-1 w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200" />
-          </label>
-          <label class="block">
-            <span class="block text-xs text-neutral-500">Срок, лет</span>
-            <input id="calc-years" type="number" value="20" min="1" max="30" step="1" class="mt-1 w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200" />
-          </label>
-        </div>
-        <div class="rounded-lg bg-neutral-100 p-4 dark:bg-neutral-900">
-          <div class="text-sm text-neutral-500">Платёж по ипотеке примерно:</div>
-          <div id="calc-monthly" class="text-xl font-bold text-neutral-800 dark:text-neutral-100">—</div>
-          <p class="mt-2 text-xs text-neutral-500">Расчёт приблизительный, не оферта банка.</p>
-        </div>
-        <a href="/contact" class="inline-flex justify-center items-center rounded-lg uppercase bg-accent px-6 py-3 text-sm font-medium text-white transition hover:bg-accent-hover">Оставить заявку на расчёт</a>
+        <a id="calc-cta" href="/contact" class="inline-flex justify-center items-center rounded-lg uppercase bg-accent px-6 py-3 text-sm font-medium text-white transition hover:bg-accent-hover">Оставить заявку на расчёт</a>
       </div>
     </div>
   </div>
@@ -144,27 +118,24 @@ const areaNum = parseFloat(String(house.data.area).replace(',', '.').replace(/[^
     function updateCalc() {
       const root = document.getElementById('calc');
       const totalEl = document.getElementById('calc-total');
-      const monthlyEl = document.getElementById('calc-monthly');
-      if (!root || !totalEl || !monthlyEl) return;
+      const catEl = document.getElementById('calc-cat') as HTMLSelectElement | null;
+      const ctaEl = document.getElementById('calc-cta') as HTMLAnchorElement | null;
+      if (!root || !totalEl || !catEl) return;
       const area = parseFloat(root.getAttribute('data-area') || '0') || 0;
-      const price = parseFloat((document.getElementById('calc-price') as HTMLInputElement)?.value || '0') || 0;
-      let total = area * price;
-      document.querySelectorAll('.calc-opt').forEach(el => {
-        const cb = el as HTMLInputElement;
-        if (cb.checked) total += parseFloat(cb.getAttribute('data-price') || '0') || 0;
-      });
-      totalEl.textContent = fmt(Math.round(total));
-      const down = parseFloat((document.getElementById('calc-down') as HTMLInputElement)?.value || '0') || 0;
-      const rate = parseFloat((document.getElementById('calc-rate') as HTMLInputElement)?.value || '0') || 0;
-      const years = parseInt((document.getElementById('calc-years') as HTMLInputElement)?.value || '20') || 20;
-      const p = Math.max(total - down, 0);
-      const r = rate / 12 / 100;
-      const n = years * 12;
-      let monthly = 0;
-      if (p > 0 && n > 0) {
-        monthly = r > 0 ? p * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1) : p / n;
+      const house = root.getAttribute('data-house') || '';
+      const opt = catEl.selectedOptions[0];
+      const rate = parseFloat(opt?.getAttribute('data-price') || '0') || 0;
+      if (!rate) {
+        totalEl.textContent = 'Выберите комплектацию';
+        ctaEl?.setAttribute('href', '/contact');
+        return;
       }
-      monthlyEl.textContent = fmt(Math.round(monthly)) + ' / мес';
+      const total = Math.round(area * rate);
+      totalEl.textContent = fmt(total);
+      if (ctaEl) {
+        const params = new URLSearchParams({ house, cat: opt.value, price: String(total) });
+        ctaEl.setAttribute('href', `/contact?${params.toString()}`);
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -190,11 +161,8 @@ const areaNum = parseFloat(String(house.data.area).replace(',', '.').replace(/[^
           }
         }
       } catch(e) {}
-      ['calc-price','calc-down','calc-rate','calc-years'].forEach(id => {
-        document.getElementById(id)?.addEventListener('input', updateCalc);
-      });
-      document.querySelectorAll('.calc-opt').forEach(el => {
-        el.addEventListener('change', updateCalc);
+      ['calc-cat'].forEach(id => {
+        document.getElementById(id)?.addEventListener('change', updateCalc);
       });
       updateCalc();
     });

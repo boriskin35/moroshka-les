@@ -3,7 +3,7 @@
 import AccordionItem from '@components/ui/blocks/AccordionItem.astro';
 
 // Define props from Astro
-const { title, faqs } = Astro.props;
+const { title, faqs, eyebrow } = Astro.props;
 
 // Define TypeScript interface for props
 interface Faq {
@@ -19,6 +19,7 @@ interface FaqGroup {
 interface Props {
   title: string;
   faqs: FaqGroup;
+  eyebrow?: string;
 }
 // Define a helper function to generate ids dynamically.
 const makeId = (base: any, index: any) => `${base}${index + 1}`;
@@ -28,11 +29,17 @@ const makeId = (base: any, index: any) => `${base}${index + 1}`;
   /* Main container that holds all content. Customized for different viewport sizes. */
 }
 <section
+  id="faq"
   class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full"
 >
   <div class="grid gap-10 md:grid-cols-5">
     <div class="md:col-span-2">
       <div class="max-w-xs">
+        {eyebrow && (
+          <p class="mb-2 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+            {eyebrow}
+          </p>
+        )}
         <h2
           class="text-2xl font-bold text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200"
         >
@@ -46,7 +53,7 @@ const makeId = (base: any, index: any) => `${base}${index + 1}`;
     {/* FAQ accordion items */}
     <div class="md:col-span-3">
       <div
-        class="hs-accordion-group divide-y divide-neutral-200 dark:divide-neutral-700"
+        class="hs-accordion-group divide-y divide-neutral-400 dark:divide-neutral-700"
       >
         {
           faqs.faqs.map((question, i) => {

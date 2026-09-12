@@ -80,8 +80,16 @@ interface Props {
       class="mx-auto w-full max-w-(--breakpoint-2xl) grow px-4 sm:px-6 lg:px-8"
     >
       <main id="main-content">
-        <slot />
+        <slot name="top" />
       </main>
+    </div>
+    <slot name="wide" />
+    <div
+      class="mx-auto w-full max-w-(--breakpoint-2xl) grow px-4 sm:px-6 lg:px-8"
+    >
+      <div>
+        <slot />
+      </div>
     </div>
     {!hideFooter && <FooterSection />}
     <script>

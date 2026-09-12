@@ -31,4 +31,19 @@ const ogTitle = `Контакты | ${SITE.title}`;
   }}
 >
   <ContactSection />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const house = params.get('house');
+      const cat = params.get('cat');
+      const price = params.get('price');
+      if (!house && !cat && !price) return;
+      const area = document.getElementById('hs-about-contacts') as HTMLTextAreaElement | null;
+      if (area) {
+        const priceFmt = price ? Number(price).toLocaleString('ru-RU') + ' ₽' : '';
+        area.value = [`Дом: ${house || '—'}`, `Комплектация: ${cat || '—'}`, `Ориентир: ${priceFmt || '—'}`].join('\n');
+      }
+    });
+  </script>
 </MainLayout>

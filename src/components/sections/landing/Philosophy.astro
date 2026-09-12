@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import echo from '@/assets/images/optimized/echo-evening.webp';
+---
+
+<section class="relative isolate w-full overflow-hidden">
+  <div class="absolute inset-0 -z-20">
+    <Image
+      src={echo}
+      alt="Вечерний посёлок Эхо — дома МорошкаЛес"
+      class="h-full w-full object-cover object-center"
+      loading="lazy"
+      format="webp"
+    />
+  </div>
+  <div class="absolute inset-0 -z-10 bg-black/60"></div>
+
+  <div class="mx-auto w-full max-w-(--breakpoint-2xl) px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <p class="text-xs font-bold tracking-widest text-neutral-300 uppercase">
+      Наша философия
+    </p>
+    <h2 class="mt-3 max-w-2xl text-2xl font-bold text-white md:text-4xl md:leading-tight">
+      Мы не просто строим дома.
+      <span class="block text-accent">Мы сначала строим их для себя.</span>
+    </h2>
+    <p class="mt-4 max-w-2xl text-neutral-200">
+      Каждый проект проходит проверку на «Эхо»: мы строим, живём,
+      наблюдаем за домом зимой и летом — и только после этого предлагаем
+      его вам.
+    </p>
+  </div>
+</section>
