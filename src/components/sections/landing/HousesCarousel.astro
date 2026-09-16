@@ -2,8 +2,9 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
-const houses = (await getCollection('houses')).sort((a, b) =>
-  a.data.area.localeCompare(b.data.area, 'ru')
+const parseArea = (s: string) => parseFloat(s.replace(',', '.').replace(/[^\d.]/g, '')) || 0;
+const houses = (await getCollection('houses')).sort(
+  (a, b) => parseArea(a.data.area) - parseArea(b.data.area)
 );
 const loop = [...houses, ...houses];
 ---

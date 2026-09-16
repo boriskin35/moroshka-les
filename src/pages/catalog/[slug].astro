@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '@data/constants';
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 export async function getStaticPaths() {
   const houses = await getCollection('houses');
@@ -18,8 +19,44 @@ const pageTitle = `${house.data.title} | ${SITE.title}`;
 const metaDescription = house.data.description;
 const ogTitle = pageTitle;
 const houseSlug = house.id;
-const areaNum = parseFloat(String(house.data.area).replace(',', '.').replace(/[^\d.]/g, '')) || 0;
+const areaNum =
+  parseFloat(
+    String(house.data.area)
+      .replace(',', '.')
+      .replace(/[^\d.]/g, '')
+  ) || 0;
+
+type GalleryItem = { src: ImageMetadata; alt: string };
+const galleryModules = import.meta.glob(
+  '../../assets/images/optimized/*.{webp,avif,jpg,jpeg,png}',
+  { eager: true }
+) as Record<string, { default: ImageMetadata }>;
+const mainImageSrc = (house.data.mainImage as ImageMetadata).src;
+const gallery: GalleryItem[] = [
+  { src: house.data.mainImage, alt: house.data.mainImageAlt },
+  ...Object.entries(galleryModules)
+    .filter(
+      ([path, mod]) =>
+        path.includes(`/${houseSlug}-`) &&
+        (mod.default as ImageMetadata).src !== mainImageSrc
+    )
+    .sort(([a], [b]) => Number(a.includes('plan')) - Number(b.includes('plan')))
+    .map(([path, mod]) => {
+      const isPlan = path.includes('plan');
+      return {
+        src: mod.default as ImageMetadata,
+        alt: isPlan
+          ? `План дома ${house.data.title}`
+          : `${house.data.title} — фото`,
+      };
+    }),
+];
+const lightboxData = gallery.map(g => ({
+  src: (g.src as ImageMetadata).src,
+  alt: g.alt,
+}));
 ---
+
 <MainLayout
   title={pageTitle}
   customDescription={metaDescription}
@@ -36,81 +73,238 @@ const areaNum = parseFloat(String(house.data.area).replace(',', '.').replace(/[^
     },
   }}
 >
-  <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
-    <div class="grid lg:grid-cols-2 gap-8 lg:gap-16">
+  <div class="w-full py-10 lg:py-14">
+    <div class="grid gap-8 lg:grid-cols-2 lg:gap-16">
       <div class="w-full">
-        <Image
-          src={house.data.mainImage}
-          alt={house.data.mainImageAlt}
-          class="w-full h-auto rounded-xl object-cover"
-        />
+        <button
+          type="button"
+          data-gallery-open="0"
+          class="block w-full cursor-zoom-in overflow-hidden rounded-xl"
+          aria-label="Увеличить фото дома"
+        >
+          <Image
+            src={gallery[0].src}
+            alt={gallery[0].alt}
+            class="h-auto w-full object-cover transition duration-300 hover:scale-[1.02]"
+          />
+        </button>
+        {
+          gallery.length > 1 && (
+            <div class="mt-3 grid grid-cols-4 gap-3">
+              {gallery.slice(1).map((g, i) => (
+                <button
+                  type="button"
+                  data-gallery-open={i + 1}
+                  class="cursor-zoom-in overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700"
+                  aria-label={`Увеличить: ${g.alt}`}
+                >
+                  <Image
+                    src={g.src}
+                    alt={g.alt}
+                    width={300}
+                    loading="lazy"
+                    format="webp"
+                    class="aspect-[4/3] w-full object-cover transition duration-300 hover:scale-105"
+                  />
+                </button>
+              ))}
+            </div>
+          )
+        }
+        <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+          Нажмите на фото, чтобы увеличить
+        </p>
       </div>
       <div class="flex flex-col justify-center">
-        <h1 class="text-3xl font-bold text-neutral-800 sm:text-4xl lg:text-5xl dark:text-neutral-200">
+        <h1
+          class="text-3xl font-bold text-neutral-800 sm:text-4xl lg:text-5xl dark:text-neutral-200"
+        >
           {house.data.title}
         </h1>
         <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
           {house.data.description}
         </p>
-        <div class="mt-8 grid grid-cols-2 gap-4">
-          <div class="p-4 bg-neutral-100 rounded-lg dark:bg-neutral-800">
-            <span class="block text-sm text-neutral-500">Площадь</span>
-            <span class="block text-lg font-bold text-neutral-800 dark:text-neutral-200">{house.data.area}</span>
-          </div>
-          <div class="p-4 bg-neutral-100 rounded-lg dark:bg-neutral-800">
-            <span class="block text-sm text-neutral-500">Спальни</span>
-            <span class="block text-lg font-bold text-neutral-800 dark:text-neutral-200">{house.data.bedrooms}</span>
-          </div>
-          <div class="p-4 bg-neutral-100 rounded-lg dark:bg-neutral-800 col-span-2">
-            <span class="block text-sm text-neutral-500">Особенности</span>
-            <span class="block text-lg font-bold text-neutral-800 dark:text-neutral-200">{house.data.features}</span>
-          </div>
-        </div>
+        <ul
+          class="marker:text-accent mt-6 space-y-2 text-neutral-700 dark:text-neutral-300"
+        >
+          <li class="list-inside list-disc">Площадь — {house.data.area}</li>
+          <li class="list-inside list-disc">Тип — {house.data.type}</li>
+          <li class="list-inside list-disc">Спальни — {house.data.bedrooms}</li>
+          <li class="list-inside list-disc">
+            Особенности — {house.data.features}
+          </li>
+        </ul>
         <div class="mt-8 flex gap-4">
-          <a href="#calc" class="inline-flex justify-center items-center gap-x-3 text-center uppercase bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded-lg px-6 py-3 transition">
+          <a
+            href="#calc"
+            class="bg-accent hover:bg-accent-hover inline-flex items-center justify-center gap-x-3 rounded-lg px-6 py-3 text-center text-sm font-medium text-white uppercase transition"
+          >
             Рассчитать стоимость
           </a>
-        </div>
-        <div id="quiz-recommendations" class="hidden mt-10 p-6 bg-orange-50 border border-orange-200 rounded-xl dark:bg-neutral-800 dark:border-neutral-700" data-current-slug={houseSlug}>
-          <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-200 mb-2">По результатам квиза вам также подходят:</h3>
-          <div id="quiz-links" class="flex flex-wrap gap-3 mt-4"></div>
         </div>
       </div>
     </div>
 
-    <div id="calc" class="mt-12 max-w-2xl mx-auto bg-white rounded-xl shadow-sm p-6 sm:p-8 dark:bg-neutral-800 dark:border-neutral-700" data-area={areaNum} data-house={house.data.title}>
-      <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-200">Калькулятор стоимости</h2>
-      <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Примерный расчёт для {house.data.title} ({house.data.area}). Точная стоимость — по заявке.</p>
+    <div
+      id="calc"
+      class="mx-auto mt-12 max-w-2xl rounded-xl bg-white p-6 shadow-sm sm:p-8 dark:border-neutral-700 dark:bg-neutral-800"
+      data-area={areaNum}
+      data-house={house.data.title}
+    >
+      <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-200">
+        Калькулятор стоимости
+      </h2>
+      <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+        Примерный расчёт для {house.data.title} ({house.data.area}). Точная
+        стоимость — по заявке.
+      </p>
       <div class="mt-6 grid gap-4">
         <label class="block">
-          <span class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Комплектация</span>
-          <select id="calc-cat" class="mt-1 w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200">
+          <span
+            class="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+            >Комплектация</span
+          >
+          <select
+            id="calc-cat"
+            class="mt-1 w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200"
+          >
             <option value="">Выберите комплектацию</option>
-            <option value="Домокомплект" data-price="30000">Домокомплект — от 30 000 ₽/м²</option>
-            <option value="Сборка на участке" data-price="55000">Сборка на участке — от 55 000 ₽/м²</option>
-            <option value="Под ключ" data-price="80000">Под ключ — от 80 000 ₽/м²</option>
+            <option value="Домокомплект" data-price="30000"
+              >Домокомплект — от 30 000 ₽/м²</option
+            >
+            <option value="Сборка на участке" data-price="55000"
+              >Сборка на участке — от 55 000 ₽/м²</option
+            >
+            <option value="Под ключ" data-price="80000"
+              >Под ключ — от 80 000 ₽/м²</option
+            >
           </select>
         </label>
         <div class="mt-2 rounded-lg bg-neutral-100 p-4 dark:bg-neutral-900">
           <div class="text-sm text-neutral-500">Итого примерно:</div>
-          <div id="calc-total" class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">Выберите комплектацию</div>
+          <div
+            id="calc-total"
+            class="text-2xl font-bold text-neutral-800 dark:text-neutral-100"
+          >
+            Выберите комплектацию
+          </div>
         </div>
-        <a id="calc-cta" href="/contact" class="inline-flex justify-center items-center rounded-lg uppercase bg-accent px-6 py-3 text-sm font-medium text-white transition hover:bg-accent-hover">Оставить заявку на расчёт</a>
+        <a
+          id="calc-cta"
+          href="/contact"
+          class="bg-accent hover:bg-accent-hover inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium text-white uppercase transition"
+          >Оставить заявку на расчёт</a
+        >
       </div>
     </div>
   </div>
 
-  <script>
-    const houseNames: Record<string, string> = {
-      "yasniy-den": "Дом-Терраса «Ясный день»",
-      "rosa": "Дом Роса",
-      "opushka": "Дом Опушка",
-      "ladniy": "Ладный дом",
-      "zhivica": "Дом-Баня Живица",
-      "usadba": "Дом Усадьба",
-      "sibirskiy-prostor": "Сибирский простор"
-    };
+  <div
+    id="gallery-lightbox"
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Просмотр фото дома"
+  >
+    <button
+      id="gallery-close"
+      type="button"
+      class="hover:bg-accent absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-neutral-800 text-2xl leading-none text-white transition"
+      aria-label="Закрыть"
+    >
+      ×
+    </button>
+    <button
+      id="gallery-prev"
+      type="button"
+      class="hover:bg-accent absolute left-2 flex h-11 w-11 items-center justify-center rounded-full bg-neutral-800 text-2xl leading-none text-white transition sm:left-6"
+      aria-label="Предыдущее фото"
+    >
+      ‹
+    </button>
+    <figure class="max-h-full max-w-full">
+      <img
+        id="gallery-img"
+        src=""
+        alt=""
+        class="max-h-[85vh] w-auto max-w-full rounded-lg object-contain"
+      />
+      <figcaption
+        id="gallery-counter"
+        class="mt-3 text-center text-sm text-neutral-300"
+      >
+      </figcaption>
+    </figure>
+    <button
+      id="gallery-next"
+      type="button"
+      class="hover:bg-accent absolute right-2 flex h-11 w-11 items-center justify-center rounded-full bg-neutral-800 text-2xl leading-none text-white transition sm:right-6"
+      aria-label="Следующее фото"
+    >
+      ›
+    </button>
+  </div>
 
+  <script define:vars={{ lightboxData }}>
+    const overlay = document.getElementById('gallery-lightbox');
+    const img = document.getElementById('gallery-img');
+    const counter = document.getElementById('gallery-counter');
+    const openBtns = Array.from(
+      document.querySelectorAll('[data-gallery-open]')
+    );
+    let current = 0;
+
+    function show(i) {
+      current = (i + lightboxData.length) % lightboxData.length;
+      img.src = lightboxData[current].src;
+      img.alt = lightboxData[current].alt;
+      counter.textContent = `${current + 1} / ${lightboxData.length}`;
+    }
+
+    function open(i) {
+      show(i);
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      const lenis = window.__moroshkaLenis;
+      if (lenis) lenis.stop();
+    }
+
+    function close() {
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      document.body.style.overflow = '';
+      const lenis = window.__moroshkaLenis;
+      if (lenis) lenis.start();
+    }
+
+    openBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-gallery-open') || '0', 10);
+        open(idx);
+      });
+    });
+    document.getElementById('gallery-close')?.addEventListener('click', close);
+    document.getElementById('gallery-prev')?.addEventListener('click', e => {
+      e.stopPropagation();
+      show(current - 1);
+    });
+    document.getElementById('gallery-next')?.addEventListener('click', e => {
+      e.stopPropagation();
+      show(current + 1);
+    });
+    overlay?.addEventListener('click', e => {
+      if (e.target === overlay) close();
+    });
+    document.addEventListener('keydown', e => {
+      if (overlay.classList.contains('hidden')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(current - 1);
+      if (e.key === 'ArrowRight') show(current + 1);
+    });
+  </script>
+
+  <script>
     function fmt(n: number) {
       return n.toLocaleString('ru-RU') + ' ₽';
     }
@@ -118,8 +312,12 @@ const areaNum = parseFloat(String(house.data.area).replace(',', '.').replace(/[^
     function updateCalc() {
       const root = document.getElementById('calc');
       const totalEl = document.getElementById('calc-total');
-      const catEl = document.getElementById('calc-cat') as HTMLSelectElement | null;
-      const ctaEl = document.getElementById('calc-cta') as HTMLAnchorElement | null;
+      const catEl = document.getElementById(
+        'calc-cat'
+      ) as HTMLSelectElement | null;
+      const ctaEl = document.getElementById(
+        'calc-cta'
+      ) as HTMLAnchorElement | null;
       if (!root || !totalEl || !catEl) return;
       const area = parseFloat(root.getAttribute('data-area') || '0') || 0;
       const house = root.getAttribute('data-house') || '';
@@ -133,34 +331,16 @@ const areaNum = parseFloat(String(house.data.area).replace(',', '.').replace(/[^
       const total = Math.round(area * rate);
       totalEl.textContent = fmt(total);
       if (ctaEl) {
-        const params = new URLSearchParams({ house, cat: opt.value, price: String(total) });
+        const params = new URLSearchParams({
+          house,
+          cat: opt.value,
+          price: String(total),
+        });
         ctaEl.setAttribute('href', `/contact?${params.toString()}`);
       }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      try {
-        const stored = localStorage.getItem('moroshka_quiz_winners');
-        if (stored) {
-          const winners = JSON.parse(stored) as string[];
-          const banner = document.getElementById('quiz-recommendations');
-          const linksContainer = document.getElementById('quiz-links');
-          if (banner && linksContainer) {
-            const currentSlug = banner.getAttribute('data-current-slug');
-            const otherWinners = winners.filter(w => w !== currentSlug);
-            if (otherWinners.length > 0) {
-              banner.classList.remove('hidden');
-              otherWinners.forEach(slug => {
-                const link = document.createElement('a');
-                link.href = `/catalog/${slug}`;
-                link.className = "inline-flex items-center gap-x-2 bg-white border border-neutral-200 text-neutral-800 hover:border-accent hover:text-accent text-sm font-medium rounded-lg px-4 py-2 transition dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-200 dark:hover:border-accent";
-                link.innerText = houseNames[slug] || slug;
-                linksContainer.appendChild(link);
-              });
-            }
-          }
-        }
-      } catch(e) {}
       ['calc-cat'].forEach(id => {
         document.getElementById(id)?.addEventListener('change', updateCalc);
       });

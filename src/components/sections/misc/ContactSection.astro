@@ -8,38 +8,38 @@ import TextAreaInput from '@components/ui/forms/input/TextAreaInput.astro';
 import Icon from '@components/ui/icons/Icon.astro';
 
 const copy = {
-        title: 'Оставьте заявку',
-        subTitle:
-          'Посчитаем ваш дом за день. Заводские дома из кедра — под ключ за 10 дней.',
-        formTitle: 'Заявка на расчёт',
-        formSubTitle: 'Перезвоним в течение дня, ответим на вопросы.',
-        firstName: 'Имя',
-        lastName: 'Телефон',
-        details: 'Какой дом хотите? (модель, площадь, участок)',
-        send: 'Получить расчёт',
-        demoMessage:
-          'Спасибо! (Демо — подключите Formspree или Telegram-бота для приёма заявок.)',
-        knowledgeHeading: 'Каталог домов',
-        knowledgeContent: '7 моделей — от 25 до 162 м². Выберите свою.',
-        knowledgeLink: 'Смотреть каталог',
-        faqHeading: 'Частые вопросы',
-        faqContent:
-          'Сроки, сушка, цены — короткие ответы.',
-        faqLink: 'Читать FAQ',
-        officeHeading: 'Мы на связи',
-        officeContent: 'МорошкаЛес — строим по всей России',
-        emailHeading: 'Написать нам',
-        emailContent: 'Удобнее в мессенджере? Мы в Telegram:',
-      };
+  title: 'Оставьте заявку',
+  subTitle:
+    'Посчитаем ваш дом за день. Заводские дома из кедра — под ключ за 10 дней.',
+  formTitle: 'Заявка на расчёт',
+  formSubTitle: 'Перезвоним в течение дня, ответим на вопросы.',
+  firstName: 'Имя',
+  lastName: 'Телефон',
+  details: 'Какой дом хотите? (модель, площадь, участок)',
+  send: 'ОТПРАВИТЬ',
+  demoMessage:
+    'Спасибо! (Демо — подключите Formspree или Telegram-бота для приёма заявок.)',
+  knowledgeHeading: 'Позвоните нам',
+  knowledgeContent: 'Ответим на вопросы по моделям, срокам и ценам.',
+  knowledgeLink: '+7 982 511-15-35',
+  tgHeading: 'Мы в Telegram',
+  tgContent: 'Остались вопросы? Пишите — обсудим!',
+  tgLink: '@JuliaM85',
+  officeHeading: 'Адрес офиса',
+  officeContent:
+    '628007, г. Ханты-Мансийск, ул. Чехова, 82, корп. 1 (ТЦ «Еврострой»)',
+  emailHeading: 'Написать нам',
+  emailContent: 'Удобнее в мессенджере? Мы в MAX:',
+};
 ---
 
-<section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+<section class="w-full py-10 lg:py-14">
   <div class="mx-auto max-w-2xl lg:max-w-5xl">
     <div class="text-center">
       <h1
         class="text-2xl font-bold tracking-tight text-balance text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200"
       >
-        {copy.title}
+        Оставьте <span class="text-accent">заявку</span>
       </h1>
       <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
         {copy.subTitle}
@@ -62,7 +62,10 @@ const copy = {
                 name="hs-firstname-contacts"
               />
             </div>
-            <EmailContactInput id="hs-email-contacts" label="Электронная почта" />
+            <EmailContactInput
+              id="hs-email-contacts"
+              label="Электронная почта"
+            />
             <PhoneInput id="hs-phone-number" label="Телефон" />
             <TextAreaInput
               id="hs-about-contacts"
@@ -80,7 +83,7 @@ const copy = {
               {copy.formSubTitle}
             </p>
             <p
-              class="mt-2 hidden text-sm text-orange-500 dark:text-accent"
+              class="dark:text-accent mt-2 hidden text-sm text-orange-500"
               data-demo-status
               aria-live="polite"
             >
@@ -95,36 +98,39 @@ const copy = {
           content={copy.knowledgeContent}
           isLinkVisible={true}
           linkTitle={copy.knowledgeLink}
-          linkURL="/catalog"
+          linkURL="tel:+79825111535"
           isArrowVisible={true}
-          ><Icon name="question" />
-        </ContactIconBlock>
-
-        <ContactIconBlock
-          heading={copy.faqHeading}
-          content={copy.faqContent}
-          isLinkVisible={true}
-          linkTitle={copy.faqLink}
-          linkURL="/#faq"
-          isArrowVisible={true}
-          ><Icon name="chatBubble" />
-        </ContactIconBlock>
-
-        <ContactIconBlock
-          heading={copy.officeHeading}
-          content={copy.officeContent}
-          isAddressVisible={true}
-          addressContent="Telegram: t.me/moroshkales"
-          ><Icon name="mapPin" />
+          ><Icon name="phone" />
         </ContactIconBlock>
 
         <ContactIconBlock
           heading={copy.emailHeading}
           content={copy.emailContent}
           isLinkVisible={true}
-          linkTitle="t.me/moroshkales"
-          linkURL="https://t.me/moroshkales"
-          ><Icon name="envelopeOpen" />
+          linkTitle="Написать в MAX"
+          linkURL="https://max.ru/u/f9LHodD0cOJZk_s8VSc9OCqBMqGwDRjR6fWRU84gj1nfTuquR8o6BgN9--4"
+          target="_blank"
+          rel="noopener"
+          isArrowVisible={true}
+          ><Icon name="chatBubble" />
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading={copy.tgHeading}
+          content={copy.tgContent}
+          isLinkVisible={true}
+          linkTitle="Написать в Telegram"
+          linkURL="https://t.me/JuliaM85"
+          target="_blank"
+          rel="noopener"
+          isArrowVisible={true}
+          ><Icon name="telegram" />
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading={copy.officeHeading}
+          content={copy.officeContent}
+          ><Icon name="mapPin" />
         </ContactIconBlock>
       </div>
     </div>

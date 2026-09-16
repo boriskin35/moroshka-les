@@ -2,6 +2,29 @@
 import logo from "@images/logo1.png";
 import { Image } from "astro:assets";
 
-const { loading = "eager", class: className } = Astro.props;
+interface Props {
+  loading?: "eager" | "lazy";
+  fetchpriority?: "high" | "low" | "auto";
+  decoding?: "async" | "sync" | "auto";
+  class?: string;
+}
+
+const {
+  loading = "lazy",
+  fetchpriority,
+  decoding = "async",
+  class: className,
+} = Astro.props as Props;
 ---
-<Image src={logo} alt="МорошкаЛес" class:list={className} loading={loading} />
+<Image
+  src={logo}
+  alt="МорошкаЛес — заводские дома из кедра"
+  width={256}
+  height={59}
+  densities={[1, 2]}
+  sizes="128px"
+  loading={loading}
+  decoding={decoding}
+  fetchpriority={fetchpriority}
+  class:list={className}
+/>
