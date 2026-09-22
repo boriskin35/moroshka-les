@@ -1,0 +1,62 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import Btn404 from '@components/ui/buttons/Btn404.astro';
+import { SITE } from '@data/constants';
+
+const pageTitle = `Страница не найдена | ${SITE.title}`;
+const subTitle = 'Упс, такой страницы нет!';
+const content = 'Зато у нас есть 7 отличных домов из кедра. Давайте вернёмся в каталог.';
+const homeTitle = 'На главную';
+const backTitle = 'Назад';
+const homeHref = '/';
+---
+
+<MainLayout title={pageTitle} hideFooter>
+  <section class="min-h-[calc(100svh-5.5rem)]" aria-labelledby="subtitle">
+    <div
+      class="pointer-events-none fixed inset-0 z-10 grid place-content-center px-4"
+    >
+      <div
+        class="pointer-events-auto mx-auto max-w-(--breakpoint-sm) text-center"
+      >
+        <h1
+          class="text-dark mb-4 text-7xl font-extrabold text-accent lg:text-9xl dark:text-accent"
+        >
+          404
+        </h1>
+        <p
+          id="subtitle"
+          class="mb-4 text-4xl font-bold tracking-tight text-balance text-neutral-700 md:text-4xl dark:text-neutral-300"
+        >
+          {subTitle}
+        </p>
+        <p
+          id="content"
+          class="mb-4 text-lg text-pretty text-neutral-600 dark:text-neutral-400"
+        >
+          {content}
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={homeHref}
+            class="group inline-flex items-center justify-center gap-x-2 rounded-lg border border-transparent bg-accent px-4 py-3 text-sm font-bold text-neutral-800 ring-zinc-500 outline-hidden transition duration-300 hover:bg-accent focus-visible:ring-3 2xl:text-base dark:ring-zinc-200"
+          >
+            {homeTitle}
+          </a>
+          <Btn404 title={backTitle} id="go-back" />
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<script>
+  const goBackButton = document.getElementById('go-back');
+  goBackButton?.addEventListener('click', () => {
+    if (window.history.length > 1) {
+      history.back();
+    } else {
+      window.location.href = '/';
+    }
+  });
+</script>

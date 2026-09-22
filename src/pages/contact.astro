@@ -1,0 +1,49 @@
+---
+// Import the necessary components
+import MainLayout from '@/layouts/MainLayout.astro';
+import ContactSection from '@components/sections/misc/ContactSection.astro';
+import { SITE } from '@data/constants';
+
+const pageTitle: string = `Контакты | ${SITE.title}`;
+const metaDescription =
+  'МорошкаЛес — заводские дома из кедра под ключ за 10 дней. Оставьте заявку, посчитаем ваш дом за день.';
+const ogTitle = `Контакты | ${SITE.title}`;
+---
+
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${SITE.url}/contact`,
+    url: `${SITE.url}/contact`,
+    name: `Контакты | ${SITE.title}`,
+    description: metaDescription,
+    isPartOf: {
+      '@type': 'WebSite',
+      url: SITE.url,
+      name: SITE.title,
+      description: SITE.description,
+    },
+    inLanguage: 'ru-RU',
+  }}
+>
+  <ContactSection />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const house = params.get('house');
+      const cat = params.get('cat');
+      const price = params.get('price');
+      if (!house && !cat && !price) return;
+      const area = document.getElementById('hs-about-contacts') as HTMLTextAreaElement | null;
+      if (area) {
+        const priceFmt = price ? Number(price).toLocaleString('ru-RU') + ' ₽' : '';
+        area.value = [`Дом: ${house || '—'}`, `Комплектация: ${cat || '—'}`, `Ориентир: ${priceFmt || '—'}`].join('\n');
+      }
+    });
+  </script>
+</MainLayout>

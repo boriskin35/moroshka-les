@@ -1,0 +1,55 @@
+---
+const { label = 'Электронная почта', id } = Astro.props;
+
+interface Props {
+  label?: string;
+  id: string;
+}
+---
+
+<div>
+  <label for={id} class="sr-only">{label}</label>
+  <input
+    type="email"
+    name="hs-email-contacts"
+    id={id}
+    required
+    autocomplete="email"
+    pattern="^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$"
+    class="block w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-500 focus:border-neutral-200 focus:ring-3 focus:ring-neutral-400 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-700/30 dark:text-neutral-300 dark:placeholder:text-neutral-400 dark:focus:ring-1"
+    placeholder={label}
+    data-email-input
+  />
+</div>
+
+<script>
+  function initEmailValidation() {
+    const emailInputs = document.querySelectorAll<HTMLInputElement>('input[data-email-input]');
+    emailInputs.forEach(input => {
+      input.addEventListener('input', () => {
+        // Убираем случайные пробелы по краям
+        input.value = input.value.trim();
+
+        if (input.validity.typeMismatch || input.validity.patternMismatch) {
+          input.setCustomValidity('Введите корректный email (например, ivan@mail.ru)');
+        } else {
+          input.setCustomValidity('');
+        }
+      });
+
+      input.addEventListener('invalid', () => {
+        if (input.validity.valueMissing) {
+          input.setCustomValidity('Пожалуйста, укажите адрес электронной почты');
+        } else if (input.validity.typeMismatch || input.validity.patternMismatch) {
+          input.setCustomValidity('Введите корректный email (например, ivan@mail.ru)');
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEmailValidation);
+  } else {
+    initEmailValidation();
+  }
+</script>

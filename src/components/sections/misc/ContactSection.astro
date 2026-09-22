@@ -1,0 +1,148 @@
+---
+import AuthBtn from '@components/ui/buttons/AuthBtn.astro';
+import ContactIconBlock from '@components/ui/blocks/ContactIconBlock.astro';
+import TextInput from '@components/ui/forms/input/TextInput.astro';
+import EmailContactInput from '@components/ui/forms/input/EmailContactInput.astro';
+import PhoneInput from '@components/ui/forms/input/PhoneInput.astro';
+import TextAreaInput from '@components/ui/forms/input/TextAreaInput.astro';
+import Icon from '@components/ui/icons/Icon.astro';
+
+const copy = {
+  title: 'Оставьте заявку',
+  subTitle:
+    'Посчитаем ваш дом за день. Заводские дома из кедра — под ключ за 10 дней.',
+  formTitle: 'Заявка на расчёт',
+  formSubTitle: 'Перезвоним в течение дня, ответим на вопросы.',
+  firstName: 'Имя',
+  lastName: 'Телефон',
+  details: 'Какой дом хотите? (модель, площадь, участок)',
+  send: 'ОТПРАВИТЬ',
+  demoMessage:
+    'Спасибо! (Демо — подключите Formspree или Telegram-бота для приёма заявок.)',
+  knowledgeHeading: 'Позвоните нам',
+  knowledgeContent: 'Ответим на вопросы по моделям, срокам и ценам.',
+  knowledgeLink: '+7 982 511-15-35',
+  tgHeading: 'Мы в Telegram',
+  tgContent: 'Остались вопросы? Пишите — обсудим!',
+  tgLink: '@JuliaM85',
+  officeHeading: 'Адрес офиса',
+  officeContent:
+    '628007, г. Ханты-Мансийск, ул. Чехова, 82, корп. 1 (ТЦ «Еврострой»)',
+  emailHeading: 'Написать нам',
+  emailContent: 'Удобнее в мессенджере? Мы в MAX:',
+};
+---
+
+<section class="w-full py-10 lg:py-14">
+  <div class="mx-auto max-w-2xl lg:max-w-5xl">
+    <div class="text-center">
+      <h1
+        class="text-4xl font-bold tracking-tight text-neutral-800 md:text-4xl dark:text-neutral-200"
+      >
+        Оставьте <span class="text-accent">заявку</span>
+      </h1>
+      <p class="mt-2 text-neutral-600 dark:text-neutral-400">
+        Посчитаем ваш дом за день.<br />
+        Заводские дома из кедра — под ключ за 10 дней.
+      </p>
+    </div>
+
+    <div class="mt-12 grid items-center gap-6 lg:grid-cols-2 lg:gap-16">
+      <div class="flex flex-col rounded-xl p-4 sm:p-6 lg:p-8">
+        <h2
+          class="mb-8 text-xl font-bold text-neutral-700 dark:text-neutral-300"
+        >
+          {copy.formTitle}
+        </h2>
+        <form data-demo-form data-demo-message={copy.demoMessage}>
+          <div class="grid gap-4">
+            <div class="grid grid-cols-1 gap-4">
+              <TextInput
+                id="hs-firstname-contacts"
+                label={copy.firstName}
+                name="hs-firstname-contacts"
+              />
+            </div>
+            <EmailContactInput
+              id="hs-email-contacts"
+              label="Электронная почта"
+            />
+            <PhoneInput id="hs-phone-number" label="Телефон" />
+            <TextAreaInput
+              id="hs-about-contacts"
+              label={copy.details}
+              name="hs-about-contacts"
+            />
+          </div>
+
+          <div class="mt-4 grid">
+            <AuthBtn title={copy.send} />
+          </div>
+
+          <div class="mt-3 text-center">
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">
+              Нажимая кнопку «{copy.send}», вы соглашаетесь с <button type="button" data-hs-overlay="#hs-privacy-modal" class="cursor-pointer font-bold underline underline-offset-2 hover:text-neutral-700 dark:hover:text-neutral-200">Политикой конфиденциальности</button> и обработкой персональных данных.
+            </p>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              {copy.formSubTitle}
+            </p>
+            <p
+              class="dark:text-accent mt-2 hidden text-sm text-orange-500"
+              data-demo-status
+              aria-live="polite"
+            >
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <div class="divide-y divide-neutral-300 dark:divide-neutral-700">
+        <ContactIconBlock
+          heading={copy.knowledgeHeading}
+          content={copy.knowledgeContent}
+          isLinkVisible={true}
+          linkTitle={copy.knowledgeLink}
+          linkURL="tel:+79825111535"
+          isArrowVisible={true}
+          ><Icon name="phone" />
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading={copy.emailHeading}
+          content={copy.emailContent}
+          isLinkVisible={true}
+          linkTitle="Написать в MAX"
+          linkURL="https://max.ru/u/f9LHodD0cOJZk_s8VSc9OCqBMqGwDRjR6fWRU84gj1nfTuquR8o6BgN9--4"
+          target="_blank"
+          rel="noopener"
+          isArrowVisible={true}
+          ><Icon name="chatBubble" />
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading={copy.tgHeading}
+          content={copy.tgContent}
+          isLinkVisible={true}
+          linkTitle="Написать в Telegram"
+          linkURL="https://t.me/JuliaM85"
+          target="_blank"
+          rel="noopener"
+          isArrowVisible={true}
+          ><Icon name="telegram" />
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading={copy.officeHeading}
+          content={copy.officeContent}
+          isLinkVisible={true}
+          linkTitle="Смотреть на карте"
+          linkURL="https://yandex.ru/maps/?text=ТЦ+Еврострой+Ханты-Мансийск+Чехова+82+корп.+1"
+          target="_blank"
+          rel="noopener"
+          isArrowVisible={true}
+          ><Icon name="mapPin" />
+        </ContactIconBlock>
+      </div>
+    </div>
+  </div>
+</section>

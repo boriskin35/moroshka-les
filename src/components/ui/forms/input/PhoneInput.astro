@@ -1,0 +1,112 @@
+---
+const {
+  label = 'Телефон',
+  id,
+  required = true,
+} = Astro.props;
+
+interface Props {
+  label?: string;
+  id: string;
+  required?: boolean;
+}
+---
+
+<div>
+  <label for={id} class="sr-only">{label}</label>
+  <input
+    type="tel"
+    name="hs-phone-number"
+    id={id}
+    required={required}
+    maxlength="25"
+    autocomplete="tel"
+    class="block w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-500 focus:border-neutral-200 focus:ring-3 focus:ring-neutral-400 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-700/30 dark:text-neutral-300 dark:placeholder:text-neutral-400 dark:focus:ring-1"
+    placeholder="+7 (___) ___-__-__ или международный"
+  />
+</div>
+
+<script>
+  function initPhoneMask() {
+    const phoneInputs = document.querySelectorAll<HTMLInputElement>('input[type="tel"]');
+    phoneInputs.forEach(input => {
+      if (input.dataset.masked === 'true') return;
+      input.dataset.masked = 'true';
+
+      input.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        const raw = target.value;
+        const isExplicitInternational = raw.startsWith('+') && !raw.startsWith('+7');
+        const digits = raw.replace(/\D/g, '');
+
+        if (!digits) {
+          target.value = raw.startsWith('+') ? '+' : '';
+          target.setCustomValidity('');
+          return;
+        }
+
+        // 1. Международный номер (начинается с '+' и не +7, либо цифры начинаются не с 7, 8, 9)
+        if (isExplicitInternational || (!['7', '8', '9'].includes(digits[0]) && raw.startsWith('+'))) {
+          // Форматируем как международный: +XXXXXXXX...
+          target.value = '+' + digits.substring(0, 16);
+          if (digits.length < 8) {
+            target.setCustomValidity('Международный номер должен содержать не менее 8 цифр');
+          } else {
+            target.setCustomValidity('');
+          }
+          return;
+        }
+
+        // 2. Российский номер (+7 / 8 / 9)
+        if (['7', '8', '9'].includes(digits[0])) {
+          let cleanDigits = digits;
+          if (cleanDigits[0] === '9') cleanDigits = '7' + cleanDigits;
+          let formatted = '+7 ';
+          if (cleanDigits.length > 1) formatted += '(' + cleanDigits.substring(1, 4);
+          if (cleanDigits.length >= 5) formatted += ') ' + cleanDigits.substring(4, 7);
+          if (cleanDigits.length >= 8) formatted += '-' + cleanDigits.substring(7, 9);
+          if (cleanDigits.length >= 10) formatted += '-' + cleanDigits.substring(9, 11);
+          target.value = formatted;
+
+          if (cleanDigits.length < 11) {
+            target.setCustomValidity('Введите полный номер телефона: +7 (XXX) XXX-XX-XX');
+          } else {
+            target.setCustomValidity('');
+          }
+          return;
+        }
+
+        // 3. Другие случаи
+        target.value = '+' + digits.substring(0, 16);
+      });
+
+      input.addEventListener('blur', () => {
+        const raw = input.value;
+        const digits = raw.replace(/\D/g, '');
+        if (!digits) {
+          input.setCustomValidity(input.required ? 'Пожалуйста, укажите номер телефона' : '');
+          return;
+        }
+        if (raw.startsWith('+7')) {
+          if (digits.length < 11) {
+            input.setCustomValidity('Введите полный номер телефона: +7 (XXX) XXX-XX-XX');
+          } else {
+            input.setCustomValidity('');
+          }
+        } else {
+          if (digits.length < 8) {
+            input.setCustomValidity('Международный номер должен содержать не менее 8 цифр');
+          } else {
+            input.setCustomValidity('');
+          }
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPhoneMask);
+  } else {
+    initPhoneMask();
+  }
+</script>

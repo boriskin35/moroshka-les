@@ -1,0 +1,74 @@
+---
+const {
+  label,
+  id,
+  name,
+  required = true,
+  minlength = 2,
+  maxlength = 50,
+  pattern = '^[A-Za-zА-Яа-яЁё\\s\\-]+$',
+  errorMessage = 'Имя должно содержать от 2 до 50 букв (без цифр и спецсимволов)',
+} = Astro.props;
+
+interface Props {
+  label: string;
+  name: string;
+  id: string;
+  required?: boolean;
+  minlength?: number;
+  maxlength?: number;
+  pattern?: string;
+  errorMessage?: string;
+}
+---
+
+<div>
+  <label for={id} class="sr-only">{label}</label>
+  <input
+    type="text"
+    name={name}
+    id={id}
+    required={required}
+    minlength={minlength}
+    maxlength={maxlength}
+    pattern={pattern}
+    class="block w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-700 placeholder:text-neutral-500 focus:border-neutral-200 focus:ring-3 focus:ring-neutral-400 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-700/30 dark:text-neutral-300 dark:placeholder:text-neutral-400 dark:focus:ring-1"
+    placeholder={label}
+    data-error-msg={errorMessage}
+  />
+</div>
+
+<script>
+  function initTextValidation() {
+    const inputs = document.querySelectorAll<HTMLInputElement>('input[data-error-msg]');
+    inputs.forEach(input => {
+      const msg = input.dataset.errorMsg || 'Пожалуйста, заполните это поле корректно';
+
+      input.addEventListener('input', () => {
+        if (input.validity.patternMismatch) {
+          input.setCustomValidity(msg);
+        } else if (input.validity.tooShort) {
+          input.setCustomValidity(`Минимум ${input.minLength} символа`);
+        } else {
+          input.setCustomValidity('');
+        }
+      });
+
+      input.addEventListener('invalid', () => {
+        if (input.validity.valueMissing) {
+          input.setCustomValidity('Пожалуйста, укажите ваше имя');
+        } else if (input.validity.patternMismatch) {
+          input.setCustomValidity(msg);
+        } else if (input.validity.tooShort) {
+          input.setCustomValidity(`Минимум ${input.minLength} символа`);
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTextValidation);
+  } else {
+    initTextValidation();
+  }
+</script>

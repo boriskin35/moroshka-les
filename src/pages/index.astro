@@ -1,0 +1,40 @@
+---
+// Import the necessary components
+import MainLayout from '@/layouts/MainLayout.astro';
+import HeroSection from '@components/sections/landing/HeroSection.astro';
+
+import Facts from '@components/sections/landing/Facts.astro';
+import Philosophy from '@components/sections/landing/Philosophy.astro';
+import HowWeBuild from '@components/sections/landing/HowWeBuild.astro';
+import HousesCarousel from '@components/sections/landing/HousesCarousel.astro';
+import FAQ from '@components/sections/misc/FAQ.astro';
+import heroImage from '@/assets/images/optimized/ladniy-exterior-dark.webp';
+import heroImageMobile from '@/assets/images/optimized/rosa-exterior-3.webp';
+import faqs from '@data/faqs.json';
+---
+
+<MainLayout>
+  <HeroSection
+    slot="hero"
+    title=`Дом из кедра под ключ<br /><span class="text-accent">с фиксированной ценой</span>`
+    subTitle={'• Установка на участке от 10 дней.\n• Тёплый дом без щелей и усадки.\n• Собираем точно по проекту, а не на глаз.'}
+    primaryBtn="Каталог домов"
+    primaryBtnURL="/catalog"
+    src={heroImage}
+    alt="Дом «Ладный дом» МорошкаЛес вечером"
+    mobileSrc={heroImageMobile}
+    mobileAlt="Дом «Опушка» МорошкаЛес вечером"
+  />
+
+  <Facts slot="top" />
+
+  <div slot="wide" class="mt-10 lg:mt-14">
+    <Philosophy />
+  </div>
+
+  <HousesCarousel slot="wide" />
+
+  <FAQ title='Частые <span class="text-accent">вопросы</span>' faqs={faqs} eyebrow="Вопросы и ответы" />
+
+  <HowWeBuild />
+</MainLayout>

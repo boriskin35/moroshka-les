@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '@components/ui/icons/Icon.astro';
+
+const { title, description, image, imageAlt, href } = Astro.props;
+
+interface Props {
+  title: string;
+  description: string;
+  image: any;
+  imageAlt: string;
+  href: string;
+  loading?: "eager" | "lazy" | null | undefined;
+}
+
+const imageClass =
+  'absolute inset-0 h-full w-full object-cover object-center transition duration-[600ms] ease-[cubic-bezier(0.45,0,0.55,1)] group-hover:scale-110';
+---
+
+<a
+  href={href}
+  data-astro-prefetch
+  class="group relative flex h-48 items-end overflow-hidden rounded-lg shadow-xl ring-zinc-500 outline-hidden focus-visible:ring-3 md:col-span-2 md:h-80 dark:ring-zinc-200 dark:focus:outline-hidden"
+>
+  <Image
+    src={image}
+    alt={imageAlt}
+    draggable={'false'}
+    class={imageClass}
+    format={'avif'}
+    loading={Astro.props.loading || "lazy"}
+  />
+  <div
+    class="pointer-events-none absolute inset-0 bg-linear-to-t from-neutral-800 via-transparent to-transparent opacity-50"
+  >
+  </div>
+  <span
+    class="relative mb-3 ml-4 inline-block text-sm font-bold text-neutral-50 transition duration-[600ms] ease-[cubic-bezier(0.45,0,0.55,1)] group-hover:scale-110 md:ml-5 md:text-lg"
+    >{title} · {description} <Icon name="openInNew" /></span
+  >
+</a>

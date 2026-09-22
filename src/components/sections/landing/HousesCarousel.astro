@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const parseArea = (s: string) => parseFloat(s.match(/\d+(?:[.,]\d+)?/)?.[0]?.replace(',', '.') || '0');
+const houses = (await getCollection('houses')).sort(
+  (a, b) => parseArea(a.data.area) - parseArea(b.data.area)
+);
+const loop = [...houses, ...houses];
+---
+
+<section class="w-full overflow-hidden py-10 lg:py-14">
+  <div class="mx-auto mb-6 flex w-full max-w-(--breakpoint-2xl) items-end justify-between gap-4 px-4 sm:px-6 lg:px-8">
+    <div>
+      <p class="mb-2 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+        Каталог
+      </p>
+      <h2 class="text-4xl font-bold text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200">
+        Наши <span class="text-accent">дома</span>
+      </h2>
+    </div>
+    <a
+      href="/catalog"
+      class="shrink-0 text-sm font-bold uppercase text-neutral-600 underline-offset-4 hover:underline dark:text-neutral-300"
+    >
+      Смотреть все
+    </a>
+  </div>
+
+  <div class="carousel overflow-hidden">
+    <div class="carousel-track flex w-max">
+      {loop.map((house, i) => (
+        <a
+          href={`/catalog/${house.id}/`}
+          aria-hidden={i >= houses.length ? 'true' : undefined}
+          tabindex={i >= houses.length ? '-1' : undefined}
+          class="group mr-4 w-64 shrink-0 overflow-hidden rounded-2xl border border-neutral-200 bg-white sm:w-72 dark:border-neutral-700 dark:bg-neutral-800"
+        >
+          <div class="aspect-[4/3] overflow-hidden">
+            <Image
+              src={house.data.mainImage}
+              alt={house.data.mainImageAlt}
+              class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+              loading="lazy"
+              format="webp"
+            />
+          </div>
+          <div class="p-4">
+            <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-200">
+              {house.data.title}
+            </h3>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+              {house.data.area.split('(')[0].trim()}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .carousel-track {
+    animation: carousel-scroll 40s linear infinite;
+  }
+  .carousel:hover .carousel-track {
+    animation-play-state: paused;
+  }
+  @keyframes carousel-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+      animation: none;
+    }
+  }
+</style>

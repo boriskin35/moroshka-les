@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import faktMaterialy from '@/assets/images/optimized/fakt-materialy-new.webp';
+import faktProizvodstvo from '@/assets/images/optimized/fakt-proizvodstvo-new.webp';
+import faktIspytaniya from '@/assets/images/optimized/fakt-ispytaniya-new.webp';
+import faktChestnost from '@/assets/images/optimized/fakt-chestnost.webp';
+
+const facts = [
+  {
+    image: faktMaterialy,
+    imageAlt: 'Натуральные материалы — кедр',
+    title: 'Натуральные материалы',
+    text: 'Используем кедр, проверенный временем.',
+  },
+  {
+    image: faktProizvodstvo,
+    imageAlt: 'Собственное производство',
+    title: 'Собственное производство',
+    text: 'Контроль качества на каждом этапе.',
+  },
+  {
+    image: faktIspytaniya,
+    imageAlt: 'Реальные испытания домов в туристическом курорте Эхо',
+    title: 'Реальные испытания',
+    text: 'Наши дома живут в «Эхо» — в реальных условиях, круглый год.',
+  },
+  {
+    image: faktChestnost,
+    imageAlt: 'Честный подход — прозрачная смета',
+    title: 'Честный подход',
+    text: 'Никаких скрытых расходов. Всё прозрачно — от проекта до заселения.',
+  },
+];
+---
+
+<section class="w-full pt-10">
+  <p
+    class="text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400"
+  >
+    наша философия
+  </p>
+  <h2
+    class="mt-3 max-w-2xl text-4xl font-bold text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200"
+  >
+    Мы не просто строим дома.
+    <span class="text-accent block">Мы сначала строим их для себя.</span>
+  </h2>
+  <p class="mt-4 mb-8 max-w-2xl text-neutral-600 dark:text-neutral-400">
+    Каждый проект проходит проверку в туристическом курорте «Эхо»: мы строим, живём, наблюдаем
+    за домом зимой и летом — и только после этого предлагаем его вам.
+  </p>
+  <div
+    class="grid grid-cols-1 gap-px overflow-hidden bg-neutral-300 min-[465px]:grid-cols-2 lg:grid-cols-4 dark:bg-neutral-700"
+  >
+    {
+      facts.map(item => (
+        <div class="bg-neutral-200 dark:bg-neutral-800">
+          <Image
+            src={item.image}
+            alt={item.imageAlt}
+            widths={[400, 800]}
+            sizes="(max-width: 1024px) 50vw, 370px"
+            format="webp"
+            loading="lazy"
+            class="aspect-[16/10] h-auto w-full object-cover"
+          />
+          <div class="p-4 lg:p-6">
+            <h3 class="text-lg font-bold tracking-wide text-neutral-800 dark:text-neutral-200">
+              {item.title}
+            </h3>
+            <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+              {item.text}
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

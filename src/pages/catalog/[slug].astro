@@ -1,0 +1,524 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '@data/constants';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+export async function getStaticPaths() {
+  const parseArea = (s: string) =>
+    parseFloat(s.match(/\d+(?:[.,]\d+)?/)?.[0]?.replace(',', '.') || '0');
+  const houses = (await getCollection('houses')).sort(
+    (a, b) => parseArea(a.data.area) - parseArea(b.data.area)
+  );
+  return houses.map((house, index) => {
+    const prevHouse = index > 0 ? houses[index - 1] : houses[houses.length - 1];
+    const nextHouse = index < houses.length - 1 ? houses[index + 1] : houses[0];
+    return {
+      params: { slug: house.id },
+      props: { house, prevHouse, nextHouse },
+    };
+  });
+}
+
+const { house, prevHouse, nextHouse } = Astro.props;
+
+const pageTitle = `${house.data.title} | ${SITE.title}`;
+const metaDescription = house.data.description;
+const ogTitle = pageTitle;
+const houseSlug = house.id;
+const areaNum =
+  parseFloat(
+    String(house.data.area)
+      .match(/\d+(?:[.,]\d+)?/)?.[0]
+      ?.replace(',', '.') || '0'
+  );
+
+type GalleryItem = { src: ImageMetadata; alt: string };
+const galleryModules = import.meta.glob(
+  '../../assets/images/optimized/*.{webp,avif,jpg,jpeg,png}',
+  { eager: true }
+) as Record<string, { default: ImageMetadata }>;
+const mainImageSrc = (house.data.mainImage as ImageMetadata).src;
+const gallery: GalleryItem[] = [
+  { src: house.data.mainImage, alt: house.data.mainImageAlt },
+  ...Object.entries(galleryModules)
+    .filter(
+      ([path, mod]) =>
+        path.includes(`/${houseSlug}-`) &&
+        (mod.default as ImageMetadata).src !== mainImageSrc
+    )
+    .sort(([a], [b]) => Number(a.includes('plan')) - Number(b.includes('plan')))
+    .map(([path, mod]) => {
+      const isPlan = path.includes('plan');
+      return {
+        src: mod.default as ImageMetadata,
+        alt: isPlan
+          ? `План дома ${house.data.title}`
+          : `${house.data.title} — фото`,
+      };
+    }),
+];
+const lightboxData = gallery.map(g => ({
+  src: (g.src as ImageMetadata).src,
+  alt: g.alt,
+}));
+---
+
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': `${SITE.url}/catalog/${houseSlug}`,
+    name: house.data.title,
+    description: house.data.description,
+    brand: {
+      '@type': 'Brand',
+      name: 'МорошкаЛес',
+    },
+  }}
+>
+  <div class="w-full py-10 lg:py-14">
+    {/* Название и слоган дома на мобильных экранах (над фото) */}
+    <div class="mb-4 lg:hidden">
+      <h1
+        class="text-3xl font-bold tracking-tight text-neutral-800 sm:text-4xl dark:text-neutral-100"
+      >
+        {house.data.title}
+      </h1>
+      {house.data.slogan && (
+        <p class="mt-2 text-sm font-medium text-accent">
+          {house.data.slogan}
+        </p>
+      )}
+    </div>
+
+    <div class="grid gap-4 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+      <div class="w-full">
+        <button
+          type="button"
+          data-gallery-open="0"
+          class="block w-full cursor-zoom-in overflow-hidden rounded-xl"
+          aria-label="Увеличить фото дома"
+        >
+          <Image
+            src={gallery[0].src}
+            alt={gallery[0].alt}
+            class="h-auto w-full object-cover transition duration-300 hover:scale-[1.02]"
+          />
+        </button>
+        {
+          gallery.length > 1 && (
+            <div class="mt-3 grid grid-cols-4 gap-3">
+              {gallery.slice(1).map((g, i) => (
+                <button
+                  type="button"
+                  data-gallery-open={i + 1}
+                  class="cursor-zoom-in overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700"
+                  aria-label={`Увеличить: ${g.alt}`}
+                >
+                  <Image
+                    src={g.src}
+                    alt={g.alt}
+                    width={300}
+                    loading="lazy"
+                    format="webp"
+                    class="aspect-[4/3] w-full object-cover transition duration-300 hover:scale-105"
+                  />
+                </button>
+              ))}
+            </div>
+          )
+        }
+        <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+          Нажмите на фото, чтобы увеличить
+        </p>
+
+        {/* Навигация по каталогу (на мобильных: прямо под фото) */}
+        <div class="mt-4 grid grid-cols-2 gap-3 lg:hidden">
+          <a
+            href={`/catalog/${prevHouse.id}/`}
+            class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+          >
+            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Пред.
+          </a>
+          <a
+            href={`/catalog/${nextHouse.id}/`}
+            class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+          >
+            След.
+            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="flex flex-col justify-center">
+        <div class="hidden lg:block">
+          <h1
+            class="text-4xl font-bold text-neutral-800 sm:text-4xl lg:text-5xl dark:text-neutral-200"
+          >
+            {house.data.title}
+          </h1>
+          {house.data.slogan && (
+            <p class="mt-2 text-sm font-medium text-accent">
+              {house.data.slogan}
+            </p>
+          )}
+        </div>
+        <p class="text-lg text-neutral-600 lg:mt-4 dark:text-neutral-400">
+          {house.data.description}
+        </p>
+        <ul
+          class="marker:text-accent mt-4 space-y-2 text-neutral-700 dark:text-neutral-300"
+        >
+          <li class="list-inside list-disc">Площадь — {house.data.area}</li>
+          <li class="list-inside list-disc">Тип — {house.data.type}</li>
+          <li class="list-inside list-disc">Спальни — {house.data.bedrooms}</li>
+          <li class="list-inside list-disc">
+            Особенности — {house.data.features}
+          </li>
+        </ul>
+        {house.data.callout && (
+          <div class="mt-4 rounded-xl border-2 border-accent/50 bg-accent/5 p-4 text-sm leading-relaxed text-neutral-800 dark:border-accent/40 dark:bg-accent/10 dark:text-neutral-200">
+            {house.data.callout}
+          </div>
+        )}
+        <div class="mt-4 flex justify-center lg:justify-start gap-4">
+          <a
+            href="#calc"
+            class="bg-accent hover:bg-accent-hover inline-flex items-center justify-center gap-x-3 rounded-lg px-6 py-3 text-center text-sm font-medium text-white uppercase transition"
+          >
+            Рассчитать стоимость
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {/* Навигация по каталогу (на десктопе: под первым блоком, по центру в контейнере шириной с калькулятор) */}
+    <div class="mx-auto mt-6 hidden max-w-2xl grid-cols-2 gap-4 lg:grid">
+      <a
+        href={`/catalog/${prevHouse.id}/`}
+        class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+      >
+        <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Пред.
+      </a>
+      <a
+        href={`/catalog/${nextHouse.id}/`}
+        class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+      >
+        След.
+        <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    {/* Дополнительная информация из каталога: Описание, Параметры и Экспликация */}
+    {(house.data.details || house.data.rooms || house.data.dimensions) && (
+      <div class="mt-8 space-y-4 lg:mt-12 lg:space-y-6">
+        {/* Подробное описание модели */}
+        {house.data.details && (
+          <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
+            <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+              О модели
+            </h2>
+            <p class="mt-4 text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
+              {house.data.details}
+            </p>
+          </div>
+        )}
+
+        {/* Сетка: Параметры дома + Экспликация помещений */}
+        <div class="grid gap-4 md:grid-cols-2 lg:gap-6">
+          {/* Технические параметры */}
+          {(house.data.dimensions || house.data.ceilingHeight || house.data.insulation || house.data.windows) && (
+            <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
+              <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                Параметры дома
+              </h2>
+              <dl class="mt-4 divide-y divide-neutral-200 dark:divide-neutral-700">
+                {house.data.dimensions && (
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2.5 text-sm gap-0.5 sm:gap-2">
+                    <dt class="text-neutral-500 dark:text-neutral-400">Наружные размеры:</dt>
+                    <dd class="font-semibold text-neutral-800 dark:text-neutral-200">{house.data.dimensions}</dd>
+                  </div>
+                )}
+                {house.data.ceilingHeight && (
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2.5 text-sm gap-0.5 sm:gap-2">
+                    <dt class="text-neutral-500 dark:text-neutral-400">Высота потолков:</dt>
+                    <dd class="font-semibold text-neutral-800 dark:text-neutral-200">{house.data.ceilingHeight}</dd>
+                  </div>
+                )}
+                {house.data.insulation && (
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2.5 text-sm gap-0.5 sm:gap-2">
+                    <dt class="text-neutral-500 dark:text-neutral-400">Толщина утеплителя:</dt>
+                    <dd class="font-semibold text-neutral-800 dark:text-neutral-200">{house.data.insulation}</dd>
+                  </div>
+                )}
+                {house.data.windows && (
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2.5 text-sm gap-0.5 sm:gap-2">
+                    <dt class="text-neutral-500 dark:text-neutral-400">Стеклопакеты:</dt>
+                    <dd class="font-semibold text-neutral-800 dark:text-neutral-200">{house.data.windows}</dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+          )}
+
+          {/* Экспликация помещений */}
+          {house.data.rooms && house.data.rooms.length > 0 && (
+            <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
+              <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                Экспликация помещений
+              </h2>
+              <ul class="mt-4 divide-y divide-neutral-200 dark:divide-neutral-700">
+                {house.data.rooms.map(room => (
+                  <li class="flex items-center justify-between py-2.5 text-sm">
+                    <span class="text-neutral-600 dark:text-neutral-300">{room.name}</span>
+                    <span class="rounded-md bg-neutral-100 px-2.5 py-1 font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">
+                      {room.area}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+
+    <div
+      id="calc"
+      class="mx-auto mt-8 lg:mt-12 max-w-2xl rounded-xl bg-white px-3.5 py-4 shadow-sm sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800"
+      data-area={areaNum}
+      data-house={house.data.title}
+    >
+      <h2 class="text-center text-2xl font-bold text-neutral-800 dark:text-neutral-200">
+        Калькулятор стоимости
+      </h2>
+      <p class="mt-2 text-center text-sm text-neutral-600 dark:text-neutral-400">
+        Примерный расчёт для {house.data.title} — {house.data.area}. Точная
+        стоимость — по заявке.
+      </p>
+      <div class="mt-6 grid gap-4">
+        <label class="block">
+          <span
+            class="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+            >Комплектация</span
+          >
+          <select
+            id="calc-cat"
+            class="mt-1 w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200"
+          >
+            <option value="">Выберите комплектацию</option>
+            <option value="Домокомплект" data-price="30000"
+              >Домокомплект — от 30 000 ₽/м²</option
+            >
+            <option value="Сборка на участке" data-price="55000"
+              >Сборка на участке — от 55 000 ₽/м²</option
+            >
+            <option value="Под ключ" data-price="80000"
+              >Под ключ — от 80 000 ₽/м²</option
+            >
+          </select>
+        </label>
+        <div class="mt-2 rounded-lg bg-neutral-100 p-4 dark:bg-neutral-900">
+          <div class="text-sm text-neutral-500">Итого примерно:</div>
+          <div
+            id="calc-total"
+            class="text-2xl font-bold text-neutral-800 dark:text-neutral-100"
+          >
+            Выберите комплектацию
+          </div>
+        </div>
+        <a
+          id="calc-cta"
+          href="/contact"
+          class="bg-accent hover:bg-accent-hover inline-flex items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-medium text-white uppercase transition"
+          >Оставить заявку на расчёт</a
+        >
+      </div>
+    </div>
+
+    {/* Навигация по каталогу (внизу): прямо под блоком расчёта */}
+    <div class="mx-auto mt-4 grid max-w-2xl grid-cols-2 gap-3 sm:gap-4">
+      <a
+        href={`/catalog/${prevHouse.id}/`}
+        class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+      >
+        <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Пред.
+      </a>
+      <a
+        href={`/catalog/${nextHouse.id}/`}
+        class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+      >
+        След.
+        <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div
+    id="gallery-lightbox"
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Просмотр фото дома"
+  >
+    <button
+      id="gallery-close"
+      type="button"
+      class="hover:bg-accent absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-neutral-800 text-4xl leading-none text-white transition"
+      aria-label="Закрыть"
+    >
+      ×
+    </button>
+    <button
+      id="gallery-prev"
+      type="button"
+      class="hover:bg-accent absolute left-2 flex h-11 w-11 items-center justify-center rounded-full bg-neutral-800 text-4xl leading-none text-white transition sm:left-6"
+      aria-label="Предыдущее фото"
+    >
+      ‹
+    </button>
+    <figure class="max-h-full max-w-full">
+      <img
+        id="gallery-img"
+        src=""
+        alt=""
+        class="max-h-[85vh] w-auto max-w-full rounded-lg object-contain"
+      />
+      <figcaption
+        id="gallery-counter"
+        class="mt-3 text-center text-sm text-neutral-300"
+      >
+      </figcaption>
+    </figure>
+    <button
+      id="gallery-next"
+      type="button"
+      class="hover:bg-accent absolute right-2 flex h-11 w-11 items-center justify-center rounded-full bg-neutral-800 text-4xl leading-none text-white transition sm:right-6"
+      aria-label="Следующее фото"
+    >
+      ›
+    </button>
+  </div>
+
+  <script define:vars={{ lightboxData }}>
+    const overlay = document.getElementById('gallery-lightbox');
+    const img = document.getElementById('gallery-img');
+    const counter = document.getElementById('gallery-counter');
+    const openBtns = Array.from(
+      document.querySelectorAll('[data-gallery-open]')
+    );
+    let current = 0;
+
+    function show(i) {
+      current = (i + lightboxData.length) % lightboxData.length;
+      img.src = lightboxData[current].src;
+      img.alt = lightboxData[current].alt;
+      counter.textContent = `${current + 1} / ${lightboxData.length}`;
+    }
+
+    function open(i) {
+      show(i);
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      const lenis = window.__moroshkaLenis;
+      if (lenis) lenis.stop();
+    }
+
+    function close() {
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      document.body.style.overflow = '';
+      const lenis = window.__moroshkaLenis;
+      if (lenis) lenis.start();
+    }
+
+    openBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-gallery-open') || '0', 10);
+        open(idx);
+      });
+    });
+    document.getElementById('gallery-close')?.addEventListener('click', close);
+    document.getElementById('gallery-prev')?.addEventListener('click', e => {
+      e.stopPropagation();
+      show(current - 1);
+    });
+    document.getElementById('gallery-next')?.addEventListener('click', e => {
+      e.stopPropagation();
+      show(current + 1);
+    });
+    overlay?.addEventListener('click', e => {
+      if (e.target === overlay) close();
+    });
+    document.addEventListener('keydown', e => {
+      if (overlay.classList.contains('hidden')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(current - 1);
+      if (e.key === 'ArrowRight') show(current + 1);
+    });
+  </script>
+
+  <script>
+    function fmt(n: number) {
+      return n.toLocaleString('ru-RU') + ' ₽';
+    }
+
+    function updateCalc() {
+      const root = document.getElementById('calc');
+      const totalEl = document.getElementById('calc-total');
+      const catEl = document.getElementById(
+        'calc-cat'
+      ) as HTMLSelectElement | null;
+      const ctaEl = document.getElementById(
+        'calc-cta'
+      ) as HTMLAnchorElement | null;
+      if (!root || !totalEl || !catEl) return;
+      const area = parseFloat(root.getAttribute('data-area') || '0') || 0;
+      const house = root.getAttribute('data-house') || '';
+      const opt = catEl.selectedOptions[0];
+      const rate = parseFloat(opt?.getAttribute('data-price') || '0') || 0;
+      if (!rate) {
+        totalEl.textContent = 'Выберите комплектацию';
+        ctaEl?.setAttribute('href', '/contact');
+        return;
+      }
+      const total = Math.round(area * rate);
+      totalEl.textContent = fmt(total);
+      if (ctaEl) {
+        const params = new URLSearchParams({
+          house,
+          cat: opt.value,
+          price: String(total),
+        });
+        ctaEl.setAttribute('href', `/contact?${params.toString()}`);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      ['calc-cat'].forEach(id => {
+        document.getElementById(id)?.addEventListener('change', updateCalc);
+      });
+      updateCalc();
+    });
+  </script>
+</MainLayout>

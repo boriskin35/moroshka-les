@@ -1,0 +1,27 @@
+---
+
+---
+
+<footer class="w-full bg-neutral-900">
+  <div class="mx-auto w-full max-w-(--breakpoint-2xl) px-4 py-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center justify-center text-center">
+      <p class="text-sm text-neutral-400">
+        <span class="block">© <span id="current-year"></span> МорошкаЛес.</span>
+        <span class="block">Все права защищены</span>
+      </p>
+      <button
+        type="button"
+        data-hs-overlay="#hs-privacy-modal"
+        class="mt-2 cursor-pointer text-xs text-neutral-500 underline underline-offset-2 transition hover:text-neutral-300"
+      >
+        Политика конфиденциальности
+      </button>
+    </div>
+
+    <script>
+      const year = new Date().getFullYear();
+      const element = document.getElementById('current-year');
+      element!.innerText = year.toString();
+    </script>
+  </div>
+</footer>
