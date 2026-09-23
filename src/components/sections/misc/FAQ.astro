@@ -28,18 +28,17 @@ const makeId = (base: any, index: any) => `${base}${index + 1}`;
 {
   /* Main container that holds all content. Customized for different viewport sizes. */
 }
-<section
-  id="faq"
-  class="w-full py-10 lg:py-14"
->
+<section id="faq" class="w-full py-10 lg:py-14">
   <div class="grid gap-10 md:grid-cols-5">
     <div class="md:col-span-2">
       <div class="max-w-xs">
-        {eyebrow && (
-          <p class="mb-2 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
-            {eyebrow}
-          </p>
-        )}
+        {
+          eyebrow && (
+            <p class="mb-2 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+              {eyebrow}
+            </p>
+          )
+        }
         <h2
           class="text-4xl font-bold text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200"
         >
@@ -70,11 +69,7 @@ const makeId = (base: any, index: any) => `${base}${index + 1}`;
             );
 
             return (
-              <AccordionItem
-                {...question}
-                id={id}
-                collapseId={collapseId}
-              />
+              <AccordionItem {...question} id={id} collapseId={collapseId} />
             );
           })
         }

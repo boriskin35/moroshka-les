@@ -40,10 +40,7 @@ If URL is '/' (home page), assign ID as 'home'
     let nav = document.getElementById(navId);
 
     if (nav) {
-      nav.classList.remove(
-        'text-neutral-400',
-        'hover:text-neutral-200'
-      );
+      nav.classList.remove('text-neutral-400', 'hover:text-neutral-200');
       nav.classList.add('text-accent');
       nav.setAttribute('aria-current', 'page');
     }

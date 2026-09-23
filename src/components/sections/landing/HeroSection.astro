@@ -41,66 +41,85 @@ interface Props {
 }
 ---
 
-<section id="hero" class="dark relative isolate -mt-[104px] w-full overflow-hidden">
+<section
+  id="hero"
+  class="dark relative isolate -mt-[104px] w-full overflow-hidden"
+>
   <div id="hero-bg" class="absolute inset-0 -z-20 overflow-hidden">
-    {src && alt && (
-      <Image
-        src={src}
-        alt={alt}
-        class="absolute inset-0 hidden h-full w-full object-cover object-center md:block"
-        draggable={'false'}
-        loading="eager"
-        fetchpriority="high"
-        format={'webp'}
-      />
-    )}
-    {(mobileSrc || src) && (
-      <Image
-        src={mobileSrc || src}
-        alt={mobileAlt || alt || ''}
-        class="absolute inset-0 h-full w-full object-cover object-center md:hidden"
-        draggable={'false'}
-        loading="eager"
-        fetchpriority="high"
-        format={'webp'}
-      />
-    )}
+    {
+      src && alt && (
+        <Image
+          src={src}
+          alt={alt}
+          class="absolute inset-0 hidden h-full w-full object-cover object-center md:block"
+          draggable={'false'}
+          loading="eager"
+          fetchpriority="high"
+          format={'webp'}
+        />
+      )
+    }
+    {
+      (mobileSrc || src) && (
+        <Image
+          src={mobileSrc || src}
+          alt={mobileAlt || alt || ''}
+          class="absolute inset-0 h-full w-full object-cover object-center md:hidden"
+          draggable={'false'}
+          loading="eager"
+          fetchpriority="high"
+          format={'webp'}
+        />
+      )
+    }
   </div>
 
-  <div class="mx-auto grid w-full max-w-(--breakpoint-2xl) min-h-[calc(100vh_+_104px)] min-h-[calc(100svh_+_104px)] items-center gap-4 px-4 pt-36 pb-24 sm:px-6 md:pt-44 lg:px-8">
-    <div class="text-on-image w-full max-w-2xl text-center md:mx-0 md:text-left">
+  <div
+    class="mx-auto grid min-h-[calc(100svh_+_104px)] min-h-[calc(100vh_+_104px)] w-full max-w-(--breakpoint-2xl) items-start gap-4 px-4 pt-36 pb-24 sm:px-6 md:items-center md:pt-44 lg:px-8"
+  >
+    <div
+      class="text-on-image mt-8 w-full max-w-2xl text-center md:mx-0 md:mt-0 md:text-left"
+    >
       <h1
         class="block text-4xl font-bold tracking-tight text-balance text-neutral-50 sm:text-4xl lg:text-6xl lg:leading-tight"
       >
         <Fragment set:html={title} />
       </h1>
-      {subTitle && (
-        <p class="mx-auto mt-3 w-fit text-left text-lg leading-relaxed text-pretty text-neutral-200 md:mx-0 lg:w-4/5">
-          {subTitle.split('\n').map((line, idx, arr) => (
-            <span>
-              {line}
-              {idx < arr.length - 1 && <br />}
-            </span>
-          ))}
-        </p>
-      )}
-      <div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row md:justify-start">
+      {
+        subTitle && (
+          <p class="mx-auto mt-3 w-fit text-left text-lg leading-relaxed text-pretty text-neutral-200 md:mx-0 lg:w-4/5">
+            {subTitle.split('\n').map((line, idx, arr) => (
+              <span>
+                {line}
+                {idx < arr.length - 1 && <br />}
+              </span>
+            ))}
+          </p>
+        )
+      }
+      <div
+        class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row md:justify-start"
+      >
         {primaryBtn && <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />}
-        {secondaryBtn && (
-          <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
-        )}
+        {
+          secondaryBtn && (
+            <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
+          )
+        }
       </div>
 
-      {withReview ? (
-        <ReviewComponent
-          avatars={avatars}
-          starCount={starCount}
-          rating={rating}
-          reviews={reviews}
-        />
-      ) : (
-        ''
-      )}
+      {
+        withReview ? (
+          <ReviewComponent
+            avatars={avatars}
+            starCount={starCount}
+            rating={rating}
+            reviews={reviews}
+          />
+        ) : (
+          ''
+        )
+      }
     </div>
   </div>
 </section>

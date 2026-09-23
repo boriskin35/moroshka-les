@@ -45,12 +45,14 @@ function getAccordionClass(first: boolean = false) {
   >
     {/* The content paragraph */}
     <p class="text-pretty text-neutral-600 dark:text-neutral-400">
-      {answer.split('\n').map((line, idx, arr) => (
-        <span>
-          {line}
-          {idx < arr.length - 1 && <br />}
-        </span>
-      ))}
+      {
+        answer.split('\n').map((line, idx, arr) => (
+          <span>
+            {line}
+            {idx < arr.length - 1 && <br />}
+          </span>
+        ))
+      }
     </p>
   </div>
 </div>

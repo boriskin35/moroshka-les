@@ -27,12 +27,11 @@ const pageTitle = `${house.data.title} | ${SITE.title}`;
 const metaDescription = house.data.description;
 const ogTitle = pageTitle;
 const houseSlug = house.id;
-const areaNum =
-  parseFloat(
-    String(house.data.area)
-      .match(/\d+(?:[.,]\d+)?/)?.[0]
-      ?.replace(',', '.') || '0'
-  );
+const areaNum = parseFloat(
+  String(house.data.area)
+    .match(/\d+(?:[.,]\d+)?/)?.[0]
+    ?.replace(',', '.') || '0'
+);
 
 type GalleryItem = { src: ImageMetadata; alt: string };
 const galleryModules = import.meta.glob(
@@ -89,11 +88,13 @@ const lightboxData = gallery.map(g => ({
       >
         {house.data.title}
       </h1>
-      {house.data.slogan && (
-        <p class="mt-2 text-sm font-medium text-accent">
-          {house.data.slogan}
-        </p>
-      )}
+      {
+        house.data.slogan && (
+          <p class="text-accent mt-2 text-sm font-medium">
+            {house.data.slogan}
+          </p>
+        )
+      }
     </div>
 
     <div class="grid gap-4 lg:grid-cols-2 lg:gap-12 xl:gap-16">
@@ -143,8 +144,17 @@ const lightboxData = gallery.map(g => ({
             href={`/catalog/${prevHouse.id}/`}
             class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
           >
-            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            <svg
+              class="h-4 w-4 shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 19l-7-7 7-7"></path>
             </svg>
             Пред.
           </a>
@@ -153,8 +163,17 @@ const lightboxData = gallery.map(g => ({
             class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
           >
             След.
-            <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            <svg
+              class="h-4 w-4 shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 5l7 7-7 7"></path>
             </svg>
           </a>
         </div>
@@ -166,11 +185,13 @@ const lightboxData = gallery.map(g => ({
           >
             {house.data.title}
           </h1>
-          {house.data.slogan && (
-            <p class="mt-2 text-sm font-medium text-accent">
-              {house.data.slogan}
-            </p>
-          )}
+          {
+            house.data.slogan && (
+              <p class="text-accent mt-2 text-sm font-medium">
+                {house.data.slogan}
+              </p>
+            )
+          }
         </div>
         <p class="text-lg text-neutral-600 lg:mt-4 dark:text-neutral-400">
           {house.data.description}
@@ -185,12 +206,14 @@ const lightboxData = gallery.map(g => ({
             Особенности — {house.data.features}
           </li>
         </ul>
-        {house.data.callout && (
-          <div class="mt-4 rounded-xl border-2 border-accent/50 bg-accent/5 p-4 text-sm leading-relaxed text-neutral-800 dark:border-accent/40 dark:bg-accent/10 dark:text-neutral-200">
-            {house.data.callout}
-          </div>
-        )}
-        <div class="mt-4 flex justify-center lg:justify-start gap-4">
+        {
+          house.data.callout && (
+            <div class="border-accent/50 bg-accent/5 dark:border-accent/40 dark:bg-accent/10 mt-4 rounded-xl border-2 p-4 text-sm leading-relaxed text-neutral-800 dark:text-neutral-200">
+              {house.data.callout}
+            </div>
+          )
+        }
+        <div class="mt-4 flex justify-center gap-4 lg:justify-start">
           <a
             href="#calc"
             class="bg-accent hover:bg-accent-hover inline-flex items-center justify-center gap-x-3 rounded-lg px-6 py-3 text-center text-sm font-medium text-white uppercase transition"
@@ -201,14 +224,25 @@ const lightboxData = gallery.map(g => ({
       </div>
     </div>
 
-    {/* Навигация по каталогу (на десктопе: под первым блоком, по центру в контейнере шириной с калькулятор) */}
+    {
+      /* Навигация по каталогу (на десктопе: под первым блоком, по центру в контейнере шириной с калькулятор) */
+    }
     <div class="mx-auto mt-6 hidden max-w-2xl grid-cols-2 gap-4 lg:grid">
       <a
         href={`/catalog/${prevHouse.id}/`}
         class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
       >
-        <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        <svg
+          class="h-4 w-4 shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 19l-7-7 7-7"></path>
         </svg>
         Пред.
       </a>
@@ -217,96 +251,132 @@ const lightboxData = gallery.map(g => ({
         class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
       >
         След.
-        <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        <svg
+          class="h-4 w-4 shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
+          ></path>
         </svg>
       </a>
     </div>
 
-    {/* Дополнительная информация из каталога: Описание, Параметры и Экспликация */}
-    {(house.data.details || house.data.rooms || house.data.dimensions) && (
-      <div class="mt-8 space-y-4 lg:mt-12 lg:space-y-6">
-        {/* Подробное описание модели */}
-        {house.data.details && (
-          <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
-            <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
-              О модели
-            </h2>
-            <p class="mt-4 text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
-              {house.data.details}
-            </p>
+    {
+      /* Дополнительная информация из каталога: Описание, Параметры и Экспликация */
+    }
+    {
+      (house.data.details || house.data.rooms || house.data.dimensions) && (
+        <div class="mt-8 space-y-4 lg:mt-12 lg:space-y-6">
+          {/* Подробное описание модели */}
+          {house.data.details && (
+            <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
+              <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                О модели
+              </h2>
+              <p class="mt-4 text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
+                {house.data.details}
+              </p>
+            </div>
+          )}
+
+          {/* Сетка: Параметры дома + Экспликация помещений */}
+          <div class="grid gap-4 md:grid-cols-2 lg:gap-6">
+            {/* Технические параметры */}
+            {(house.data.dimensions ||
+              house.data.ceilingHeight ||
+              house.data.insulation ||
+              house.data.windows) && (
+              <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
+                <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                  Параметры дома
+                </h2>
+                <dl class="mt-4 divide-y divide-neutral-200 dark:divide-neutral-700">
+                  {house.data.dimensions && (
+                    <div class="flex flex-col gap-0.5 py-2.5 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+                      <dt class="text-neutral-500 dark:text-neutral-400">
+                        Наружные размеры:
+                      </dt>
+                      <dd class="font-semibold text-neutral-800 dark:text-neutral-200">
+                        {house.data.dimensions}
+                      </dd>
+                    </div>
+                  )}
+                  {house.data.ceilingHeight && (
+                    <div class="flex flex-col gap-0.5 py-2.5 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+                      <dt class="text-neutral-500 dark:text-neutral-400">
+                        Высота потолков:
+                      </dt>
+                      <dd class="font-semibold text-neutral-800 dark:text-neutral-200">
+                        {house.data.ceilingHeight}
+                      </dd>
+                    </div>
+                  )}
+                  {house.data.insulation && (
+                    <div class="flex flex-col gap-0.5 py-2.5 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+                      <dt class="text-neutral-500 dark:text-neutral-400">
+                        Толщина утеплителя:
+                      </dt>
+                      <dd class="font-semibold text-neutral-800 dark:text-neutral-200">
+                        {house.data.insulation}
+                      </dd>
+                    </div>
+                  )}
+                  {house.data.windows && (
+                    <div class="flex flex-col gap-0.5 py-2.5 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+                      <dt class="text-neutral-500 dark:text-neutral-400">
+                        Стеклопакеты:
+                      </dt>
+                      <dd class="font-semibold text-neutral-800 dark:text-neutral-200">
+                        {house.data.windows}
+                      </dd>
+                    </div>
+                  )}
+                </dl>
+              </div>
+            )}
+
+            {/* Экспликация помещений */}
+            {house.data.rooms && house.data.rooms.length > 0 && (
+              <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
+                <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                  Экспликация помещений
+                </h2>
+                <ul class="mt-4 divide-y divide-neutral-200 dark:divide-neutral-700">
+                  {house.data.rooms.map(room => (
+                    <li class="flex items-center justify-between py-2.5 text-sm">
+                      <span class="text-neutral-600 dark:text-neutral-300">
+                        {room.name}
+                      </span>
+                      <span class="rounded-md bg-neutral-100 px-2.5 py-1 font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">
+                        {room.area}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
-        )}
-
-        {/* Сетка: Параметры дома + Экспликация помещений */}
-        <div class="grid gap-4 md:grid-cols-2 lg:gap-6">
-          {/* Технические параметры */}
-          {(house.data.dimensions || house.data.ceilingHeight || house.data.insulation || house.data.windows) && (
-            <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
-              <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
-                Параметры дома
-              </h2>
-              <dl class="mt-4 divide-y divide-neutral-200 dark:divide-neutral-700">
-                {house.data.dimensions && (
-                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2.5 text-sm gap-0.5 sm:gap-2">
-                    <dt class="text-neutral-500 dark:text-neutral-400">Наружные размеры:</dt>
-                    <dd class="font-semibold text-neutral-800 dark:text-neutral-200">{house.data.dimensions}</dd>
-                  </div>
-                )}
-                {house.data.ceilingHeight && (
-                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2.5 text-sm gap-0.5 sm:gap-2">
-                    <dt class="text-neutral-500 dark:text-neutral-400">Высота потолков:</dt>
-                    <dd class="font-semibold text-neutral-800 dark:text-neutral-200">{house.data.ceilingHeight}</dd>
-                  </div>
-                )}
-                {house.data.insulation && (
-                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2.5 text-sm gap-0.5 sm:gap-2">
-                    <dt class="text-neutral-500 dark:text-neutral-400">Толщина утеплителя:</dt>
-                    <dd class="font-semibold text-neutral-800 dark:text-neutral-200">{house.data.insulation}</dd>
-                  </div>
-                )}
-                {house.data.windows && (
-                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2.5 text-sm gap-0.5 sm:gap-2">
-                    <dt class="text-neutral-500 dark:text-neutral-400">Стеклопакеты:</dt>
-                    <dd class="font-semibold text-neutral-800 dark:text-neutral-200">{house.data.windows}</dd>
-                  </div>
-                )}
-              </dl>
-            </div>
-          )}
-
-          {/* Экспликация помещений */}
-          {house.data.rooms && house.data.rooms.length > 0 && (
-            <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
-              <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
-                Экспликация помещений
-              </h2>
-              <ul class="mt-4 divide-y divide-neutral-200 dark:divide-neutral-700">
-                {house.data.rooms.map(room => (
-                  <li class="flex items-center justify-between py-2.5 text-sm">
-                    <span class="text-neutral-600 dark:text-neutral-300">{room.name}</span>
-                    <span class="rounded-md bg-neutral-100 px-2.5 py-1 font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">
-                      {room.area}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
-      </div>
-    )}
+      )
+    }
 
     <div
       id="calc"
-      class="mx-auto mt-8 lg:mt-12 max-w-2xl rounded-xl bg-white px-3.5 py-4 shadow-sm sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800"
+      class="mx-auto mt-8 max-w-2xl rounded-xl bg-white px-3.5 py-4 shadow-sm sm:p-6 lg:mt-12 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800"
       data-area={areaNum}
       data-house={house.data.title}
     >
-      <h2 class="text-center text-2xl font-bold text-neutral-800 dark:text-neutral-200">
+      <h2
+        class="text-center text-2xl font-bold text-neutral-800 dark:text-neutral-200"
+      >
         Калькулятор стоимости
       </h2>
-      <p class="mt-2 text-center text-sm text-neutral-600 dark:text-neutral-400">
+      <p
+        class="mt-2 text-center text-sm text-neutral-600 dark:text-neutral-400"
+      >
         Примерный расчёт для {house.data.title} — {house.data.area}. Точная
         стоимость — по заявке.
       </p>
@@ -356,8 +426,17 @@ const lightboxData = gallery.map(g => ({
         href={`/catalog/${prevHouse.id}/`}
         class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
       >
-        <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        <svg
+          class="h-4 w-4 shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 19l-7-7 7-7"></path>
         </svg>
         Пред.
       </a>
@@ -366,8 +445,15 @@ const lightboxData = gallery.map(g => ({
         class="inline-flex items-center justify-center gap-x-2 rounded-lg border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-800 shadow-xs transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
       >
         След.
-        <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        <svg
+          class="h-4 w-4 shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
+          ></path>
         </svg>
       </a>
     </div>

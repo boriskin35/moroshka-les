@@ -9,21 +9,20 @@ import HowWeBuild from '@components/sections/landing/HowWeBuild.astro';
 import HousesCarousel from '@components/sections/landing/HousesCarousel.astro';
 import FAQ from '@components/sections/misc/FAQ.astro';
 import heroImage from '@/assets/images/optimized/ladniy-exterior-dark.webp';
-import heroImageMobile from '@/assets/images/optimized/rosa-exterior-3.webp';
 import faqs from '@data/faqs.json';
 ---
 
 <MainLayout>
   <HeroSection
     slot="hero"
-    title=`Дом из кедра под ключ<br /><span class="text-accent">с фиксированной ценой</span>`
+    title=`Дом из хвойных пород древесины под ключ<br /><span class="text-accent">с фиксированной ценой</span>`
     subTitle={'• Установка на участке от 10 дней.\n• Тёплый дом без щелей и усадки.\n• Собираем точно по проекту, а не на глаз.'}
     primaryBtn="Каталог домов"
     primaryBtnURL="/catalog"
+    secondaryBtn="Читать блог"
+    secondaryBtnURL="/blog"
     src={heroImage}
     alt="Дом «Ладный дом» МорошкаЛес вечером"
-    mobileSrc={heroImageMobile}
-    mobileAlt="Дом «Опушка» МорошкаЛес вечером"
   />
 
   <Facts slot="top" />
@@ -34,7 +33,11 @@ import faqs from '@data/faqs.json';
 
   <HousesCarousel slot="wide" />
 
-  <FAQ title='Частые <span class="text-accent">вопросы</span>' faqs={faqs} eyebrow="Вопросы и ответы" />
+  <FAQ
+    title='Частые <span class="text-accent">вопросы</span>'
+    faqs={faqs}
+    eyebrow="Вопросы и ответы"
+  />
 
   <HowWeBuild />
 </MainLayout>

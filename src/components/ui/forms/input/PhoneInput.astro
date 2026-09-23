@@ -1,9 +1,5 @@
 ---
-const {
-  label = 'Телефон',
-  id,
-  required = true,
-} = Astro.props;
+const { label = 'Телефон', id, required = true } = Astro.props;
 
 interface Props {
   label?: string;
@@ -28,15 +24,17 @@ interface Props {
 
 <script>
   function initPhoneMask() {
-    const phoneInputs = document.querySelectorAll<HTMLInputElement>('input[type="tel"]');
+    const phoneInputs =
+      document.querySelectorAll<HTMLInputElement>('input[type="tel"]');
     phoneInputs.forEach(input => {
       if (input.dataset.masked === 'true') return;
       input.dataset.masked = 'true';
 
-      input.addEventListener('input', (e) => {
+      input.addEventListener('input', e => {
         const target = e.target as HTMLInputElement;
         const raw = target.value;
-        const isExplicitInternational = raw.startsWith('+') && !raw.startsWith('+7');
+        const isExplicitInternational =
+          raw.startsWith('+') && !raw.startsWith('+7');
         const digits = raw.replace(/\D/g, '');
 
         if (!digits) {
@@ -46,11 +44,16 @@ interface Props {
         }
 
         // 1. Международный номер (начинается с '+' и не +7, либо цифры начинаются не с 7, 8, 9)
-        if (isExplicitInternational || (!['7', '8', '9'].includes(digits[0]) && raw.startsWith('+'))) {
+        if (
+          isExplicitInternational ||
+          (!['7', '8', '9'].includes(digits[0]) && raw.startsWith('+'))
+        ) {
           // Форматируем как международный: +XXXXXXXX...
           target.value = '+' + digits.substring(0, 16);
           if (digits.length < 8) {
-            target.setCustomValidity('Международный номер должен содержать не менее 8 цифр');
+            target.setCustomValidity(
+              'Международный номер должен содержать не менее 8 цифр'
+            );
           } else {
             target.setCustomValidity('');
           }
@@ -62,14 +65,20 @@ interface Props {
           let cleanDigits = digits;
           if (cleanDigits[0] === '9') cleanDigits = '7' + cleanDigits;
           let formatted = '+7 ';
-          if (cleanDigits.length > 1) formatted += '(' + cleanDigits.substring(1, 4);
-          if (cleanDigits.length >= 5) formatted += ') ' + cleanDigits.substring(4, 7);
-          if (cleanDigits.length >= 8) formatted += '-' + cleanDigits.substring(7, 9);
-          if (cleanDigits.length >= 10) formatted += '-' + cleanDigits.substring(9, 11);
+          if (cleanDigits.length > 1)
+            formatted += '(' + cleanDigits.substring(1, 4);
+          if (cleanDigits.length >= 5)
+            formatted += ') ' + cleanDigits.substring(4, 7);
+          if (cleanDigits.length >= 8)
+            formatted += '-' + cleanDigits.substring(7, 9);
+          if (cleanDigits.length >= 10)
+            formatted += '-' + cleanDigits.substring(9, 11);
           target.value = formatted;
 
           if (cleanDigits.length < 11) {
-            target.setCustomValidity('Введите полный номер телефона: +7 (XXX) XXX-XX-XX');
+            target.setCustomValidity(
+              'Введите полный номер телефона: +7 (XXX) XXX-XX-XX'
+            );
           } else {
             target.setCustomValidity('');
           }
@@ -84,18 +93,24 @@ interface Props {
         const raw = input.value;
         const digits = raw.replace(/\D/g, '');
         if (!digits) {
-          input.setCustomValidity(input.required ? 'Пожалуйста, укажите номер телефона' : '');
+          input.setCustomValidity(
+            input.required ? 'Пожалуйста, укажите номер телефона' : ''
+          );
           return;
         }
         if (raw.startsWith('+7')) {
           if (digits.length < 11) {
-            input.setCustomValidity('Введите полный номер телефона: +7 (XXX) XXX-XX-XX');
+            input.setCustomValidity(
+              'Введите полный номер телефона: +7 (XXX) XXX-XX-XX'
+            );
           } else {
             input.setCustomValidity('');
           }
         } else {
           if (digits.length < 8) {
-            input.setCustomValidity('Международный номер должен содержать не менее 8 цифр');
+            input.setCustomValidity(
+              'Международный номер должен содержать не менее 8 цифр'
+            );
           } else {
             input.setCustomValidity('');
           }

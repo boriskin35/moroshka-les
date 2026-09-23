@@ -15,6 +15,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 ---
+
 <MainLayout
   title={`${post.data.title} | ${SITE.title}`}
   customDescription={post.data.description}
@@ -29,13 +30,29 @@ const { Content } = await render(post);
   }}
 >
   <div class="mx-auto w-full max-w-3xl py-10 lg:py-14">
-    <a href="/blog" class="text-sm text-neutral-500 hover:text-accent">← Все статьи</a>
-    <h1 class="mt-4 text-4xl font-bold text-neutral-800 sm:text-4xl dark:text-neutral-200">{post.data.title}</h1>
-    <div class="mt-2 text-sm text-neutral-500">{post.data.pubDate.toLocaleDateString('ru-RU')}</div>
-    {post.data.mainImage && (
-      <Image src={post.data.mainImage} alt={post.data.mainImageAlt ?? post.data.title} class="mt-6 w-full h-auto rounded-xl object-cover" />
-    )}
-    <div class="prose dark:prose-invert mt-6 max-w-none text-neutral-700 [font-size:1.25rem] dark:text-neutral-300">
+    <a href="/blog" class="hover:text-accent text-sm text-neutral-500"
+      >← Все статьи</a
+    >
+    <h1
+      class="mt-4 text-4xl font-bold text-neutral-800 sm:text-4xl dark:text-neutral-200"
+    >
+      {post.data.title}
+    </h1>
+    <div class="mt-2 text-sm text-neutral-500">
+      {post.data.pubDate.toLocaleDateString('ru-RU')}
+    </div>
+    {
+      post.data.mainImage && (
+        <Image
+          src={post.data.mainImage}
+          alt={post.data.mainImageAlt ?? post.data.title}
+          class="mt-6 h-auto w-full rounded-xl object-cover"
+        />
+      )
+    }
+    <div
+      class="prose dark:prose-invert mt-6 max-w-none [font-size:1.25rem] text-neutral-700 dark:text-neutral-300"
+    >
       <Content />
     </div>
   </div>

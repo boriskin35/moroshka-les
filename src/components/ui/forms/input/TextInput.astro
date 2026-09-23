@@ -40,9 +40,12 @@ interface Props {
 
 <script>
   function initTextValidation() {
-    const inputs = document.querySelectorAll<HTMLInputElement>('input[data-error-msg]');
+    const inputs = document.querySelectorAll<HTMLInputElement>(
+      'input[data-error-msg]'
+    );
     inputs.forEach(input => {
-      const msg = input.dataset.errorMsg || 'Пожалуйста, заполните это поле корректно';
+      const msg =
+        input.dataset.errorMsg || 'Пожалуйста, заполните это поле корректно';
 
       input.addEventListener('input', () => {
         if (input.validity.patternMismatch) {

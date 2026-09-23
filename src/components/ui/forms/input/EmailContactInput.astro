@@ -24,14 +24,18 @@ interface Props {
 
 <script>
   function initEmailValidation() {
-    const emailInputs = document.querySelectorAll<HTMLInputElement>('input[data-email-input]');
+    const emailInputs = document.querySelectorAll<HTMLInputElement>(
+      'input[data-email-input]'
+    );
     emailInputs.forEach(input => {
       input.addEventListener('input', () => {
         // Убираем случайные пробелы по краям
         input.value = input.value.trim();
 
         if (input.validity.typeMismatch || input.validity.patternMismatch) {
-          input.setCustomValidity('Введите корректный email (например, ivan@mail.ru)');
+          input.setCustomValidity(
+            'Введите корректный email (например, ivan@mail.ru)'
+          );
         } else {
           input.setCustomValidity('');
         }
@@ -39,9 +43,16 @@ interface Props {
 
       input.addEventListener('invalid', () => {
         if (input.validity.valueMissing) {
-          input.setCustomValidity('Пожалуйста, укажите адрес электронной почты');
-        } else if (input.validity.typeMismatch || input.validity.patternMismatch) {
-          input.setCustomValidity('Введите корректный email (например, ivan@mail.ru)');
+          input.setCustomValidity(
+            'Пожалуйста, укажите адрес электронной почты'
+          );
+        } else if (
+          input.validity.typeMismatch ||
+          input.validity.patternMismatch
+        ) {
+          input.setCustomValidity(
+            'Введите корректный email (например, ivan@mail.ru)'
+          );
         }
       });
     });

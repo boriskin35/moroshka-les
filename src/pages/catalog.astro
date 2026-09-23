@@ -5,16 +5,21 @@ import CardWide from '@components/ui/cards/CardWide.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '@data/constants';
 
-const parseArea = (s: string) => parseFloat(s.match(/\d+(?:[.,]\d+)?/)?.[0]?.replace(',', '.') || '0');
-const houses = (await getCollection('houses')).sort((a, b) => parseArea(a.data.area) - parseArea(b.data.area));
+const parseArea = (s: string) =>
+  parseFloat(s.match(/\d+(?:[.,]\d+)?/)?.[0]?.replace(',', '.') || '0');
+const houses = (await getCollection('houses')).sort(
+  (a, b) => parseArea(a.data.area) - parseArea(b.data.area)
+);
 
 const title = 'Каталог домов МорошкаЛес';
-const subTitle = 'Выберите свой идеальный дом из кедра. От компактных студий до масштабных усадеб — всё с заводским качеством и сборкой на вашем земельном участке.';
+const subTitle =
+  'Выберите свой идеальный дом из кедра. От компактных студий до масштабных усадеб — всё с заводским качеством и сборкой на вашем земельном участке.';
 
 const pageTitle = `${title} | ${SITE.title}`;
 const metaDescription = subTitle;
 const ogTitle = title;
 ---
+
 <MainLayout
   title={pageTitle}
   customDescription={metaDescription}
@@ -36,33 +41,41 @@ const ogTitle = title;
   }}
 >
   <div class="w-full py-10 lg:py-14">
-    <h1 class="text-4xl font-bold tracking-tight text-neutral-800 md:text-4xl dark:text-neutral-200">
+    <h1
+      class="text-4xl font-bold tracking-tight text-neutral-800 md:text-4xl dark:text-neutral-200"
+    >
       Каталог домов <span class="text-accent">МорошкаЛес</span>
     </h1>
-    {subTitle && (
-      <p class="mt-2 max-w-[50rem] text-neutral-600 dark:text-neutral-400">
-        {subTitle}
-      </p>
-    )}
+    {
+      subTitle && (
+        <p class="mt-2 max-w-[50rem] text-neutral-600 dark:text-neutral-400">
+          {subTitle}
+        </p>
+      )
+    }
 
-    <section class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-      {houses.map((house, index) => {
-        const position = index % 4;
-        const cardProps = {
-          title: house.data.title,
-          description: house.data.area.split('(')[0].trim(),
-          image: house.data.mainImage,
-          imageAlt: house.data.mainImageAlt,
-          href: `/catalog/${house.id}/`,
-          loading: (index < 3 ? "eager" : "lazy") as "eager" | "lazy",
-        };
+    <section
+      class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8"
+    >
+      {
+        houses.map((house, index) => {
+          const position = index % 4;
+          const cardProps = {
+            title: house.data.title,
+            description: house.data.area.split('(')[0].trim(),
+            image: house.data.mainImage,
+            imageAlt: house.data.mainImageAlt,
+            href: `/catalog/${house.id}/`,
+            loading: (index < 3 ? 'eager' : 'lazy') as 'eager' | 'lazy',
+          };
 
-        if (position === 0 || position === 3) {
-          return <CardSmall {...cardProps} />;
-        } else {
-          return <CardWide {...cardProps} />;
-        }
-      })}
+          if (position === 0 || position === 3) {
+            return <CardSmall {...cardProps} />;
+          } else {
+            return <CardWide {...cardProps} />;
+          }
+        })
+      }
     </section>
   </div>
 </MainLayout>

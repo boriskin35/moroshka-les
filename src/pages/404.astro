@@ -5,7 +5,8 @@ import { SITE } from '@data/constants';
 
 const pageTitle = `Страница не найдена | ${SITE.title}`;
 const subTitle = 'Упс, такой страницы нет!';
-const content = 'Зато у нас есть 7 отличных домов из кедра. Давайте вернёмся в каталог.';
+const content =
+  'Зато у нас есть 7 отличных домов из кедра. Давайте вернёмся в каталог.';
 const homeTitle = 'На главную';
 const backTitle = 'Назад';
 const homeHref = '/';
@@ -20,7 +21,7 @@ const homeHref = '/';
         class="pointer-events-auto mx-auto max-w-(--breakpoint-sm) text-center"
       >
         <h1
-          class="text-dark mb-4 text-7xl font-extrabold text-accent lg:text-9xl dark:text-accent"
+          class="text-dark text-accent dark:text-accent mb-4 text-7xl font-extrabold lg:text-9xl"
         >
           404
         </h1>
@@ -39,7 +40,7 @@ const homeHref = '/';
         <div class="flex flex-wrap items-center justify-center gap-3">
           <a
             href={homeHref}
-            class="group inline-flex items-center justify-center gap-x-2 rounded-lg border border-transparent bg-accent px-4 py-3 text-sm font-bold text-neutral-800 ring-zinc-500 outline-hidden transition duration-300 hover:bg-accent focus-visible:ring-3 2xl:text-base dark:ring-zinc-200"
+            class="group bg-accent hover:bg-accent inline-flex items-center justify-center gap-x-2 rounded-lg border border-transparent px-4 py-3 text-sm font-bold text-neutral-800 ring-zinc-500 outline-hidden transition duration-300 focus-visible:ring-3 2xl:text-base dark:ring-zinc-200"
           >
             {homeTitle}
           </a>

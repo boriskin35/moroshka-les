@@ -41,8 +41,6 @@ const socialImageRes = await getImage({
 });
 const socialImage = Astro.url.origin + socialImageRes.src; // Get the full URL of the image (https://stackoverflow.com/a/9858694)
 
-
-
 const faviconPng = await getImage({
   src: faviconSrc,
   width: 32,

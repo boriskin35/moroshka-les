@@ -59,11 +59,11 @@ interface Props {
     </script>
   </head>
   <body
-    class="flex min-h-screen flex-col bg-neutral-200 selection:bg-accent selection:text-neutral-700 dark:bg-neutral-800"
+    class="selection:bg-accent flex min-h-screen flex-col bg-neutral-200 selection:text-neutral-700 dark:bg-neutral-800"
   >
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-neutral-800"
+      class="focus:bg-accent sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:px-4 focus:py-2 focus:text-neutral-800"
     >
       Перейти к содержимому
     </a>
@@ -73,7 +73,9 @@ interface Props {
     The Navbar is placed at the top, with a slot for the main content and FooterSection at the bottom.
     */
     }
-    <div class="sticky inset-x-0 top-4 z-50 mx-auto w-full max-w-(--breakpoint-2xl)">
+    <div
+      class="sticky inset-x-0 top-4 z-50 mx-auto w-full max-w-(--breakpoint-2xl)"
+    >
       <Navbar />
     </div>
     <slot name="hero" />

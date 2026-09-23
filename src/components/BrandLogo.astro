@@ -1,21 +1,22 @@
 ---
-import logo from "@images/logo1.png";
-import { Image } from "astro:assets";
+import logo from '@images/logo1.png';
+import { Image } from 'astro:assets';
 
 interface Props {
-  loading?: "eager" | "lazy";
-  fetchpriority?: "high" | "low" | "auto";
-  decoding?: "async" | "sync" | "auto";
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
   class?: string;
 }
 
 const {
-  loading = "lazy",
+  loading = 'lazy',
   fetchpriority,
-  decoding = "async",
+  decoding = 'async',
   class: className,
 } = Astro.props as Props;
 ---
+
 <Image
   src={logo}
   alt="МорошкаЛес — заводские дома из кедра"

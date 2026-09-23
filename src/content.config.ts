@@ -24,7 +24,9 @@ const housesCollection = defineCollection({
       ceilingHeight: z.string().optional(),
       insulation: z.string().optional(),
       windows: z.string().optional(),
-      rooms: z.array(z.object({ name: z.string(), area: z.string() })).optional(),
+      rooms: z
+        .array(z.object({ name: z.string(), area: z.string() }))
+        .optional(),
       details: z.string().optional(),
       callout: z.string().optional(),
     }),
