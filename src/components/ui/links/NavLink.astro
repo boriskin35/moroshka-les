@@ -21,7 +21,7 @@ If URL is '/' (home page), assign ID as 'home'
   id={url === '/' ? 'home' : url.replace('/', '')}
   href={url}
   data-astro-prefetch
-  class="rounded-lg text-base font-medium text-neutral-400 ring-zinc-200 outline-hidden hover:text-neutral-200 focus-visible:ring-3 md:py-3 md:text-sm 2xl:text-base dark:focus:outline-hidden"
+  class="rounded-lg text-base font-medium text-neutral-600 ring-zinc-400 outline-hidden hover:text-neutral-950 focus-visible:ring-3 md:py-3 md:text-sm 2xl:text-base"
 >
   {name}
 </a>
@@ -40,8 +40,8 @@ If URL is '/' (home page), assign ID as 'home'
     let nav = document.getElementById(navId);
 
     if (nav) {
-      nav.classList.remove('text-neutral-400', 'hover:text-neutral-200');
-      nav.classList.add('text-accent');
+      nav.classList.remove('text-neutral-600', 'hover:text-neutral-950');
+      nav.classList.add('text-accent', 'font-semibold');
       nav.setAttribute('aria-current', 'page');
     }
   });

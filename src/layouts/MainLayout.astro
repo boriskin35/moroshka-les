@@ -42,15 +42,9 @@ interface Props {
     {/* Define the title of the page */}
     <title>{title}</title>
     <script is:inline>
-      // Script to handle dark mode. It will check if the theme is stored in localStorage or if dark theme is preferred by system settings
-      if (
-        localStorage.getItem('hs_theme') === 'dark' ||
-        (!('hs_theme' in localStorage) &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove('dark');
+      if (typeof localStorage !== 'undefined') {
+        localStorage.removeItem('hs_theme');
       }
     </script>
     <script>
@@ -59,7 +53,7 @@ interface Props {
     </script>
   </head>
   <body
-    class="selection:bg-accent flex min-h-screen flex-col bg-neutral-200 selection:text-neutral-700 dark:bg-neutral-800"
+    class="selection:bg-accent flex min-h-screen flex-col bg-neutral-200 selection:text-neutral-700"
   >
     <a
       href="#main-content"
