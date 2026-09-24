@@ -117,10 +117,11 @@ const homeUrl = '/';
         <!-- Кнопка с номером телефона -->
         <a
           href="tel:+79825111535"
-          class="inline-flex items-center gap-x-2 rounded-full border border-neutral-300 bg-neutral-50 px-3.5 py-1.5 text-sm font-semibold text-neutral-800 shadow-2xs transition duration-200 hover:border-neutral-400 hover:bg-neutral-100 hover:text-neutral-950 focus-visible:ring-2 focus-visible:ring-accent outline-hidden"
-          title="Позвонить нам"
+          class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-sm font-semibold text-neutral-800 shadow-2xs transition duration-200 hover:border-neutral-400 hover:bg-neutral-100 hover:text-neutral-950 focus-visible:ring-2 focus-visible:ring-accent outline-hidden lg:h-auto lg:w-auto lg:gap-x-2 lg:px-3.5 lg:py-1.5"
+          title="Позвонить: +7 982 511-15-35"
+          aria-label="Позвонить нам"
         >
-          <span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#133e22] text-white">
+          <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#133e22] text-white">
             <svg
               class="h-3.5 w-3.5"
               fill="none"
@@ -135,7 +136,7 @@ const homeUrl = '/';
               />
             </svg>
           </span>
-          <span>+7 982 511-15-35</span>
+          <span class="hidden lg:inline">+7 982 511-15-35</span>
         </a>
       </div>
     </div>
