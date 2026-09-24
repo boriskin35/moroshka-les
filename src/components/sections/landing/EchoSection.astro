@@ -1,13 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
 
 // Подключаем релевантные картинки по смыслу
-import imgHouse from '@/assets/images/echo/echo_house_stilts_sunny_1789816553230.jpg';
-import imgWinter from '@/assets/images/echo/People_preparing_snowmobiles_in_…_2K_20260920121500.jpeg';
-import imgInterior from '@/assets/images/echo/echo_sunburst_bed_1789726576804.jpg';
-import imgFirepit from '@/assets/images/echo/echo_firepit_rotunda_sunny_1789818127397.jpg';
-import imgOutro from '@/assets/images/echo/echo_paths_petfriendly_strict_1789818933397.jpg';
+import imgHouse from '@/assets/images/echo/echo-opushka-houses.jpg';
+import imgWinter from '@/assets/images/echo/echo-winter-snowmobiles.jpg';
+import imgBathhouse from '@/assets/images/echo/echo-zhivitsa-bathhouse.jpg';
+import imgFirepit from '@/assets/images/echo/echo-firepit-gazebo.jpg';
+import imgOutro from '@/assets/images/echo/echo-resort-aerial.webp';
 
 const gridItems = [
   {
@@ -23,7 +22,7 @@ const gridItems = [
   {
     title: 'Дом-баня «Живица»',
     desc: 'Баня и дом в одном. Настоящее место силы.',
-    img: imgInterior,
+    img: imgBathhouse,
   },
   {
     title: 'Общие пространства',
@@ -40,14 +39,14 @@ const gridItems = [
   >
     <div class="max-w-3xl">
       <span
-        class="mb-4 block text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400"
+        class="mb-2 block text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400"
       >
-        Загородный комплекс «ЭХО»
+        Туристический курорт «ЭХО»
       </span>
       <h2
-        class="mb-6 text-3xl leading-tight font-bold text-neutral-800 md:text-5xl dark:text-neutral-200"
+        class="mb-6 text-4xl font-bold text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200"
       >
-        Место, где наши дома<br class="hidden md:block" /> становятся реальностью
+        Место, где наши дома<br class="hidden md:block" /> становятся <span class="text-accent">реальностью</span>
       </h2>
       <p class="text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
         Мы построили Эхо не ради красивой картинки. Мы хотели пожить в своих
@@ -85,12 +84,12 @@ const gridItems = [
 
     {/* Финальный широкий блок */}
     <div
-      class="relative mt-8 aspect-[4/3] w-full overflow-hidden md:mt-12 md:aspect-[21/9]"
+      class="relative aspect-[3/4] w-full overflow-hidden sm:aspect-[16/9] md:aspect-[21/9]"
     >
       <Image
         src={imgOutro}
         alt="Больше, чем дома"
-        class="h-full w-full object-cover"
+        class="h-full w-full object-cover object-center"
         format="webp"
       />
       <div
@@ -99,16 +98,19 @@ const gridItems = [
       </div>
 
       <div
-        class="absolute bottom-0 left-0 w-full p-6 text-white md:p-12 lg:max-w-4xl"
+        class="absolute bottom-0 left-0 w-full p-5 text-white sm:p-8 md:p-12 lg:max-w-4xl"
       >
-        <h3 class="mb-4 text-3xl font-bold md:text-4xl lg:text-5xl">
+        <h3
+          class="mb-2 text-2xl font-bold sm:mb-4 sm:text-3xl md:text-4xl lg:text-5xl"
+        >
           Больше, чем дома.
         </h3>
-        <p class="mb-8 text-base leading-relaxed text-neutral-200 md:text-lg">
+        <p
+          class="text-sm leading-relaxed text-neutral-200 sm:text-base md:text-lg"
+        >
           Эхо — это активный отдых, прогулки по лесу, свежий воздух и ощущение
           свободы в любое время года.
         </p>
-        <PrimaryCTA title="Приехать в «Эхо»" url="/contact" />
       </div>
     </div>
   </div>

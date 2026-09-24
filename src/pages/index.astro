@@ -7,6 +7,7 @@ import HowWeBuild from '@components/sections/landing/HowWeBuild.astro';
 import HousesCarousel from '@components/sections/landing/HousesCarousel.astro';
 import FAQ from '@components/sections/misc/FAQ.astro';
 import heroImage from '@/assets/images/optimized/ladniy-exterior-dark.webp';
+import heroMobileImage from '@/assets/images/optimized/ladniy-hero-mobile.webp';
 import faqs from '@data/faqs.json';
 ---
 
@@ -21,6 +22,8 @@ import faqs from '@data/faqs.json';
     secondaryBtnURL="/blog"
     src={heroImage}
     alt="Дом «Ладный дом» МорошкаЛес вечером"
+    mobileSrc={heroMobileImage}
+    mobileAlt="Дом «Ладный дом» МорошкаЛес"
   />
 
   <EchoSection slot="wide" />
