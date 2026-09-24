@@ -45,7 +45,7 @@ interface Props {
   id="hero"
   class="dark relative isolate -mt-[104px] w-full overflow-hidden"
 >
-  <div id="hero-bg" class="absolute inset-0 -z-20 overflow-hidden">
+  <div id="hero-bg" class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
     {
       src && alt && (
         <Image
@@ -75,7 +75,7 @@ interface Props {
   </div>
 
   <div
-    class="mx-auto grid min-h-[calc(100svh_+_104px)] min-h-[calc(100vh_+_104px)] w-full max-w-(--breakpoint-2xl) items-end gap-4 px-4 pt-36 pb-24 sm:px-6 md:items-center md:pt-44 lg:px-8"
+    class="relative z-10 mx-auto grid min-h-[calc(100svh_+_104px)] min-h-[calc(100vh_+_104px)] w-full max-w-(--breakpoint-2xl) items-end gap-4 px-4 pt-36 pb-24 sm:px-6 md:items-center md:pt-44 lg:px-8"
   >
     <div
       class="text-on-image w-full max-w-2xl text-center md:mx-0 md:text-left"
@@ -85,25 +85,48 @@ interface Props {
       >
         <Fragment set:html={title} />
       </h1>
-      {
-        subTitle && (
-          <p class="mx-auto mt-3 w-fit text-left text-lg leading-relaxed text-pretty text-neutral-200 md:mx-0 lg:w-4/5">
-            {subTitle.split('\n').map((line, idx, arr) => (
-              <span>
-                {line}
-                {idx < arr.length - 1 && <br />}
-              </span>
-            ))}
-          </p>
-        )
-      }
+
+      {/* Мобильная белая плашка для текста и основной кнопки / на десктопе прозрачный блок */}
       <div
-        class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row md:justify-start"
+        class="mt-6 w-full max-w-md mx-auto rounded-2xl bg-white/30 p-5 shadow-lg backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border border-white/50 md:mt-0 md:max-w-none md:mx-0 md:rounded-none md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none md:[-webkit-backdrop-filter:none] md:border-none"
       >
-        {primaryBtn && <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />}
+        {
+          subTitle && (
+            <p class="mx-auto w-fit text-left text-sm font-semibold leading-relaxed text-neutral-950 [text-shadow:none] md:mx-0 md:mt-3 md:text-lg md:font-normal md:text-neutral-200 md:[text-shadow:inherit] lg:w-4/5">
+              {subTitle.split('\n').map((line, idx, arr) => (
+                <span>
+                  {line}
+                  {idx < arr.length - 1 && <br />}
+                </span>
+              ))}
+            </p>
+          )
+        }
+        {
+          primaryBtn && (
+            <div class="mt-4 flex justify-center md:hidden *:w-full *:text-center">
+              <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />
+            </div>
+          )
+        }
+      </div>
+
+      {/* Кнопки: на мобильном только контурная кнопка ниже плашки, на десктопе обе кнопки в ряд */}
+      <div
+        class="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row md:mt-7 md:justify-start"
+      >
+        {
+          primaryBtn && (
+            <div class="hidden md:inline-flex">
+              <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />
+            </div>
+          )
+        }
         {
           secondaryBtn && (
-            <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
+            <div class="w-full max-w-md mx-auto px-5 flex justify-center *:w-full md:w-auto md:max-w-none md:mx-0 md:px-0 md:*:w-auto">
+              <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
+            </div>
           )
         }
       </div>

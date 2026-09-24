@@ -4,7 +4,7 @@ import { extname, isAbsolute, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const DIST = resolve(fileURLToPath(new URL('../dist/', import.meta.url)));
-const ROUTES = ['/', '/catalog/', '/blog/', '/contact/', '/404'];
+const ROUTES = ['/', '/catalog/', '/blog/', '/b2b/', '/contact/', '/404'];
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
