@@ -216,7 +216,7 @@ const lightboxData = gallery.map(g => ({
         <div class="mt-4 flex justify-center gap-4 lg:justify-start">
           <a
             href="#calc"
-            class="bg-accent hover:bg-accent-hover inline-flex items-center justify-center gap-x-3 rounded-lg px-6 py-3 text-center text-sm font-medium text-white uppercase transition"
+            class="bg-accent hover:bg-accent-hover inline-flex w-[256px] lg:w-auto items-center justify-center gap-x-3 rounded-lg px-6 py-3 text-center text-sm font-medium text-white uppercase transition"
           >
             Рассчитать стоимость
           </a>
@@ -411,12 +411,14 @@ const lightboxData = gallery.map(g => ({
             Выберите комплектацию
           </div>
         </div>
-        <a
-          id="calc-cta"
-          href="/contact"
-          class="bg-accent hover:bg-accent-hover inline-flex items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-medium text-white uppercase transition"
-          >Оставить заявку на расчёт</a
-        >
+        <div class="flex justify-center lg:block">
+          <a
+            id="calc-cta"
+            href="/contact"
+            class="bg-accent hover:bg-accent-hover inline-flex w-[256px] lg:w-full items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-medium text-white uppercase transition"
+            >Оставить заявку на расчёт</a
+          >
+        </div>
       </div>
     </div>
 
