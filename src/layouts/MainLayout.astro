@@ -41,6 +41,12 @@ interface Props {
     />
     {/* Define the title of the page */}
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <script is:inline>
       document.documentElement.classList.remove('dark');
       if (typeof localStorage !== 'undefined') {

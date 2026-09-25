@@ -11,28 +11,34 @@ const homeUrl = '/';
   class="sticky inset-x-0 top-4 z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start"
 >
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-neutral-200/80 bg-white/90 px-3.5 py-2 shadow-xs backdrop-blur-md sm:px-4 sm:py-2.5 md:flex md:min-h-[58px] md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
+    class="relative mx-2 flex h-[50px] min-h-[50px] w-full items-center justify-between rounded-[36px] border border-neutral-200/80 bg-white/90 px-2 py-0 shadow-xs backdrop-blur-md min-[340px]:h-[58px] min-[340px]:min-h-[58px] min-[340px]:px-3 min-[360px]:px-3.5 sm:px-4 md:px-6 lg:px-8 xl:mx-auto"
     aria-label="Global"
   >
-    <div class="flex items-center justify-between">
+    <div class="flex w-full flex-nowrap items-center justify-between md:w-auto">
       <a
-        class="flex-none rounded-lg text-xl font-bold ring-zinc-500 outline-hidden focus-visible:ring-3"
+        class="flex-none shrink-0 rounded-lg text-xl font-bold ring-zinc-500 outline-hidden focus-visible:ring-3"
         href={homeUrl}
         aria-label="МорошкаЛес"
       >
-        <BrandLogo class="h-7 w-auto sm:h-8 md:h-9" loading="eager" fetchpriority="high" />
+        <BrandLogo
+          class="h-8 w-auto md:h-9"
+          loading="eager"
+          fetchpriority="high"
+        />
       </a>
 
       <!-- Мобильные действия: кнопки контактов с заливкой и прозрачный бургер -->
-      <div class="flex items-center gap-1 sm:gap-1.5 md:hidden">
+      <div
+        class="flex shrink-0 items-center gap-1 min-[340px]:gap-1.5 md:hidden"
+      >
         <a
           href="tel:+79825111535"
-          class="flex h-7 w-7 items-center justify-center rounded-full bg-[#133e22] text-white shadow-xs transition duration-200 hover:bg-[#1c552f] hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-accent outline-hidden sm:h-8 sm:w-8"
+          class="focus-visible:ring-accent flex h-8 w-8 items-center justify-center rounded-full bg-[#133e22] text-white shadow-xs outline-hidden transition duration-200 hover:scale-105 hover:bg-[#1c552f] focus-visible:ring-2 active:scale-95 min-[340px]:h-9 min-[340px]:w-9"
           aria-label="Позвонить нам"
           title="Позвонить: +7 982 511-15-35"
         >
           <svg
-            class="h-3 w-3 sm:h-3.5 sm:w-3.5"
+            class="h-3.5 w-3.5 min-[340px]:h-4 min-[340px]:w-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="2"
@@ -42,7 +48,7 @@ const homeUrl = '/';
               stroke-linecap="round"
               stroke-linejoin="round"
               d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"
-            />
+            ></path>
           </svg>
         </a>
 
@@ -50,14 +56,17 @@ const homeUrl = '/';
           href="https://t.me/JuliaM85"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex h-7 w-7 items-center justify-center rounded-full bg-[#24A1DE] text-white shadow-xs transition duration-200 hover:bg-[#1e8ec5] hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-accent outline-hidden sm:h-8 sm:w-8"
+          class="focus-visible:ring-accent flex h-8 w-8 items-center justify-center rounded-full bg-[#24A1DE] text-white shadow-xs outline-hidden transition duration-200 hover:scale-105 hover:bg-[#1e8ec5] focus-visible:ring-2 active:scale-95 min-[340px]:h-9 min-[340px]:w-9"
           aria-label="Написать в Telegram"
           title="Написать в Telegram"
         >
-          <svg class="h-3 w-3 fill-current -translate-x-[0.5px] translate-y-[0.5px] sm:h-3.5 sm:w-3.5" viewBox="0 0 24 24">
+          <svg
+            class="h-3.5 w-3.5 -translate-x-[0.5px] translate-y-[0.5px] fill-current min-[340px]:h-4 min-[340px]:w-4"
+            viewBox="0 0 24 24"
+          >
             <path
               d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.313 4.67c.458 0 .66-.21.916-.457l2.199-2.138 4.574 3.38c.843.465 1.45.225 1.66-.782l3-14.13c.307-1.23-.468-1.786-1.272-1.42z"
-            />
+            ></path>
           </svg>
         </a>
 
@@ -65,19 +74,19 @@ const homeUrl = '/';
           href="https://max.ru/u/f9LHodD0cOJZk_s8VSc9OCqBMqGwDRjR6fWRU84gj1nfTuquR8o6BgN9--4"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex h-7 w-7 items-center justify-center rounded-full bg-[#7A27FF] text-white shadow-xs transition duration-200 hover:bg-[#681ae6] hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-accent outline-hidden sm:h-8 sm:w-8"
+          class="focus-visible:ring-accent flex h-8 w-8 items-center justify-center rounded-full bg-[#7A27FF] text-white shadow-xs outline-hidden transition duration-200 hover:scale-105 hover:bg-[#681ae6] focus-visible:ring-2 active:scale-95 min-[340px]:h-9 min-[340px]:w-9"
           aria-label="Написать в MAX"
           title="Написать в MAX"
         >
           <svg
-            class="h-3.5 w-3.5 fill-current sm:h-4 sm:w-4"
+            class="h-4 w-4 fill-current min-[340px]:h-4.5 min-[340px]:w-4.5"
             viewBox="0 0 1000 1000"
           >
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M508.211 878.328c-75.007 0-109.864-10.95-170.453-54.75-38.325 49.275-159.686 87.783-164.979 21.9 0-49.456-10.95-91.248-23.36-136.873-14.782-56.21-31.572-118.807-31.572-209.508 0-216.626 177.754-379.597 388.357-379.597 210.785 0 375.947 171.001 375.947 381.604.707 207.346-166.595 376.118-373.94 377.224m3.103-571.585c-102.564-5.292-182.499 65.7-200.201 177.024-14.6 92.162 11.315 204.398 33.397 210.238 10.585 2.555 37.23-18.98 53.837-35.587a189.8 189.8 0 0 0 92.71 33.032c106.273 5.112 197.08-75.794 204.215-181.95 4.154-106.382-77.67-196.486-183.958-202.574Z"
-            />
+            ></path>
           </svg>
         </a>
 
@@ -85,7 +94,7 @@ const homeUrl = '/';
         <button
           type="button"
           id="navbar-menu-toggle"
-          class="flex h-7 w-7 flex-col items-center justify-center gap-[3px] rounded-full border border-neutral-300 bg-transparent text-neutral-700 transition duration-200 hover:border-neutral-400 hover:bg-neutral-100 hover:text-neutral-900 disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-accent outline-hidden sm:h-8 sm:w-8"
+          class="focus-visible:ring-accent flex h-8 w-8 flex-col items-center justify-center gap-[3px] rounded-full border border-neutral-300 bg-transparent text-neutral-700 outline-hidden transition duration-200 hover:border-neutral-400 hover:bg-neutral-100 hover:text-neutral-900 focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 min-[340px]:h-9 min-[340px]:w-9"
           aria-label="Открыть меню"
           aria-haspopup="dialog"
           aria-expanded="false"
@@ -117,13 +126,15 @@ const homeUrl = '/';
         <!-- Кнопка с номером телефона -->
         <a
           href="tel:+79825111535"
-          class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-sm font-semibold text-neutral-800 shadow-2xs transition duration-200 hover:border-neutral-400 hover:bg-neutral-100 hover:text-neutral-950 focus-visible:ring-2 focus-visible:ring-accent outline-hidden lg:h-auto lg:w-auto lg:gap-x-2 lg:px-3.5 lg:py-1.5"
+          class="focus-visible:ring-accent inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#133e22] text-white shadow-xs outline-hidden transition duration-200 hover:scale-105 hover:bg-[#1c552f] focus-visible:ring-2 active:scale-95 lg:h-auto lg:w-auto lg:gap-x-2 lg:rounded-full lg:border lg:border-neutral-300 lg:bg-neutral-50 lg:px-3.5 lg:py-1.5 lg:text-sm lg:font-semibold lg:text-neutral-800 lg:shadow-2xs lg:hover:scale-100 lg:hover:border-neutral-400 lg:hover:bg-neutral-100 lg:hover:text-neutral-950 lg:active:scale-100"
           title="Позвонить: +7 982 511-15-35"
           aria-label="Позвонить нам"
         >
-          <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#133e22] text-white">
+          <span
+            class="flex items-center justify-center rounded-full lg:h-6 lg:w-6 lg:bg-[#133e22] lg:text-white"
+          >
             <svg
-              class="h-3.5 w-3.5"
+              class="h-4 w-4 lg:h-3.5 lg:w-3.5"
               fill="none"
               viewBox="0 0 24 24"
               stroke-width="2"
@@ -133,7 +144,7 @@ const homeUrl = '/';
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"
-              />
+              ></path>
             </svg>
           </span>
           <span class="hidden lg:inline">+7 982 511-15-35</span>
@@ -158,7 +169,7 @@ const homeUrl = '/';
   <div
     id="navbar-modal-panel"
     data-lenis-prevent
-    class="absolute inset-x-2 top-[80px] max-h-[calc(100dvh-96px)] origin-top scale-y-50 overflow-y-auto rounded-[28px] border border-neutral-200 bg-white/95 p-4 opacity-0 shadow-xl backdrop-blur-md transition-all duration-300 ease-out"
+    class="absolute inset-x-2 top-[72px] max-h-[calc(100dvh-88px)] origin-top scale-y-50 overflow-y-auto rounded-[28px] border border-neutral-200 bg-white/95 p-4 opacity-0 shadow-xl backdrop-blur-md transition-all duration-300 ease-out min-[340px]:top-[80px] min-[340px]:max-h-[calc(100dvh-96px)]"
   >
     <nav class="flex flex-col divide-y divide-neutral-200/70">
       {
@@ -167,12 +178,12 @@ const homeUrl = '/';
             href={link.url}
             data-astro-prefetch
             data-navbar-modal-link
-            class="group flex items-center justify-between rounded-xl px-3 py-3.5 text-lg font-medium text-neutral-800 outline-hidden transition duration-200 hover:bg-neutral-100/70 hover:text-accent focus-visible:ring-2 focus-visible:ring-accent"
+            class="group hover:text-accent focus-visible:ring-accent flex items-center justify-between rounded-xl px-3 py-3.5 text-lg font-medium text-neutral-800 outline-hidden transition duration-200 hover:bg-neutral-100/70 focus-visible:ring-2"
           >
             <span class="text-left">{link.name}</span>
             {link.url === '/' && (
               <svg
-                class="size-5 shrink-0 text-neutral-400 transition duration-200 group-hover:text-accent"
+                class="group-hover:text-accent size-5 shrink-0 text-neutral-400 transition duration-200"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="1.8"
@@ -187,7 +198,7 @@ const homeUrl = '/';
             )}
             {link.url === '/catalog' && (
               <svg
-                class="size-5 shrink-0 text-neutral-400 transition duration-200 group-hover:text-accent"
+                class="group-hover:text-accent size-5 shrink-0 text-neutral-400 transition duration-200"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="1.8"
@@ -202,7 +213,7 @@ const homeUrl = '/';
             )}
             {link.url === '/blog' && (
               <svg
-                class="size-5 shrink-0 text-neutral-400 transition duration-200 group-hover:text-accent"
+                class="group-hover:text-accent size-5 shrink-0 text-neutral-400 transition duration-200"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="1.8"
@@ -217,7 +228,7 @@ const homeUrl = '/';
             )}
             {link.url === '/b2b' && (
               <svg
-                class="size-5 shrink-0 text-neutral-400 transition duration-200 group-hover:text-accent"
+                class="group-hover:text-accent size-5 shrink-0 text-neutral-400 transition duration-200"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="1.8"
@@ -232,7 +243,7 @@ const homeUrl = '/';
             )}
             {link.url === '/contact' && (
               <svg
-                class="size-5 shrink-0 text-neutral-400 transition duration-200 group-hover:text-accent"
+                class="group-hover:text-accent size-5 shrink-0 text-neutral-400 transition duration-200"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="1.8"

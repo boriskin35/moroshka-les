@@ -4,6 +4,8 @@ import MainLayout from '@/layouts/MainLayout.astro';
 import HeroSection from '@components/sections/landing/HeroSection.astro';
 import EchoSection from '@components/sections/landing/EchoSection.astro';
 import HowWeBuild from '@components/sections/landing/HowWeBuild.astro';
+import B2BSection from '@components/sections/landing/B2BSection.astro';
+import PatternBlock from '@components/sections/landing/PatternBlock.astro';
 import HousesCarousel from '@components/sections/landing/HousesCarousel.astro';
 import FAQ from '@components/sections/misc/FAQ.astro';
 import heroImage from '@/assets/images/optimized/ladniy-exterior-dark.webp';
@@ -14,7 +16,7 @@ import faqs from '@data/faqs.json';
 <MainLayout>
   <HeroSection
     slot="hero"
-    title=`Дом из хвойных пород древесины под ключ<br /><span class="text-accent">с фиксированной ценой</span>`
+    title=`Дом из хвойных пород древесины под ключ <span class="text-accent">с фиксированной ценой</span>`
     subTitle={'• Установка на участке от 10 дней.\n• Тёплый дом без щелей и усадки.\n• Собираем точно по проекту.'}
     primaryBtn="Каталог домов"
     primaryBtnURL="/catalog"
@@ -30,11 +32,15 @@ import faqs from '@data/faqs.json';
 
   <HousesCarousel slot="wide" />
 
+  <PatternBlock />
+
+  <HowWeBuild />
+
+  <B2BSection />
+
   <FAQ
     title='Частые <span class="text-accent">вопросы</span>'
     faqs={faqs}
     eyebrow="Вопросы и ответы"
   />
-
-  <HowWeBuild />
 </MainLayout>

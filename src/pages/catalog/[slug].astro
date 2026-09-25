@@ -84,7 +84,7 @@ const lightboxData = gallery.map(g => ({
     {/* Название и слоган дома на мобильных экранах (над фото) */}
     <div class="mb-4 lg:hidden">
       <h1
-        class="text-3xl font-bold tracking-tight text-neutral-800 sm:text-4xl dark:text-neutral-100"
+        class="font-serif text-[24px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-100"
       >
         {house.data.title}
       </h1>
@@ -181,7 +181,7 @@ const lightboxData = gallery.map(g => ({
       <div class="flex flex-col justify-center">
         <div class="hidden lg:block">
           <h1
-            class="text-4xl font-bold text-neutral-800 sm:text-4xl lg:text-5xl dark:text-neutral-200"
+            class="font-serif text-[24px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-200"
           >
             {house.data.title}
           </h1>
@@ -273,7 +273,7 @@ const lightboxData = gallery.map(g => ({
           {/* Подробное описание модели */}
           {house.data.details && (
             <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
-              <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+              <h2 class="font-serif text-[22px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-100">
                 О модели
               </h2>
               <p class="mt-4 text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
@@ -290,7 +290,7 @@ const lightboxData = gallery.map(g => ({
               house.data.insulation ||
               house.data.windows) && (
               <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
-                <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                <h2 class="font-serif text-[22px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-100">
                   Параметры дома
                 </h2>
                 <dl class="mt-4 divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -341,7 +341,7 @@ const lightboxData = gallery.map(g => ({
             {/* Экспликация помещений */}
             {house.data.rooms && house.data.rooms.length > 0 && (
               <div class="rounded-2xl border border-neutral-200 bg-white px-3.5 py-4 sm:p-6 lg:p-8 dark:border-neutral-700 dark:bg-neutral-800/60">
-                <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+                <h2 class="font-serif text-[22px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-100">
                   Экспликация помещений
                 </h2>
                 <ul class="mt-4 divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -370,7 +370,7 @@ const lightboxData = gallery.map(g => ({
       data-house={house.data.title}
     >
       <h2
-        class="text-center text-2xl font-bold text-neutral-800 dark:text-neutral-200"
+        class="font-serif text-[22px] font-normal uppercase leading-snug text-center text-neutral-800 dark:text-neutral-200"
       >
         Калькулятор стоимости
       </h2>
