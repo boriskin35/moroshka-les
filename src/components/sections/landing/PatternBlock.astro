@@ -109,11 +109,11 @@ const advantages = [
               />
 
               {/* Текстовое описание: заголовок и пояснение */}
-              <div class="grid grid-cols-1 gap-1 text-sm leading-relaxed sm:grid-cols-12 sm:gap-4 sm:text-base">
-                <h3 class="font-sans text-[22px] font-bold text-neutral-900 leading-snug sm:col-span-5 md:col-span-4 lg:col-span-4">
+              <div class="flex w-full min-w-0 flex-1 flex-col gap-1 text-sm leading-relaxed sm:flex-row sm:items-start sm:gap-5 sm:text-base">
+                <h3 class="font-sans text-[22px] font-bold text-neutral-900 leading-snug w-full sm:w-[210px] lg:w-[220px] shrink-0">
                   {item.title}
                 </h3>
-                <div class="text-neutral-700 sm:col-span-7 md:col-span-8 lg:col-span-8">
+                <div class="text-neutral-700 min-w-0 flex-1">
                   <p>{item.description}</p>
                 </div>
               </div>
