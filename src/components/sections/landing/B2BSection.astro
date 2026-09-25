@@ -76,11 +76,11 @@ const b2bCategories = [
       </a>
     </div>
 
-    <!-- Сетка из 3 фото-блоков: только заголовок в фирменных тонах -->
+    <!-- Сетка из 3 фото-блоков: заголовок h2 в альбомной ориентации 16:9 -->
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
       {
         b2bCategories.map(item => (
-          <div class="relative block h-80 w-full overflow-hidden rounded-2xl shadow-xs transition duration-300 hover:shadow-md sm:h-96 md:rounded-3xl lg:h-[420px]">
+          <div class="relative block aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-xs transition duration-300 hover:shadow-md md:rounded-3xl">
             <Image
               src={item.image}
               alt={item.alt}
@@ -88,14 +88,14 @@ const b2bCategories = [
               widths={[360, 600, 900]}
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             />
-            {/* Мягкое градиентное затемнение снизу для читаемости плашки */}
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+            {/* Мягкое градиентное затемнение снизу для читаемости текста */}
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-            {/* Только один заголовок в фирменных тонах Морошки (#133e22) */}
-            <div class="absolute bottom-5 left-5 sm:bottom-6 sm:left-6">
-              <span class="bg-brand/90 inline-block rounded-xl px-4 py-2.5 text-sm font-bold tracking-wider text-white uppercase shadow-sm backdrop-blur-xs sm:text-base lg:rounded-2xl lg:px-5 lg:py-3">
+            {/* Заголовок h2 в нижнем углу без плашки */}
+            <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6">
+              <h2 class="font-serif text-[22px] font-normal uppercase leading-snug text-white">
                 {item.title}
-              </span>
+              </h2>
             </div>
           </div>
         ))
