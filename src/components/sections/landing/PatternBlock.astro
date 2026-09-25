@@ -108,12 +108,12 @@ const advantages = [
                 set:html={item.svg}
               />
 
-              {/* Текстовое описание: заголовок и пояснение */}
-              <div class="flex w-full min-w-0 flex-1 flex-col gap-1 text-sm leading-relaxed sm:flex-row sm:items-start sm:gap-5 sm:text-base">
-                <h3 class="font-sans text-[22px] font-bold text-neutral-900 leading-snug w-full sm:w-[210px] lg:w-[220px] shrink-0">
+              {/* Текстовое описание: заголовок и пояснение (ровно 50% на 50%) */}
+              <div class="grid grid-cols-1 gap-2 text-sm leading-relaxed sm:grid-cols-2 sm:gap-4 sm:text-base w-full min-w-0 flex-1 items-start">
+                <h3 class="font-sans text-[22px] font-bold text-neutral-900 leading-snug">
                   {item.title}
                 </h3>
-                <div class="text-neutral-700 min-w-0 flex-1">
+                <div class="text-neutral-700">
                   <p>{item.description}</p>
                 </div>
               </div>
