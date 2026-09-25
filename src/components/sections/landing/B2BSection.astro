@@ -33,48 +33,26 @@ const b2bCategories = [
   class:list={['w-full py-6 lg:py-10', className]}
   aria-label="Строительство для бизнеса"
 >
-  <!-- Шапка секции: заголовок, описание и кнопка B2B в точности как у каталога на главной -->
-  <div
-    class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end lg:mb-8"
-  >
-      <div>
-        <p
-          class="mb-2 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400"
-        >
-          B2B-проекты
-        </p>
-        <h2
-          class="font-serif text-[22px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-200"
-        >
-          Строительство для <span class="text-accent">бизнеса</span>
-        </h2>
-        <p
-          class="mt-2 text-base text-neutral-600 md:text-lg dark:text-neutral-400"
-        >
-          Создаём частные и коммерческие индивидуальные проекты под ключ.
-        </p>
-      </div>
-
-      <!-- Фирменная ссылка в шапке (в точности как у каталога) -->
-      <a
-        href="/b2b"
-        class="group text-accent hover:text-accent-hover inline-flex shrink-0 items-center gap-x-2 text-base font-semibold transition duration-200"
+  <!-- Шапка секции: заголовок и описание -->
+  <div class="mb-6 lg:mb-8">
+    <div>
+      <p
+        class="mb-2 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400"
       >
-        <span>Подробнее о домах для бизнеса</span>
-        <svg
-          class="h-4 w-4 shrink-0 transition ease-in-out group-hover:translate-x-1"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
-        </svg>
-      </a>
+        B2B-проекты
+      </p>
+      <h2
+        class="font-serif text-[22px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-200"
+      >
+        Строительство для <span class="text-accent">бизнеса</span>
+      </h2>
+      <p
+        class="mt-2 text-base text-neutral-600 md:text-lg dark:text-neutral-400"
+      >
+        Создаём частные и коммерческие индивидуальные проекты под ключ.
+      </p>
     </div>
+  </div>
 
     <!-- Сетка из 3 фото-блоков: заголовок h2 в альбомной ориентации 16:9 -->
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
@@ -100,5 +78,27 @@ const b2bCategories = [
           </div>
         ))
       }
+    </div>
+
+    <!-- Кнопка перехода в B2B -->
+    <div class="mt-6 flex sm:mt-8">
+      <a
+        href="/b2b"
+        class="group text-accent hover:text-accent-hover inline-flex items-center gap-x-2 text-base font-semibold transition duration-200"
+      >
+        <span>Подробнее о домах для бизнеса</span>
+        <svg
+          class="h-4 w-4 shrink-0 transition ease-in-out group-hover:translate-x-1"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+        </svg>
+      </a>
     </div>
   </section>
