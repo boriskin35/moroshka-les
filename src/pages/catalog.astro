@@ -11,7 +11,7 @@ const houses = (await getCollection('houses')).sort(
   (a, b) => parseArea(a.data.area) - parseArea(b.data.area)
 );
 
-const title = 'Каталог домов МорошкаЛес';
+const title = 'Каталог домов';
 const subTitle =
   'Выберите свой идеальный дом. От компактных студий до масштабных усадеб — всё с заводским качеством и сборкой на вашем земельном участке.';
 
@@ -42,9 +42,9 @@ const ogTitle = title;
 >
   <div class="w-full py-10 lg:py-14">
     <h1
-      class="text-4xl font-bold tracking-tight text-neutral-800 md:text-4xl dark:text-neutral-200"
+      class="font-serif text-[24px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-200"
     >
-      Каталог домов <span class="text-accent">МорошкаЛес</span>
+      КАТАЛОГ <span class="text-accent">ДОМОВ</span>
     </h1>
     {
       subTitle && (

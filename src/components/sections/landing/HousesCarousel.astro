@@ -10,7 +10,7 @@ const houses = (await getCollection('houses')).sort(
 const loop = [...houses, ...houses];
 ---
 
-<section class="w-full overflow-hidden py-10 lg:py-14">
+<section class="w-full overflow-hidden py-6 lg:py-10">
   <div
     class="mx-auto mb-6 flex w-full max-w-(--breakpoint-2xl) items-end justify-between gap-4 px-4 sm:px-6 lg:px-8"
   >
@@ -21,7 +21,7 @@ const loop = [...houses, ...houses];
         Каталог
       </p>
       <h2
-        class="text-4xl font-bold text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200"
+        class="font-serif text-[22px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-200"
       >
         Наши <span class="text-accent">дома</span>
       </h2>
@@ -72,7 +72,7 @@ const loop = [...houses, ...houses];
               />
             </div>
             <div class="p-4">
-              <h3 class="text-lg font-bold text-neutral-800 dark:text-neutral-200">
+              <h3 class="font-sans text-[22px] font-bold leading-snug text-neutral-800 dark:text-neutral-200">
                 {house.data.title}
               </h3>
               <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">

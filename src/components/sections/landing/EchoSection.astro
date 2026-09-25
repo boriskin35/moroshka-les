@@ -35,28 +35,28 @@ const gridItems = [
 <section id="echo-complex" class="w-full">
   {/* Текстовый вводный блок (дает "воздух" после главного экрана) */}
   <div
-    class="mx-auto w-full max-w-(--breakpoint-2xl) px-4 py-16 sm:px-6 md:py-24 lg:px-8"
+    class="mx-auto w-full max-w-(--breakpoint-2xl) px-4 pt-12 pb-6 sm:px-6 lg:pt-20 lg:pb-10 lg:px-8"
   >
-    <div class="max-w-3xl">
+    <div class="w-full">
       <span
         class="mb-2 block text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400"
       >
         Туристический курорт «ЭХО»
       </span>
       <h2
-        class="mb-6 text-4xl font-bold text-neutral-800 md:text-4xl md:leading-tight dark:text-neutral-200"
+        class="font-serif text-[22px] font-normal uppercase text-neutral-800 leading-snug dark:text-neutral-200 mb-6"
       >
-        Место, где наши дома<br class="hidden md:block" /> становятся <span class="text-accent">реальностью</span>
+        Место, где наши дома становятся <span class="text-accent">реальностью</span>
       </h2>
       <p class="text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
-        Сначала мы строим и проверяем дома на себе — потом предлагаем вам.<br />
+        Сначала мы строим и проверяем дома на себе — потом предлагаем вам.
         Место, где наши дома становятся реальностью.
       </p>
     </div>
   </div>
 
   {/* Монолитная галерея (Bento Box) внутри контейнера для выравнивания */}
-  <div class="mx-auto w-full max-w-(--breakpoint-2xl) px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto w-full max-w-(--breakpoint-2xl) px-4 pb-6 sm:px-6 lg:pb-10 lg:px-8">
     <div class="grid w-full grid-cols-1 gap-0 md:grid-cols-4">
       {
         gridItems.map(item => (
@@ -71,7 +71,7 @@ const gridItems = [
             <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-90" />
 
             <div class="absolute bottom-0 left-0 w-full p-6 text-white md:p-8">
-              <h3 class="mb-3 text-xl font-bold md:text-2xl">{item.title}</h3>
+              <h3 class="font-sans text-[22px] font-bold leading-snug mb-3">{item.title}</h3>
               <p class="text-sm leading-relaxed text-neutral-200 md:text-base">
                 {item.desc}
               </p>
@@ -100,7 +100,7 @@ const gridItems = [
         class="absolute bottom-0 left-0 w-full p-5 text-white sm:p-8 md:p-12 lg:max-w-4xl"
       >
         <h3
-          class="mb-2 text-2xl font-bold sm:mb-4 sm:text-3xl md:text-4xl lg:text-5xl"
+          class="mb-2 text-2xl font-normal sm:mb-4 sm:text-3xl md:text-4xl lg:text-5xl"
         >
           Больше, чем дома.
         </h3>

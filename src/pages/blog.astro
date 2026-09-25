@@ -8,7 +8,7 @@ const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-const title = 'Блог МорошкаЛес';
+const title = 'Наш блог';
 const subTitle =
   'Всё о домах, которые строят один раз и надолго. Разбираемся в материалах, технологиях, проектах, стоимости и строительстве — от выбора модели до заселения.';
 ---
@@ -29,9 +29,9 @@ const subTitle =
 >
   <div class="w-full py-10 lg:py-14">
     <h1
-      class="text-4xl font-bold tracking-tight text-neutral-800 md:text-4xl dark:text-neutral-200"
+      class="font-serif text-[24px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-200"
     >
-      Блог <span class="text-accent">МорошкаЛес</span>
+      НАШ <span class="text-accent">БЛОГ</span>
     </h1>
     <p class="mt-2 max-w-[50rem] text-neutral-600 dark:text-neutral-400">
       {subTitle}
@@ -57,9 +57,9 @@ const subTitle =
               <div class="text-sm text-neutral-500">
                 {post.data.pubDate.toLocaleDateString('ru-RU')}
               </div>
-              <h2 class="text-accent mt-2 text-xl font-bold">
+              <h3 class="font-sans text-[22px] font-bold leading-snug text-accent mt-2">
                 {post.data.title}
-              </h2>
+              </h3>
               <p class="mt-2 line-clamp-3 text-neutral-600 dark:text-neutral-400">
                 {post.data.description}
               </p>
