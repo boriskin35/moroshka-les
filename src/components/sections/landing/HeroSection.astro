@@ -45,7 +45,10 @@ interface Props {
   id="hero"
   class="dark relative isolate -mt-[104px] w-full overflow-hidden"
 >
-  <div id="hero-bg" class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+  <div
+    id="hero-bg"
+    class="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+  >
     {
       src && alt && (
         <Image
@@ -75,24 +78,24 @@ interface Props {
   </div>
 
   <div
-    class="relative z-10 mx-auto grid min-h-[calc(100svh_+_104px)] min-h-[calc(100vh_+_104px)] w-full max-w-(--breakpoint-2xl) items-end gap-4 px-4 pt-36 pb-24 sm:px-6 md:items-center md:pt-44 lg:px-8"
+    class="relative z-10 mx-auto grid min-h-[calc(100dvh_+_104px)] w-full max-w-(--breakpoint-2xl) items-end gap-4 px-4 pt-36 pb-24 sm:px-6 md:items-center md:pt-44 lg:px-8"
   >
-    <div
-      class="text-on-image w-full max-w-2xl text-left md:mx-0"
-    >
+    <div class="text-on-image mx-auto w-full max-w-2xl text-left md:mx-0">
       <h1
-        class="block text-left font-serif text-[24px] font-normal uppercase leading-snug tracking-wide text-neutral-50"
+        class="block text-left font-serif text-[24px] leading-snug font-normal tracking-wide text-neutral-50 uppercase"
       >
         <Fragment set:html={title} />
       </h1>
 
-      {/* Мобильная белая плашка для текста и основной кнопки / на десктопе прозрачный блок */}
+      {
+        /* Мобильная белая плашка для текста и основной кнопки / на десктопе прозрачный блок */
+      }
       <div
-        class="mt-6 w-full max-w-md mx-auto rounded-2xl bg-white/30 p-5 shadow-lg backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] border border-white/50 md:mt-0 md:max-w-none md:mx-0 md:rounded-none md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none md:[-webkit-backdrop-filter:none] md:border-none"
+        class="mx-auto mt-6 w-full max-w-md rounded-2xl border border-white/50 bg-white/30 p-5 shadow-lg backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] md:mx-0 md:mt-0 md:max-w-none md:rounded-none md:border-none md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none md:[-webkit-backdrop-filter:none]"
       >
         {
           subTitle && (
-            <p class="mx-auto w-fit text-left text-sm font-semibold leading-relaxed text-neutral-950 [text-shadow:none] md:mx-0 md:mt-3 md:text-lg md:font-normal md:text-neutral-200 md:[text-shadow:inherit] lg:w-4/5">
+            <p class="mx-auto w-fit text-left text-sm leading-relaxed font-semibold text-neutral-950 [text-shadow:none] md:mx-0 md:mt-3 md:text-lg md:font-normal md:text-neutral-200 md:[text-shadow:inherit] lg:w-4/5">
               {subTitle.split('\n').map((line, idx, arr) => (
                 <span>
                   {line}
@@ -113,7 +116,9 @@ interface Props {
         }
       </div>
 
-      {/* Кнопки: на мобильном только контурная кнопка ниже плашки, на десктопе обе кнопки в ряд */}
+      {
+        /* Кнопки: на мобильном только контурная кнопка ниже плашки, на десктопе обе кнопки в ряд */
+      }
       <div
         class="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row md:mt-7 md:justify-start"
       >
@@ -126,7 +131,7 @@ interface Props {
         }
         {
           secondaryBtn && (
-            <div class="flex justify-center md:w-auto md:max-w-none md:mx-0 md:px-0">
+            <div class="flex justify-center md:mx-0 md:w-auto md:max-w-none md:px-0">
               <div class="w-[256px] *:w-full md:w-auto md:*:w-auto">
                 <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
               </div>

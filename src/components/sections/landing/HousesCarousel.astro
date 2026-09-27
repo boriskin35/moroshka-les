@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import patternImg from '@/assets/images/optimized/wood-pattern.webp';
 
 const parseArea = (s: string) =>
   parseFloat(s.match(/\d+(?:[.,]\d+)?/)?.[0]?.replace(',', '.') || '0');
@@ -8,6 +9,9 @@ const houses = (await getCollection('houses')).sort(
   (a, b) => parseArea(a.data.area) - parseArea(b.data.area)
 );
 const loop = [...houses, ...houses];
+
+const cleanTitle = (title: string) => title.replace(/[«»"“”]/g, '').trim();
+const cardFooterStyle = `background-color: #133e22; background-image: url('${patternImg.src}'); background-repeat: repeat; background-size: 370px 370px;`;
 ---
 
 <section class="w-full overflow-hidden py-6 lg:py-10">
@@ -21,7 +25,7 @@ const loop = [...houses, ...houses];
         Каталог
       </p>
       <h2
-        class="font-serif text-[22px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-200"
+        class="font-serif text-[22px] leading-snug font-normal text-neutral-800 uppercase dark:text-neutral-200"
       >
         Наши <span class="text-accent">дома</span>
       </h2>
@@ -46,8 +50,7 @@ const loop = [...houses, ...houses];
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
-          d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-        />
+          d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
       </svg>
     </a>
   </div>
@@ -60,7 +63,7 @@ const loop = [...houses, ...houses];
             href={`/catalog/${house.id}/`}
             aria-hidden={i >= houses.length ? 'true' : undefined}
             tabindex={i >= houses.length ? '-1' : undefined}
-            class="group mr-4 w-64 shrink-0 overflow-hidden rounded-2xl border border-neutral-200 bg-white sm:w-72 dark:border-neutral-700 dark:bg-neutral-800"
+            class="group border-brand mr-4 flex w-64 shrink-0 flex-col overflow-hidden rounded-2xl border bg-[#133e22] sm:w-72"
           >
             <div class="aspect-[4/3] overflow-hidden">
               <Image
@@ -71,11 +74,11 @@ const loop = [...houses, ...houses];
                 format="webp"
               />
             </div>
-            <div class="p-4">
-              <h3 class="font-sans text-[22px] font-bold leading-snug text-neutral-800 dark:text-neutral-200">
-                {house.data.title}
+            <div class="flex-1 p-4" style={cardFooterStyle}>
+              <h3 class="font-serif text-[22px] leading-snug font-normal text-white uppercase">
+                {cleanTitle(house.data.title)}
               </h3>
-              <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+              <p class="mt-1 font-serif text-sm text-neutral-200">
                 {house.data.area.split('(')[0].trim()}
               </p>
             </div>
