@@ -2,31 +2,26 @@
 import { Image } from 'astro:assets';
 
 // Подключаем релевантные картинки по смыслу
-import imgHouse from '@/assets/images/echo/echo-opushka-houses.jpg';
-import imgWinter from '@/assets/images/echo/echo-winter-snowmobiles.jpg';
-import imgBathhouse from '@/assets/images/echo/echo-zhivitsa-bathhouse.jpg';
-import imgFirepit from '@/assets/images/echo/echo-firepit-gazebo.jpg';
-import imgOutro from '@/assets/images/echo/echo-resort-aerial.webp';
+import imgAerial from '@/assets/images/echo/echo-aerial-overview.webp';
+import imgWinter from '@/assets/images/echo/echo-winter-snowmobiles.webp';
+import imgBathhouse from '@/assets/images/echo/echo-zhivitsa-bathhouse.webp';
+import imgFirepit from '@/assets/images/echo/echo-firepit-rotunda.webp';
 
 const gridItems = [
   {
-    title: 'Туристические дома «Опушка»',
-    desc: 'Уютные дома для отдыха в любое время года.',
-    img: imgHouse,
+    title: 'Лес и чистый воздух',
+    img: imgAerial,
   },
   {
     title: 'Активный отдых',
-    desc: 'Снегоходы, квадроциклы, прогулки по лесу и новые маршруты.',
     img: imgWinter,
   },
   {
     title: 'Дом-баня «Живица»',
-    desc: 'Баня и дом в одном. Настоящее место силы.',
     img: imgBathhouse,
   },
   {
     title: 'Общие пространства',
-    desc: 'Костровые зоны, беседки, прогулочные дорожки и природа вокруг.',
     img: imgFirepit,
   },
 ];
@@ -55,62 +50,30 @@ const gridItems = [
     </div>
   </div>
 
-  {/* Монолитная галерея (Bento Box) внутри контейнера для выравнивания */}
+  {/* Галерея 2х2 в стиле B2B с отступами и скруглёнными углами */}
   <div class="mx-auto w-full max-w-(--breakpoint-2xl) px-4 pb-6 sm:px-6 lg:pb-10 lg:px-8">
-    <div class="grid w-full grid-cols-1 gap-0 md:grid-cols-4">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
       {
         gridItems.map(item => (
-          <div class="group relative aspect-[3/4] overflow-hidden md:aspect-[4/5] lg:aspect-[3/4]">
+          <div class="relative block aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-xs transition duration-300 hover:shadow-md md:rounded-3xl">
             <Image
               src={item.img}
               alt={item.title}
-              class="h-full w-full object-cover"
+              class="h-full w-full object-cover transition duration-700 ease-out hover:scale-105"
               format="webp"
             />
-            {/* Градиентное затемнение для читаемости текста */}
-            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-90" />
+            {/* Мягкое градиентное затемнение снизу для читаемости текста */}
+            <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
-            <div class="absolute bottom-0 left-0 w-full p-6 text-white md:p-8">
-              <h3 class="font-sans text-[22px] font-bold leading-snug mb-3">{item.title}</h3>
-              <p class="text-sm leading-relaxed text-neutral-200 md:text-base">
-                {item.desc}
-              </p>
+            {/* Заголовок в нижнем углу без мелкого текста */}
+            <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6">
+              <h3 class="font-serif text-[22px] font-normal uppercase leading-snug text-white">
+                {item.title}
+              </h3>
             </div>
           </div>
         ))
       }
-    </div>
-
-    {/* Финальный широкий блок */}
-    <div
-      class="relative aspect-[3/4] w-full overflow-hidden sm:aspect-[16/9] md:aspect-[21/9]"
-    >
-      <Image
-        src={imgOutro}
-        alt="Больше, чем дома"
-        class="h-full w-full object-cover object-center"
-        format="webp"
-      />
-      <div
-        class="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-90"
-      >
-      </div>
-
-      <div
-        class="absolute bottom-0 left-0 w-full p-5 text-white sm:p-8 md:p-12 lg:max-w-4xl"
-      >
-        <h3
-          class="mb-2 text-2xl font-normal sm:mb-4 sm:text-3xl md:text-4xl lg:text-5xl"
-        >
-          Больше, чем дома.
-        </h3>
-        <p
-          class="text-sm leading-relaxed text-neutral-200 sm:text-base md:text-lg"
-        >
-          Эхо — это активный отдых, прогулки по лесу, свежий воздух и ощущение
-          свободы в любое время года.
-        </p>
-      </div>
     </div>
   </div>
 </section>
