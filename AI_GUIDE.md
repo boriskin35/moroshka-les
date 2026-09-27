@@ -1,6 +1,12 @@
 # ScrewFast AI Guide
 
-For AI assistants (Cursor, Copilot, Claude, ChatGPT): this file describes project structure, conventions, and where to find or add code. See [README.md](README.md) for human-facing setup and features.
+For AI assistants (Cursor, Copilot, Claude, ChatGPT, Antigravity): this file describes project structure, conventions, and where to find or add code. See [README.md](README.md) for human-facing setup and features.
+
+## Engineering Quality Standards (Universal)
+
+1. **First-Time Right (No Workarounds):** Every solution must be final, robust, and production-ready from the first attempt. Workarounds, temporary patches, or implementations causing secondary defects or technical debt are strictly forbidden.
+2. **Systemic Impact Analysis:** Before modifying any component or style, evaluate its impact on the whole system (dependencies like Lenis smooth scroll, GSAP animations, CLS/layout shift, runtime repaint on mobile browsers). Isolated edits in a vacuum are prohibited.
+3. **Anti-Sycophancy & Technical Rigor:** Never agree with technically flawed or risky proposals out of politeness. If a proposed idea has technical risks, immediately explain the defect and provide the solid architectural alternative.
 
 ## Project Overview
 
