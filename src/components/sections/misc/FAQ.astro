@@ -1,6 +1,7 @@
 ---
 // Import the necessary AccordionItem component and JSON data
 import AccordionItem from '@components/ui/blocks/AccordionItem.astro';
+import patternImg from '@/assets/images/optimized/wood-pattern.webp';
 
 // Define props from Astro
 const { title, faqs, eyebrow } = Astro.props;
@@ -25,55 +26,51 @@ interface Props {
 const makeId = (base: any, index: any) => `${base}${index + 1}`;
 ---
 
-{
-  /* Main container that holds all content. Customized for different viewport sizes. */
-}
-<section id="faq" class="w-full pt-6 pb-12 lg:pt-10 lg:pb-20">
-  <div class="grid gap-10 md:grid-cols-5">
-    <div class="md:col-span-2">
-      <div class="w-full">
+<section
+  id="faq"
+  class="relative my-6 w-full overflow-hidden rounded-2xl shadow-sm lg:my-10 md:rounded-3xl"
+  style={`background-color: #133e22; background-image: url('${patternImg.src}'); background-repeat: repeat; background-size: 370px 370px;`}
+  aria-label="Часто задаваемые вопросы"
+>
+  <div class="relative z-10 px-4 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+
+      {/* Левая колонка: заголовок */}
+      <div class="lg:col-span-4 xl:col-span-4">
         {
           eyebrow && (
-            <p class="mb-2 text-xs font-bold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+            <p class="mb-2 text-xs font-bold tracking-widest text-neutral-300 uppercase">
               {eyebrow}
             </p>
           )
         }
-        <h2
-          class="font-serif text-[22px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-200"
-        >
+        <h2 class="font-serif text-[22px] font-normal uppercase text-white leading-snug">
           <Fragment set:html={title} />
         </h2>
-        <p class="mt-2 text-base text-neutral-600 dark:text-neutral-400">
-          {faqs.subTitle}
-        </p>
+        {
+          faqs.subTitle && (
+            <p class="mt-4 text-base leading-relaxed text-neutral-200 sm:text-lg lg:mt-6">
+              {faqs.subTitle}
+            </p>
+          )
+        }
       </div>
-    </div>
-    {/* FAQ accordion items */}
-    <div class="md:col-span-3">
-      <div
-        class="hs-accordion-group divide-y divide-neutral-400 dark:divide-neutral-700"
-      >
+
+      {/* Правая колонка: белые карточки с аккордеоном */}
+      <div class="flex flex-col gap-3.5 sm:gap-4 lg:col-span-8 xl:col-span-8">
         {
           faqs.faqs.map((question, i) => {
-            {
-              /* Generate ids dynamically for each FAQ accordion item. */
-            }
-            let id = makeId(
-              'hs-basic-with-title-and-arrow-stretched-heading-',
-              i
-            );
-            let collapseId = makeId(
-              'hs-basic-with-title-and-arrow-stretched-collapse',
-              i
-            );
-
+            let id = makeId('hs-basic-with-title-and-arrow-stretched-heading-', i);
+            let collapseId = makeId('hs-basic-with-title-and-arrow-stretched-collapse', i);
             return (
-              <AccordionItem {...question} id={id} collapseId={collapseId} />
+              <div class="rounded-2xl bg-white p-4 shadow-xs transition duration-200 hover:shadow-md sm:p-5 lg:rounded-3xl">
+                <AccordionItem {...question} id={id} collapseId={collapseId} />
+              </div>
             );
           })
         }
       </div>
+
     </div>
   </div>
 </section>
