@@ -57,7 +57,7 @@ const makeId = (base: any, index: any) => `${base}${index + 1}`;
       </div>
 
       {/* Правая колонка: белые карточки с аккордеоном */}
-      <div class="flex flex-col gap-3.5 sm:gap-4 lg:col-span-8 xl:col-span-8">
+      <div class="hs-accordion-group flex flex-col gap-3.5 sm:gap-4 lg:col-span-8 xl:col-span-8">
         {
           faqs.faqs.map((question, i) => {
             let id = makeId('hs-basic-with-title-and-arrow-stretched-heading-', i);
