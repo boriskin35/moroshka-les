@@ -63,9 +63,12 @@ const makeId = (base: any, index: any) => `${base}${index + 1}`;
             let id = makeId('hs-basic-with-title-and-arrow-stretched-heading-', i);
             let collapseId = makeId('hs-basic-with-title-and-arrow-stretched-collapse', i);
             return (
-              <div class="rounded-2xl bg-white p-4 shadow-xs transition duration-200 hover:shadow-md sm:p-5 lg:rounded-3xl">
-                <AccordionItem {...question} id={id} collapseId={collapseId} />
-              </div>
+              <AccordionItem
+                {...question}
+                id={id}
+                collapseId={collapseId}
+                class="rounded-2xl bg-white px-4 pt-4 pb-1 shadow-xs transition duration-200 hover:shadow-md sm:px-5 sm:pt-5 lg:rounded-3xl"
+              />
             );
           })
         }

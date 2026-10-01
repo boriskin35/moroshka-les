@@ -1,7 +1,7 @@
 ---
 import Icon from '@components/ui/icons/Icon.astro';
 // Define props from Astro
-const { id, collapseId, question, answer, first } = Astro.props;
+const { id, collapseId, question, answer, first, class: className } = Astro.props;
 // Define TypeScript interface for props
 interface Props {
   id: string;
@@ -9,6 +9,7 @@ interface Props {
   question: string;
   answer: string;
   first?: boolean;
+  class?: string;
 }
 // Define class names for the accordion and its content
 const ACCORDION_CLASS_DEFAULT = 'hs-accordion pb-3 active';
@@ -22,7 +23,7 @@ function getAccordionClass(first: boolean = false) {
 ---
 
 {/* The main container for the accordion item */}
-<div class={getAccordionClass(first)} id={id}>
+<div class:list={[getAccordionClass(first), className]} id={id}>
   {/* The accordion button, which toggles the expanded/collapsed state */}
   <button
     class="hs-accordion-toggle group inline-flex w-full items-center justify-between gap-x-3 rounded-lg pb-3 text-start text-lg font-bold text-balance text-neutral-800 ring-zinc-500 outline-hidden transition hover:text-neutral-500 focus-visible:ring-3 dark:text-neutral-200 dark:ring-zinc-200 dark:hover:text-neutral-400 dark:focus:outline-hidden"
