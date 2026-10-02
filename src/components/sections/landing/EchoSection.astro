@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 
 // Подключаем релевантные картинки по смыслу
+import imgPanorama from '@/assets/images/echo/echo-cabins-panorama.webp';
 import imgAerial from '@/assets/images/echo/echo-aerial-overview.webp';
 import imgWinter from '@/assets/images/echo/echo-winter-snowmobiles.webp';
 import imgBathhouse from '@/assets/images/echo/echo-zhivitsa-bathhouse.webp';
@@ -47,6 +48,27 @@ const gridItems = [
         Сначала мы строим и проверяем дома на себе — потом предлагаем вам.
         Место, где наши дома становятся реальностью.
       </p>
+    </div>
+  </div>
+
+  {/* Главная панорамная карточка во всю ширину блока */}
+  <div class="mx-auto w-full max-w-(--breakpoint-2xl) px-4 pb-6 sm:px-6 lg:pb-8 lg:px-8">
+    <div class="relative block aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-xs transition duration-300 hover:shadow-md md:rounded-3xl">
+      <Image
+        src={imgPanorama}
+        alt="Дома в сосновом бору — курорт «ЭХО»"
+        class="h-full w-full object-cover transition duration-700 ease-out hover:scale-105"
+        format="webp"
+      />
+      {/* Мягкое градиентное затемнение снизу для читаемости текста */}
+      <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
+
+      {/* Заголовок в нижнем углу слева */}
+      <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6">
+        <h3 class="font-serif text-[22px] font-normal uppercase leading-snug text-white">
+          Дома в сосновом бору
+        </h3>
+      </div>
     </div>
   </div>
 
