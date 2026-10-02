@@ -1,26 +1,24 @@
-# ScrewFast AI Guide
+# МорошкаЛес — AI Guide
 
-For AI assistants (Cursor, Copilot, Claude, ChatGPT, Antigravity): this file describes project structure, conventions, and where to find or add code. See [README.md](README.md) for human-facing setup and features.
+Руководство по структуре проекта и соглашениям для ИИ-ассистентов.
 
-## Engineering Quality Standards (Universal)
+## Стандарты качества
 
-1. **First-Time Right (No Workarounds):** Every solution must be final, robust, and production-ready from the first attempt. Workarounds, temporary patches, or implementations causing secondary defects or technical debt are strictly forbidden.
-2. **Systemic Impact Analysis:** Before modifying any component or style, evaluate its impact on the whole system (dependencies like Lenis smooth scroll, GSAP animations, CLS/layout shift, runtime repaint on mobile browsers). Isolated edits in a vacuum are prohibited.
-3. **Anti-Sycophancy & Technical Rigor:** Never agree with technically flawed or risky proposals out of politeness. If a proposed idea has technical risks, immediately explain the defect and provide the solid architectural alternative.
+1. **First-Time Right (Без костылей):** Каждое решение должно быть готовым к продакшену с первой попытки без временных заплаток.
+2. **Системный анализ:** Перед изменением компонентов учитывать влияние на весь сайт (Lenis smooth scroll, GSAP, Preline UI, верстка).
 
-## Project Overview
+## Стек и архитектура
 
-ScrewFast is an Astro + Tailwind CSS + Preline UI template for landing pages, blogs, documentation, and product/content pages. Stack: Astro 7, Tailwind v4 (via `@tailwindcss/vite`), Preline (modals, accordions), Starlight (docs), Lenis (smooth scroll), GSAP (animations).
+- **Стек:** Astro 7, Tailwind v4 (`@tailwindcss/vite`), Preline UI, Lenis (плавный скролл), GSAP.
+- **Язык сайта:** Только русский (`ru`).
+- **Маршрутизация:** Файловая структура под `src/pages/`.
+- **Контент-коллекции:** Описаны в `src/content.config.ts`:
+  - `houses` (`src/content/houses/`) — карточки домов для каталога
+  - `blog` (`src/content/blog/`) — статьи блога
 
-Marketing site locales: **en** and **fr** (file-based routes under `src/pages/` and `src/pages/fr/`). Use `getMarketingLocale()` from [`src/utils/locale.ts`](src/utils/locale.ts) for nav/footer/forms — do not rely only on `Astro.currentLocale` for marketing pages.
+## Алиасы путей
 
-Docs (Starlight) locales: en, de, es, fa, fr, ja, zh-cn. Guides and welcome are translated; `construction/`, `tools/`, and `advanced/` fall back to English for non-root locales.
-
-## Path Aliases
-
-Use these imports so paths stay correct and consistent:
-
-| Alias           | Resolves to            |
+| Алиас           | Путь                   |
 | --------------- | ---------------------- |
 | `@/*`           | `src/*`                |
 | `@components/*` | `src/components/*`     |
@@ -31,49 +29,8 @@ Use these imports so paths stay correct and consistent:
 | `@styles/*`     | `src/assets/styles/*`  |
 | `@utils/*`      | `src/utils/*`          |
 
-Example: `import { SITE } from "@data/constants";` – do not use `@/data_files/constants`.
+## Команды разработки
 
-Defined in [tsconfig.json](tsconfig.json).
-
-## Key Folders
-
-| Purpose                 | Path                               | Notes                                                                                                                                                                                                                     |
-| ----------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Reusable UI & sections  | [src/components/](src/components/) | `sections/` for landing, features, navbar&footer, testimonials, pricing, misc; `ui/` for buttons, cards, forms, icons, etc.                                                                                               |
-| Layout                  | [src/layouts/](src/layouts/)       | [MainLayout.astro](src/layouts/MainLayout.astro) wraps Navbar, main slot, FooterSection.                                                                                                                                  |
-| Pages                   | [src/pages/](src/pages/)           | Astro file-based routing; `fr/` for French locale.                                                                                                                                                                        |
-| Content (collections)   | [src/content/](src/content/)       | `blog/`, `products/`, `insights/`; `docs/` for Starlight (i18n subdirs: guides, construction, tools, advanced, de, es, fa, fr, ja, zh-cn).                                                                                |
-| Static assets           | [public/](public/)                 | Served as-is.                                                                                                                                                                                                             |
-| Navigation & UI helpers | [src/utils/](src/utils/)           | [navigation.ts](src/utils/navigation.ts) exports default `{ navBarLinks, footerLinks, socialLinks }`; [fr/navigation.ts](src/utils/fr/navigation.ts) for French. Navbar/Footer use `Astro.currentLocale` to pick strings. |
-| Site config & JSON data | [src/data_files/](src/data_files/) | [constants.ts](src/data_files/constants.ts): SITE, SEO, OG; faqs.json.                                                                                                                                                    |
-| Styles & scripts        | [src/assets/](src/assets/)         | `styles/` (global.css, lenis.css); `scripts/` e.g. [lenisSmoothScroll.js](src/assets/scripts/lenisSmoothScroll.js).                                                                                                       |
-| Images (imported)       | [src/images/](src/images/)         | Use with `@images/`; processed by Astro.                                                                                                                                                                                  |
-
-## Layout and Main Components
-
-- **MainLayout** ([MainLayout.astro](src/layouts/MainLayout.astro)): Props `title`, `meta`, `structuredData`, `lang`, `customDescription`, `customOgTitle`. Imports Meta, Navbar, FooterSection; includes Preline script and Lenis. Pages use `<MainLayout>…</MainLayout>` with content as default slot.
-- **Homepage** ([src/pages/index.astro](src/pages/index.astro)): Composes HeroSection, FeaturesNavs, TestimonialsSection, FAQ, HeroSectionAlt; data from `@data/faqs.json` and [constants.ts](src/data_files/constants.ts).
-- **SEO**: [Meta.astro](src/components/Meta.astro) uses SITE/SEO/OG from `@data/constants`; per-page overrides via MainLayout props.
-
-## Conventions
-
-- **Props:** Passed inline in page files (see [index.astro](src/pages/index.astro)); no global state.
-- **Styling:** Tailwind CSS only; use **Tailwind v4** syntax (refer to Tailwind v4 docs).
-- **Interactive UI:** Preline for modals, dropdowns, accordions (script loaded in MainLayout).
-- **Smooth scroll:** Lenis via [lenisSmoothScroll.js](src/assets/scripts/lenisSmoothScroll.js).
-- **Content collections:** Schemas in [content.config.ts](src/content.config.ts) (products, insights, houses); use `getCollection('houses')` etc. in pages.
-
-## Development Commands
-
-- `pnpm dev` – run dev server
-- `pnpm build` – typecheck (`astro check`), build, then HTML processing ([process-html.mjs](process-html.mjs))
-- `pnpm preview` – preview production build
-
-## Recommendations for AI
-
-- Use **path aliases** (`@components`, `@data`, `@images`, etc.) in suggested code.
-- Put new reusable components under [src/components/](src/components/) (choose `sections/` or `ui/` by purpose).
-- Add or edit content in [src/content/](src/content/) and respect [content.config.ts](src/content.config.ts) schemas.
-- Follow [MainLayout.astro](src/layouts/MainLayout.astro) for layout and Meta/SEO.
-- Use **Tailwind v4** only; do not use Tailwind v3 syntax.
-- Navigation/footer copy: edit [src/utils/navigation.ts](src/utils/navigation.ts) (and [src/utils/fr/navigation.ts](src/utils/fr/navigation.ts) for French); Navbar/Footer receive the default export as `strings`.
+- `npm run dev` — запуск локального dev-сервера
+- `npm run build` — проверка типов (`astro check`) и сборка (`astro build` + `process-html.mjs`)
+- `npm run preview` — просмотр собранного проекта

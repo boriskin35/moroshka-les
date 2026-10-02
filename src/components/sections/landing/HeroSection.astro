@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import PrimaryCTA from '@components/ui/buttons/PrimaryCTA.astro';
 import SecondaryCTA from '@components/ui/buttons/SecondaryCTA.astro';
-import ReviewComponent from '@components/ui/blocks/ReviewComponent.astro';
 
 const {
   title,
@@ -11,11 +10,6 @@ const {
   primaryBtnURL,
   secondaryBtn,
   secondaryBtnURL,
-  withReview,
-  avatars,
-  starCount,
-  rating,
-  reviews,
   src,
   alt,
   mobileSrc,
@@ -29,11 +23,6 @@ interface Props {
   primaryBtnURL?: string;
   secondaryBtn?: string;
   secondaryBtnURL?: string;
-  withReview?: boolean;
-  avatars?: Array<string>;
-  starCount?: number;
-  rating?: string;
-  reviews?: string;
   src?: any;
   alt?: string;
   mobileSrc?: any;
@@ -139,19 +128,6 @@ interface Props {
           )
         }
       </div>
-
-      {
-        withReview ? (
-          <ReviewComponent
-            avatars={avatars}
-            starCount={starCount}
-            rating={rating}
-            reviews={reviews}
-          />
-        ) : (
-          ''
-        )
-      }
     </div>
   </div>
 </section>
