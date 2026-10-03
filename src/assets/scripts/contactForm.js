@@ -26,8 +26,7 @@ function initContactForms() {
       if (!phone) {
         if (status) {
           status.textContent = 'Пожалуйста, укажите номер телефона.';
-          status.className =
-            'mt-3 block text-sm font-semibold text-red-600 dark:text-red-400';
+          status.className = 'mt-3 block text-sm font-semibold text-accent';
         }
         return;
       }
@@ -57,7 +56,7 @@ function initContactForms() {
             status.textContent =
               'Спасибо! Заявка успешно принята, мы свяжемся с вами в течение дня.';
             status.className =
-              'mt-3 block text-sm font-semibold text-accent';
+              'mt-3 block text-sm font-semibold text-emerald-600 dark:text-emerald-400';
           }
           form.reset();
         } else {
@@ -67,8 +66,7 @@ function initContactForms() {
         if (status) {
           status.textContent =
             'Не удалось отправить заявку. Пожалуйста, позвоните нам или напишите в Telegram.';
-          status.className =
-            'mt-3 block text-sm font-semibold text-red-600 dark:text-red-400';
+          status.className = 'mt-3 block text-sm font-semibold text-accent';
         }
       } finally {
         if (submitBtn) {
