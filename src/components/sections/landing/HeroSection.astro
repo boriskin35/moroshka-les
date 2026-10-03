@@ -80,7 +80,7 @@ interface Props {
         /* Мобильная белая плашка для текста и основной кнопки / на десктопе прозрачный блок */
       }
       <div
-        class="mx-auto mt-6 w-full max-w-md rounded-2xl border border-white/50 bg-white/30 p-5 shadow-lg backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] md:mx-0 md:mt-0 md:max-w-none md:rounded-none md:border-none md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none md:[-webkit-backdrop-filter:none]"
+        class="mx-auto mt-[clamp(12px,3vh,24px)] w-full max-w-[calc(100vw-2rem)] sm:max-w-md rounded-2xl border border-white/50 bg-white/30 p-[clamp(12px,3.5vw,20px)] shadow-lg backdrop-blur-[2px] [-webkit-backdrop-filter:blur(2px)] md:mx-0 md:mt-0 md:max-w-none md:rounded-none md:border-none md:bg-transparent md:p-0 md:shadow-none md:backdrop-blur-none md:[-webkit-backdrop-filter:none]"
       >
         {
           subTitle && (
