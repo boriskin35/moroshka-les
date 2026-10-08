@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://moroshka-les.ru',
+  site: 'https://moroshkales.com',
   prefetch: true,
   integrations: [sitemap()],
   experimental: {
