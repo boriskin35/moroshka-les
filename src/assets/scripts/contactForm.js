@@ -1,3 +1,6 @@
+const GOOGLE_WEBHOOK_URL =
+  'https://script.google.com/macros/s/AKfycbx3H8ziLOaSy52clbFsLdScHXO5nHzcxNfghfqrwUzC97Pv4EgRRtn54mkXNM5ApJFBWA/exec';
+
 function initContactForms() {
   document.querySelectorAll('[data-contact-form]').forEach(form => {
     if (form.dataset.bound === 'true') return;
@@ -43,15 +46,15 @@ function initContactForms() {
       }
 
       try {
-        const response = await fetch('/api/send-lead', {
+        const response = await fetch(GOOGLE_WEBHOOK_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({ name, phone, message }),
         });
 
         const result = await response.json().catch(() => ({}));
 
-        if (response.ok && result.ok) {
+        if (response.ok && (result.ok || result.status === 'saved_and_sent')) {
           if (status) {
             status.textContent =
               'Спасибо! Заявка успешно принята, мы свяжемся с вами в течение дня.';
