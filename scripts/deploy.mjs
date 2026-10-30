@@ -19,7 +19,7 @@ if (fs.existsSync(envPath)) {
 
 const login = process.env.SURGE_LOGIN || 'Julia-xanti@yandex.ru';
 const token = process.env.SURGE_TOKEN || '3fb6cfbce4b5d95bcd0f57c2bb526fef';
-const domain = process.env.SURGE_DOMAIN || 'moroshkales.surge.sh';
+const domain = process.env.SURGE_DOMAIN || 'moroshkales.com';
 
 console.log(`🚀 Деплой Moroshka на Surge: ${domain} (аккаунт: ${login})...`);
 
