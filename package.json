@@ -9,6 +9,7 @@
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "preview": "astro preview",
+    "deploy": "npm run build && node scripts/deploy.mjs",
     "astro": "astro",
     "test:smoke": "node scripts/smoke.mjs"
   },
