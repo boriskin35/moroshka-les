@@ -17,6 +17,17 @@ if (fs.existsSync(envPath)) {
   }
 }
 
+// Fallback: поддержка единого стандарта клиентов ../.surge-token
+const parentSurgeTokenPath = path.resolve('../.surge-token');
+if ((!process.env.SURGE_LOGIN || !process.env.SURGE_TOKEN) && fs.existsSync(parentSurgeTokenPath)) {
+  const tokenContent = fs.readFileSync(parentSurgeTokenPath, 'utf8').trim();
+  const [parentLogin, parentToken] = tokenContent.split(':');
+  if (parentLogin && parentToken) {
+    if (!process.env.SURGE_LOGIN) process.env.SURGE_LOGIN = parentLogin.trim();
+    if (!process.env.SURGE_TOKEN) process.env.SURGE_TOKEN = parentToken.trim();
+  }
+}
+
 const login = process.env.SURGE_LOGIN;
 const token = process.env.SURGE_TOKEN;
 const domain = process.env.SURGE_DOMAIN || 'moroshkales.com';
