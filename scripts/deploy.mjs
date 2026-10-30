@@ -17,9 +17,21 @@ if (fs.existsSync(envPath)) {
   }
 }
 
-const login = process.env.SURGE_LOGIN || 'Julia-xanti@yandex.ru';
-const token = process.env.SURGE_TOKEN || '3fb6cfbce4b5d95bcd0f57c2bb526fef';
+const login = process.env.SURGE_LOGIN;
+const token = process.env.SURGE_TOKEN;
 const domain = process.env.SURGE_DOMAIN || 'moroshkales.com';
+
+if (!token) {
+  console.error('❌ Ошибка: переменная окружения SURGE_TOKEN не найдена.');
+  console.error('Пожалуйста, укажите SURGE_TOKEN в файле .env или передайте через окружение.');
+  process.exit(1);
+}
+
+if (!login) {
+  console.error('❌ Ошибка: переменная окружения SURGE_LOGIN не найдена.');
+  console.error('Пожалуйста, укажите SURGE_LOGIN в файле .env или передайте через окружение.');
+  process.exit(1);
+}
 
 console.log(`🚀 Деплой Moroshka на Surge: ${domain} (аккаунт: ${login})...`);
 
