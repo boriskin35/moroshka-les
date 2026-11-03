@@ -30,14 +30,12 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Sync files to Reg.ru via FTPS
+      - name: Sync files to Reg.ru via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: server120.hosting.reg.ru
+          server: 37.140.192.135
           username: u3707745
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: www/moroshkales.com/
           local-dir: ./dist/
-          protocol: ftps
-          security: loose
           dangerous-clean-slate: false
