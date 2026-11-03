@@ -6,6 +6,22 @@ function initContactForms() {
     if (form.dataset.bound === 'true') return;
     form.dataset.bound = 'true';
 
+    const consentCheckbox = form.querySelector('[name="privacy-consent"]');
+    const status = form.querySelector('[data-form-status]');
+
+    // Убираем красную подсветку и текст ошибки сразу при установке галочки
+    if (consentCheckbox) {
+      consentCheckbox.addEventListener('change', () => {
+        if (consentCheckbox.checked) {
+          consentCheckbox.classList.remove('ring-2', 'ring-red-500', 'border-red-500');
+          if (status && status.textContent.includes('согласие на обработку')) {
+            status.textContent = '';
+            status.className = 'mt-3 hidden text-sm font-semibold transition-all duration-300';
+          }
+        }
+      });
+    }
+
     form.addEventListener('submit', async event => {
       event.preventDefault();
 
@@ -15,7 +31,6 @@ function initContactForms() {
       }
 
       const submitBtn = form.querySelector('button[type="submit"]');
-      const status = form.querySelector('[data-form-status]');
       const originalBtnText = submitBtn ? submitBtn.textContent : '';
 
       const nameInput = form.querySelector('[name="hs-firstname-contacts"]');
@@ -29,7 +44,21 @@ function initContactForms() {
       if (!phone) {
         if (status) {
           status.textContent = 'Пожалуйста, укажите номер телефона.';
-          status.className = 'mt-3 block text-sm font-semibold text-accent';
+          status.className = 'mt-3 block text-sm font-semibold text-red-600 dark:text-red-400';
+        }
+        if (phoneInput) phoneInput.focus();
+        return;
+      }
+
+      // Проверка обязательного согласия на обработку ПДн (152-ФЗ)
+      if (!consentCheckbox || !consentCheckbox.checked) {
+        if (status) {
+          status.textContent = 'Необходимо подтвердить согласие на обработку персональных данных.';
+          status.className = 'mt-3 block text-sm font-semibold text-red-600 dark:text-red-400';
+        }
+        if (consentCheckbox) {
+          consentCheckbox.focus();
+          consentCheckbox.classList.add('ring-2', 'ring-red-500', 'border-red-500');
         }
         return;
       }

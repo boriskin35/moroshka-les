@@ -1,4 +1,4 @@
-name: Deploy to Surge
+name: Deploy to Reg.ru
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: deploy-to-surge
+  group: deploy-to-regru
   cancel-in-progress: true
 
 jobs:
@@ -30,8 +30,12 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Deploy to Surge
-        run: npx surge dist moroshkales.com --token ${{ secrets.SURGE_TOKEN }}
-        env:
-          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN || 'Julia-xanti@yandex.ru' }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      - name: Sync files to Reg.ru via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 37.140.192.135
+          username: u3707745
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: www/moroshkales.com/
+          local-dir: ./dist/
+          dangerous-clean-slate: false
