@@ -1,5 +1,4 @@
-const GOOGLE_WEBHOOK_URL =
-  'https://script.google.com/macros/s/AKfycbx3H8ziLOaSy52clbFsLdScHXO5nHzcxNfghfqrwUzC97Pv4EgRRtn54mkXNM5ApJFBWA/exec';
+const CONTACT_API_URL = '/api/contact.php';
 
 function initContactForms() {
   document.querySelectorAll('[data-contact-form]').forEach(form => {
@@ -13,10 +12,15 @@ function initContactForms() {
     if (consentCheckbox) {
       consentCheckbox.addEventListener('change', () => {
         if (consentCheckbox.checked) {
-          consentCheckbox.classList.remove('ring-2', 'ring-red-500', 'border-red-500');
+          consentCheckbox.classList.remove(
+            'ring-2',
+            'ring-red-500',
+            'border-red-500'
+          );
           if (status && status.textContent.includes('согласие на обработку')) {
             status.textContent = '';
-            status.className = 'mt-3 hidden text-sm font-semibold transition-all duration-300';
+            status.className =
+              'mt-3 hidden text-sm font-semibold transition-all duration-300';
           }
         }
       });
@@ -36,15 +40,18 @@ function initContactForms() {
       const nameInput = form.querySelector('[name="hs-firstname-contacts"]');
       const phoneInput = form.querySelector('[name="hs-phone-number"]');
       const messageInput = form.querySelector('[name="hs-about-contacts"]');
+      const hpInput = form.querySelector('[name="hp_field"]');
 
       const name = nameInput ? nameInput.value.trim() : '';
       const phone = phoneInput ? phoneInput.value.trim() : '';
       const message = messageInput ? messageInput.value.trim() : '';
+      const hp_field = hpInput ? hpInput.value.trim() : '';
 
       if (!phone) {
         if (status) {
           status.textContent = 'Пожалуйста, укажите номер телефона.';
-          status.className = 'mt-3 block text-sm font-semibold text-red-600 dark:text-red-400';
+          status.className =
+            'mt-3 block text-sm font-semibold text-red-600 dark:text-red-400';
         }
         if (phoneInput) phoneInput.focus();
         return;
@@ -53,12 +60,18 @@ function initContactForms() {
       // Проверка обязательного согласия на обработку ПДн (152-ФЗ)
       if (!consentCheckbox || !consentCheckbox.checked) {
         if (status) {
-          status.textContent = 'Необходимо подтвердить согласие на обработку персональных данных.';
-          status.className = 'mt-3 block text-sm font-semibold text-red-600 dark:text-red-400';
+          status.textContent =
+            'Необходимо подтвердить согласие на обработку персональных данных.';
+          status.className =
+            'mt-3 block text-sm font-semibold text-red-600 dark:text-red-400';
         }
         if (consentCheckbox) {
           consentCheckbox.focus();
-          consentCheckbox.classList.add('ring-2', 'ring-red-500', 'border-red-500');
+          consentCheckbox.classList.add(
+            'ring-2',
+            'ring-red-500',
+            'border-red-500'
+          );
         }
         return;
       }
@@ -75,15 +88,18 @@ function initContactForms() {
       }
 
       try {
-        const response = await fetch(GOOGLE_WEBHOOK_URL, {
+        const response = await fetch(CONTACT_API_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ name, phone, message }),
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({ name, phone, message, hp_field }),
         });
 
         const result = await response.json().catch(() => ({}));
 
-        if (response.ok && (result.ok || result.status === 'saved_and_sent')) {
+        if (response.ok && result.ok) {
           if (status) {
             status.textContent =
               'Спасибо! Заявка успешно принята, мы свяжемся с вами в течение дня.';
@@ -97,7 +113,9 @@ function initContactForms() {
       } catch (err) {
         if (status) {
           status.textContent =
-            'Не удалось отправить заявку. Пожалуйста, позвоните нам или напишите в Telegram.';
+            err.message && err.message !== 'Ошибка отправки'
+              ? err.message
+              : 'Не удалось отправить заявку. Пожалуйста, позвоните нам или напишите в Telegram.';
           status.className = 'mt-3 block text-sm font-semibold text-accent';
         }
       } finally {

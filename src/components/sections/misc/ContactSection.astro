@@ -33,7 +33,7 @@ const copy = {
   <div class="mx-auto max-w-2xl lg:max-w-5xl">
     <div class="text-center">
       <h1
-        class="font-serif text-[24px] font-normal uppercase leading-snug text-neutral-800 dark:text-neutral-200"
+        class="font-serif text-[24px] leading-snug font-normal text-neutral-800 uppercase dark:text-neutral-200"
       >
         Оставьте заявку
       </h1>
@@ -45,6 +45,18 @@ const copy = {
     <div class="mt-12 grid items-center gap-6 lg:grid-cols-2 lg:gap-16">
       <div class="flex flex-col rounded-xl p-4 sm:p-6 lg:p-8">
         <form data-contact-form>
+          <!-- Honeypot (ловушка для спам-ботов) -->
+          <div class="hidden" aria-hidden="true">
+            <label for="hs-hp-contact">Не заполняйте это поле</label>
+            <input
+              type="text"
+              id="hs-hp-contact"
+              name="hp_field"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
           <div class="grid gap-4">
             <div class="grid grid-cols-1 gap-4">
               <TextInput
@@ -69,7 +81,7 @@ const copy = {
                 name="privacy-consent"
                 type="checkbox"
                 required
-                class="h-4 w-4 shrink-0 cursor-pointer rounded border-neutral-400 text-accent transition-colors duration-200 focus:ring-accent dark:border-neutral-600 dark:bg-neutral-800 dark:focus:ring-offset-neutral-900"
+                class="text-accent focus:ring-accent h-4 w-4 shrink-0 cursor-pointer rounded border-neutral-400 transition-colors duration-200 dark:border-neutral-600 dark:bg-neutral-800 dark:focus:ring-offset-neutral-900"
               />
             </div>
             <label
