@@ -1,0 +1,10 @@
+# Защита скрытых файлов (начинающихся с точки) и конфигураций от прямого скачивания
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.(env|ini|log|sh|sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

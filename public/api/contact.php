@@ -22,9 +22,52 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Автоматическая загрузка конфигурации из .env (без сторонних зависимостей)
+function loadEnvConfig(): void {
+    $candidates = [
+        dirname(__DIR__, 3) . '/.env', // в домашнем каталоге пользователя (/home/user/.env)
+        dirname(__DIR__, 2) . '/.env', // уровнем выше сайта или корень проекта в dev
+        dirname(__DIR__) . '/.env',    // в корне веб-сайта (www/moroshkales.com/.env)
+        __DIR__ . '/.env',             // рядом со скриптом
+    ];
+
+    foreach ($candidates as $filePath) {
+        if (!file_exists($filePath) || !is_readable($filePath)) {
+            continue;
+        }
+
+        $lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($lines === false) {
+            continue;
+        }
+
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if ($line === '' || strpos($line, '#') === 0) {
+                continue;
+            }
+
+            if (strpos($line, '=') !== false) {
+                list($rawKey, $rawValue) = explode('=', $line, 2);
+                $key = trim($rawKey);
+                $value = trim($rawValue, " \t\n\r\0\x0B\"'");
+
+                // Не перезаписываем, если переменная уже передана сервером
+                if (getenv($key) === false || getenv($key) === '') {
+                    putenv("{$key}={$value}");
+                    $_ENV[$key] = $value;
+                    $_SERVER[$key] = $value;
+                }
+            }
+        }
+        break; // Первый найденный и прочитанный .env считаем основным
+    }
+}
+loadEnvConfig();
+
 // Конфигурация доставки
 $toEmail = getenv('CONTACT_EMAIL') ?: 'Julia-xanti@yandex.ru';
-$tgBotToken = getenv('TELEGRAM_BOT_TOKEN') ?: '8879130504:AAEUs1812c7KIObX4nn7iF2_9CJlyJmguYE';
+$tgBotToken = getenv('TELEGRAM_BOT_TOKEN') ?: '';
 $tgChatId = getenv('TELEGRAM_CHAT_ID') ?: '-1004302482426';
 
 // Получение входных данных (JSON или form-urlencoded)
